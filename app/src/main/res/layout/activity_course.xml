@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F9F9F9"
+    tools:context=".CourseActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="-20dp"
+        android:orientation="horizontal"
+        android:elevation="8dp"
+        android:background="@drawable/shape"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="VisualLintBounds">
+        <Button
+            android:id="@+id/beck"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/back"/>
+
+        <TextView
+            android:id="@+id/text_course"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="42dp"
+            android:layout_marginEnd="15dp"
+            android:text="Course List"
+            android:textColor="@color/white"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="100dp"
+        android:background="#F9F9F9">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingStart="15dp"
+            android:paddingEnd="12dp">
+
+            <!-- Current Courses Section -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Current Courses"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:textColor="#337CEA"
+                android:layout_marginBottom="10dp" />
+
+            <!-- Previous Courses Section -->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/course_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="25dp"
+                    android:orientation="horizontal"
+                    >
+
+                    <FrameLayout
+                        android:id="@+id/t1"
+                        android:layout_width="150dp"
+                        android:layout_height="120dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/g_out"
+                        android:elevation="3dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="Tajweed B2"
+                            android:textColor="#3F51B5"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="150dp"
+                        android:layout_height="120dp"
+                        android:layout_marginEnd="8dp"
+                        android:elevation="3dp"
+                        android:background="@drawable/g_out">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="Tajweed B2"
+                            android:textColor="#3F51B5"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="150dp"
+                        android:layout_height="120dp"
+                        android:layout_marginEnd="8dp"
+                        android:elevation="3dp"
+                        android:background="@drawable/g_out">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="Tajweed B2"
+                            android:textColor="#3F51B5"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
+                    </FrameLayout>
+
+
+                    <FrameLayout
+                        android:layout_width="150dp"
+                        android:layout_height="120dp"
+                        android:layout_marginEnd="8dp"
+                        android:elevation="3dp"
+                        android:background="@drawable/g_out">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="Seerah"
+                            android:textColor="#3F51B5"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
+                    </FrameLayout>
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Previous Courses"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:textColor="#337CEA"
+                android:layout_marginBottom="10dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="220dp">
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/g_out"
+                    android:elevation="3dp"
+                    android:layout_marginEnd="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Asma e Husna"
+                        android:textSize="22sp"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"
+                        android:textColor="#3F51B5" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_weight="1"
+                    android:elevation="3dp"
+                    android:background="@drawable/g_out"
+                    android:layout_marginEnd="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="40 Ahadees"
+                        android:textSize="22sp"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"
+                        android:textColor="#3F51B5" />
+                </FrameLayout>
+            </LinearLayout>
+
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_add_course"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="35dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="#29AEEA"
+                android:src="@drawable/add"
+                android:elevation="3dp"
+                android:layout_gravity="right"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:contentDescription="Add Teacher" />
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

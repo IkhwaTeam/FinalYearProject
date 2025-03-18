@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "609647860777",
+    "firebase_url": "https://ikhwa-49a7f-default-rtdb.firebaseio.com",
+    "project_id": "ikhwa-49a7f",
+    "storage_bucket": "ikhwa-49a7f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:609647860777:android:690cb349d3424271091038",
+        "android_client_info": {
+          "package_name": "com.example.ikhwa"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWt_5BOTx3JQXjwEffZAX0KlxBuU5yd5o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

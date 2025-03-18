@@ -1,0 +1,67 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+
+    tools:context=".StudentLoginActivity"
+    android:background="@drawable/app_bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/logo"
+            android:layout_marginBottom="32dp" />
+
+
+        <EditText
+            android:id="@+id/ad_email"
+            android:layout_width="325dp"
+            android:layout_height="wrap_content"
+            android:hint="Admin Email"
+            android:textColorHint="#80000000"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:inputType="textEmailAddress"
+            android:padding="10dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/white"
+            android:background="@drawable/shape5"/>
+
+
+        <EditText
+            android:id="@+id/ad_password"
+            android:layout_width="325dp"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:textColor="@color/black"
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:textSize="20sp"
+            android:textColorHint="#80000000"
+            android:backgroundTint="@color/white"
+            android:background="@drawable/shape5"
+            android:layout_marginBottom="16dp" />
+
+        <Button
+            android:id="@+id/ad_btn_login"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#2D9CEA"
+            android:background="@drawable/shape5"/>
+
+
+    </LinearLayout>
+</ScrollView>

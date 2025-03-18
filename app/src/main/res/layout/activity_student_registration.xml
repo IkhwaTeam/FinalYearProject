@@ -1,0 +1,158 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+
+    tools:context=".StudentLoginActivity"
+    android:background="@drawable/app_bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="24dp">
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/logo"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="32dp" />
+
+
+        <EditText
+            android:id="@+id/st_email"
+            android:layout_width="325dp"
+            android:layout_height="wrap_content"
+            android:hint="Student Name"
+            android:textColor="@color/black"
+            android:textColorHint="#80000000"
+            android:textSize="20sp"
+            android:inputType="textEmailAddress"
+            android:padding="10dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/white"
+            android:background="@drawable/shape5"/>
+
+        <EditText
+            android:id="@+id/st_id"
+            android:layout_width="325dp"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:textColorHint="#80000000"
+            android:inputType="textEmailAddress"
+            android:padding="10dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/white"
+            android:background="@drawable/shape5"/>
+        <EditText
+            android:id="@+id/st_age"
+            android:layout_width="325dp"
+            android:layout_height="wrap_content"
+            android:hint="Age"
+            android:textColor="@color/black"
+            android:textColorHint="#80000000"
+            android:textSize="20sp"
+            android:inputType="textEmailAddress"
+            android:padding="10dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/white"
+            android:background="@drawable/shape5"/>
+        <EditText
+            android:id="@+id/st_phone"
+            android:layout_width="325dp"
+            android:layout_height="wrap_content"
+            android:hint="Phone Number"
+            android:textColor="@color/black"
+            android:textColorHint="#80000000"
+            android:textSize="20sp"
+            android:inputType="textEmailAddress"
+            android:padding="10dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/white"
+            android:background="@drawable/shape5"/>
+        <EditText
+            android:id="@+id/st_address"
+            android:layout_width="325dp"
+            android:layout_height="wrap_content"
+            android:hint="Address"
+            android:textColor="@color/black"
+            android:textColorHint="#80000000"
+            android:textSize="20sp"
+            android:inputType="textEmailAddress"
+            android:padding="10dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/white"
+            android:background="@drawable/shape5"/>
+
+        <EditText
+            android:id="@+id/st_password"
+            android:layout_width="325dp"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:textColorHint="#80000000"
+            android:backgroundTint="@color/white"
+            android:background="@drawable/shape5"
+            android:layout_marginBottom="16dp" />
+        <TextView
+            android:id="@+id/error_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/holo_red_dark"
+            android:visibility="gone" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_gravity="center"/>
+
+        <Button
+            android:id="@+id/st_btn_reg"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Sign Up"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#2D9CEA"
+            android:background="@drawable/shape5"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text_sign_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Have an account?"
+                android:textSize="16sp"
+                android:textColor="#223A68"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center" />
+            <Button
+                android:id="@+id/st_reg_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Login"
+                android:textColor="#223A68"
+                android:textSize="16sp"
+                android:background="@drawable/signup_btn"
+                android:layout_marginTop="18dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
