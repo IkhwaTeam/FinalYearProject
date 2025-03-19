@@ -1,0 +1,76 @@
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="200dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FD6A63"
+        android:padding="12dp">
+
+        <TextView
+            android:id="@+id/tvCourseTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Masnoon Duaen"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"/>
+
+        <TextView
+            android:id="@+id/tvChapterCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvCourseTitle"
+            android:text="10 Days"
+            android:textSize="14sp"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="4dp"/>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_below="@id/tvChapterCount"
+            android:layout_marginTop="8dp"
+            android:progress="70"
+            android:max="100"
+            android:progressDrawable="@drawable/custom_progress"/>
+
+        <TextView
+            android:id="@+id/tvProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/progressBar"
+            android:text="7/10 Completed"
+            android:textSize="12sp"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="4dp"/>
+
+        <Button
+            android:id="@+id/btnContinue"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_below="@id/tvProgress"
+            android:layout_marginTop="8dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="View"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/white"
+            android:background="@drawable/shape5"
+            android:textAllCaps="false"/>
+
+
+
+    </RelativeLayout>
+
+
+
+</androidx.cardview.widget.CardView>

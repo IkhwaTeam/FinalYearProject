@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/std_att"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/light_gray">
+
+    <!-- Header Section with Gradient Background -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@drawable/header_background"
+        android:orientation="vertical"
+        android:padding="15dp"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tvHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Attendance"
+            android:gravity="center"
+            android:textSize="35sp"
+            android:textStyle="bold"
+            android:layout_marginTop="25dp"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Asma e Husna Course"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:layout_marginTop="10dp"/>
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Muhammad Ahmad"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:paddingTop="18dp"
+        android:paddingLeft="18dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="AH24"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:paddingLeft="18dp"/>
+
+
+    <!-- Calendar Card -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/card_background"
+        android:padding="3dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:elevation="6dp">
+
+        <CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:theme="@style/CalendarTheme"
+            android:dateTextAppearance="@style/CalendarDateStyle"
+            android:weekDayTextAppearance="@style/CalendarWeekStyle"/>
+
+
+    </LinearLayout>
+
+    <!-- Attendance Summary Section -->
+    <TextView
+        android:id="@+id/tvSummary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Attendance Summary"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="18dp"/>
+
+    <!-- Present,Absent & Leave Counters in Stylish Cards -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="1dp"
+        android:padding="18dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/card_background"
+            android:padding="12dp"
+            android:gravity="center"
+            android:elevation="4dp">
+
+            <TextView
+                android:id="@+id/tvPresent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Present: 0"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/green"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="match_parent"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/card_background"
+            android:padding="12dp"
+            android:gravity="center"
+            android:elevation="4dp">
+
+            <TextView
+                android:id="@+id/tvAbsent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Absent: 0"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/red"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="match_parent"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/card_background"
+            android:padding="12dp"
+            android:gravity="center"
+            android:elevation="4dp">
+
+            <TextView
+                android:id="@+id/tvAbsent1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Leave: 0"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/yellow"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

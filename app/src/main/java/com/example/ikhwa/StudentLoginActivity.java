@@ -1,5 +1,6 @@
 package com.example.ikhwa;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -24,14 +25,18 @@ public class StudentLoginActivity extends AppCompatActivity {
     ProgressBar progressBar;
     TextView errorText;
 
-    DatabaseReference databaseReference;
+    //DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_login);
+        findViewById(R.id.st_btn_login).setOnClickListener(listener -> {
+            // Navigate to CoursesActivity
+            startActivity(new Intent(StudentLoginActivity.this, StudentHome2.class));
+        });
 
-        emailInput = findViewById(R.id.st_email);
+        /*emailInput = findViewById(R.id.st_email);
         passwordInput = findViewById(R.id.st_password);
         loginButton = findViewById(R.id.st_btn_login);
         progressBar = findViewById(R.id.progress_bar);
@@ -89,6 +94,6 @@ public class StudentLoginActivity extends AppCompatActivity {
                 errorText.setText("Database error. Try again.");
                 errorText.setVisibility(View.VISIBLE);
             }
-        });
+        });*/
     }
 }

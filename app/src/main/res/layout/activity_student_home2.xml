@@ -1,0 +1,220 @@
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:background="#FDFDFD">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ikhwa"
+                        android:textSize="20sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:paddingLeft="5dp"/>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/logo"
+                    android:layout_gravity="end"
+                    android:paddingRight="5dp"/>
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:padding="10dp"
+                android:background="@drawable/std_shp2"
+                android:layout_marginTop="5dp"
+                android:layout_margin="5dp"
+                android:layout_gravity="center">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Welcome\nHumaira Salah ud din"
+                        android:textSize="18sp"
+                        android:textColor="@color/white"
+                        android:layout_marginTop="8dp"
+                        android:paddingLeft="5dp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="IQI74"
+                        android:paddingLeft="5dp"
+                        android:textColor="@color/white"/>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/std_main"
+                    android:layout_gravity="end|center_vertical"
+                    android:paddingRight="5dp"/>
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Courses"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="5dp"
+                android:paddingLeft="4dp"/>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:overScrollMode="never">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <include layout="@layout/course_card"/>
+                    <include layout="@layout/course_card2"/>
+                    <include layout="@layout/course_card"/>
+                    <include layout="@layout/course_card"/>
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Your Courses"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="5dp"
+                android:paddingLeft="4dp"/>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <include layout="@layout/your_course_card"/>
+                    <include layout="@layout/your_course_card2"/>
+                    <include layout="@layout/your_course_card3"/>
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Notifications"
+                android:textColor="@color/black"
+                android:layout_marginTop="15dp"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:paddingLeft="5dp"/>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:background="@drawable/std_shape3"
+                android:layout_marginTop="5dp"
+                android:layout_margin="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="New Updates"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="8dp"
+                        android:paddingLeft="5dp"
+                        android:textStyle="bold"/>
+
+                    <Button
+                        android:id="@+id/main_button"
+                        android:layout_width="140dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="4dp"
+                        android:text="Click to Open"
+                        android:textColor="@color/black"
+                        android:backgroundTint="@color/white"
+                        android:background="@drawable/shape5"
+                        android:textAllCaps="false"
+                        android:textSize="12dp"/>
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/close_btn"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/notifi_bell"
+                    android:layout_gravity="end"
+                    android:paddingRight="5dp"/>
+            </FrameLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="130dp"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:elevation="20dp"
+        android:background="@drawable/bottom_nav_bg"
+        android:layout_gravity="bottom">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:background="@drawable/bottom_nav_bg"
+            app:menu="@menu/bottom_nav_menu"
+            app:itemIconTint="@color/selector_color"
+            app:itemTextColor="@color/selector_color"
+            app:labelVisibilityMode="labeled"/>
+    </FrameLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
