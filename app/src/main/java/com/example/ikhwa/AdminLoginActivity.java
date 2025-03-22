@@ -78,5 +78,6 @@ public class AdminLoginActivity extends AppCompatActivity {
             this.email = email;
             this.role = role;
         }
+
     }
 }
