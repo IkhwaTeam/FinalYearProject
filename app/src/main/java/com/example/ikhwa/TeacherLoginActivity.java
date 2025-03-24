@@ -91,7 +91,7 @@ public class TeacherLoginActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     Toast.makeText(TeacherLoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(TeacherLoginActivity.this, TeacherHomeActivity.class));
+                    startActivity(new Intent(TeacherLoginActivity.this, Teacher_home.class));
                     finish();
                 } else {
                     errorText.setText("No teacher found with this email.");

@@ -67,6 +67,18 @@
             android:name=".NotificationsActivity"
             android:exported="false" />
         <activity
+            android:name=".Teacher_home"
+            android:exported="false" />
+        <activity
+            android:name=".StafftActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TeacherAttendanceActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AnalyticsTeacherActivity"
+            android:exported="false" />
+        <activity
             android:name=".TimingsActivity"
             android:exported="false" />
         <activity android:name=".std_crs_reg" />
