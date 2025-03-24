@@ -96,7 +96,7 @@
                     android:layout_height="110dp"
                     android:orientation="vertical"
                     android:elevation="3dp"
-                    android:background="@drawable/shape4"
+                    android:background="@drawable/std_shape1"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginTop="30dp">
@@ -104,7 +104,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Teachers1"
-                        android:textColor="@color/white"
+                        android:textColor="@color/blue"
                         android:textSize="22sp"
                         android:textStyle="bold"
                         android:paddingStart="25dp"
@@ -115,6 +115,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Edit"
+                        android:textColor="@color/blue"
                         android:background="#00FFFFFF"
                         android:padding="5dp" />
                 </LinearLayout>
@@ -128,7 +129,7 @@
                     android:layout_height="110dp"
                     android:orientation="vertical"
                     android:elevation="3dp"
-                    android:background="@drawable/shape4"
+                    android:background="@drawable/std_shape1"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginTop="30dp">
@@ -136,7 +137,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Teacher2"
-                        android:textColor="@color/white"
+                        android:textColor="@color/blue"
                         android:textSize="22sp"
                         android:textStyle="bold"
                         android:paddingStart="25dp"
@@ -146,6 +147,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Edit"
+                        android:textColor="@color/blue"
                         android:background="#00FFFFFF"
                         android:padding="5dp" />
                 </LinearLayout>
@@ -159,7 +161,7 @@
                     android:layout_height="110dp"
                     android:orientation="vertical"
                     android:elevation="3dp"
-                    android:background="@drawable/shape4"
+                    android:background="@drawable/std_shape1"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginTop="30dp">
@@ -170,7 +172,7 @@
                         android:paddingTop="20dp"
                         android:paddingEnd="25dp"
                         android:text="Teacher3"
-                        android:textColor="@color/white"
+                        android:textColor="@color/blue"
                         android:textSize="22sp"
                         android:textStyle="bold" />
                     <Button
@@ -178,6 +180,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Edit"
+                        android:textColor="@color/blue"
                         android:background="#00FFFFFF"
                         android:padding="5dp" />
                 </LinearLayout>
@@ -190,7 +193,7 @@
                     android:layout_height="110dp"
                     android:orientation="vertical"
                     android:elevation="3dp"
-                    android:background="@drawable/shape4"
+                    android:background="@drawable/std_shape1"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginTop="30dp">
@@ -198,7 +201,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Teacher4"
-                        android:textColor="@color/white"
+                        android:textColor="@color/blue"
                         android:textSize="22sp"
                         android:textStyle="bold"
                         android:paddingStart="25dp"
@@ -209,6 +212,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Edit"
+                        android:textColor="@color/blue"
                         android:background="#00FFFFFF"
                         android:padding="5dp" />
                 </LinearLayout>
@@ -222,7 +226,7 @@
                     android:layout_height="110dp"
                     android:orientation="vertical"
                     android:elevation="3dp"
-                    android:background="@drawable/shape4"
+                    android:background="@drawable/std_shape1"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginTop="30dp">
@@ -230,7 +234,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Teacher5"
-                        android:textColor="@color/white"
+                        android:textColor="@color/blue"
                         android:textSize="22sp"
                         android:textStyle="bold"
                         android:paddingStart="25dp"
@@ -241,6 +245,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Edit"
+                        android:textColor="@color/blue"
                         android:background="#00FFFFFF"
                         android:padding="5dp" />
                 </LinearLayout>

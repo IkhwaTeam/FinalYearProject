@@ -67,7 +67,7 @@
                         android:text="Miss Iqra"
                         android:textSize="18sp"
                         android:layout_gravity="center"
-                        android:textColor="#0E3AF2"
+                        android:textColor="#2194EF"
                         android:textStyle="bold"/>
 
                     <TextView
@@ -137,7 +137,7 @@
                             android:layout_height="wrap_content"
                             android:text="Tajweed B2"
                             android:textSize="18sp"
-                            android:textColor="#0E3AF2"
+                            android:textColor="#376CDE"
                             android:textStyle="bold"/>
 
                         <TextView
@@ -155,7 +155,7 @@
                     </LinearLayout>
 
                     <ProgressBar
-                        android:layout_width="50dp"
+                        android:layout_width="80dp"
                         android:layout_height="50dp"
                         style="?android:attr/progressBarStyleLarge"
                         android:indeterminate="false"
@@ -191,7 +191,7 @@
                             android:layout_height="wrap_content"
                             android:text="Ahadees B2"
                             android:textSize="18sp"
-                            android:textColor="#0E3AF2"
+                            android:textColor="#2A8809"
                             android:textStyle="bold"/>
                         <TextView
                             android:layout_width="wrap_content"
@@ -209,7 +209,7 @@
                     </LinearLayout>
 
                     <ProgressBar
-                        android:layout_width="50dp"
+                        android:layout_width="80dp"
                         android:layout_height="50dp"
                         style="?android:attr/progressBarStyleLarge"
                         android:indeterminate="false"
@@ -243,7 +243,7 @@
                             android:layout_height="wrap_content"
                             android:text="Ahadees B2"
                             android:textSize="18sp"
-                            android:textColor="#0E3AF2"
+                            android:textColor="#C62929"
                             android:textStyle="bold"/>
                         <TextView
                             android:layout_width="wrap_content"
@@ -261,7 +261,7 @@
                     </LinearLayout>
 
                     <ProgressBar
-                        android:layout_width="50dp"
+                        android:layout_width="80dp"
                         android:layout_height="50dp"
                         style="?android:attr/progressBarStyleLarge"
                         android:indeterminate="false"
@@ -295,7 +295,7 @@
                             android:layout_height="wrap_content"
                             android:text="Asma e Hasna"
                             android:textSize="18sp"
-                            android:textColor="#0E3AF2"
+                            android:textColor="#018584"
                             android:textStyle="bold"/>
 
                         <TextView
@@ -313,7 +313,7 @@
                     </LinearLayout>
 
                     <ProgressBar
-                        android:layout_width="50dp"
+                        android:layout_width="80dp"
                         android:layout_height="50dp"
                         style="?android:attr/progressBarStyleLarge"
                         android:indeterminate="false"

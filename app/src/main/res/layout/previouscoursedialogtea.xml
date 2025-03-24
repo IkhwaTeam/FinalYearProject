@@ -138,8 +138,8 @@
 
     </LinearLayout>
     <ProgressBar
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         style="?android:attr/progressBarStyleLarge"
         android:indeterminate="false"
         android:progress="70"
