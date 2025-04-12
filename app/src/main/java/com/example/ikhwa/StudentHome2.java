@@ -3,20 +3,31 @@ package com.example.ikhwa;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.WindowManager;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class StudentHome2 extends AppCompatActivity {
-    Dialog myDialog, myDialog2; // Declare both Dialogs
+    Dialog myDialog, myDialog2;
+    TextView studentNameText, studentEmailText;
+    DatabaseReference databaseReference;
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +35,40 @@ public class StudentHome2 extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_student_home2);
 
-        // Initialize Dialogs
+        // Firebase Initialization
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        studentNameText = findViewById(R.id.st_name); // Name TextView
+        studentEmailText = findViewById(R.id.st_email); // Email TextView
+
+        if (currentUser != null) {
+            String uid = currentUser.getUid();
+
+            // Reference to the student data in Firebase
+            databaseReference = FirebaseDatabase.getInstance().getReference("Student").child(uid);
+
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        String name = snapshot.child("student_name").getValue(String.class);
+                        String email = snapshot.child("email").getValue(String.class); // Get the email
+
+                        // Display student data in TextViews
+                        studentNameText.setText(name);
+                        studentEmailText.setText(email);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(StudentHome2.this, "Failed to load data", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+        // Dialogs Initialization
         myDialog = new Dialog(this);
         myDialog2 = new Dialog(this);
 
@@ -32,11 +76,10 @@ public class StudentHome2 extends AppCompatActivity {
         Button mainButton = findViewById(R.id.main_button);
         Button mainButton1 = findViewById(R.id.main_button1);
 
-        // Set click listeners
         mainButton.setOnClickListener(v -> show_dialog());
         mainButton1.setOnClickListener(v -> show_dialog2());
 
-        // Initialize Bottom Navigation
+        // Bottom Navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
         bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
@@ -45,7 +88,7 @@ public class StudentHome2 extends AppCompatActivity {
                 int itemId = item.getItemId();
 
                 if (itemId == R.id.nav_profile) {
-                    startActivity(new Intent(StudentHome2.this, StudentHome2.class));
+                    startActivity(new Intent(StudentHome2.this, stdprofile.class));
                     return true;
                 } else if (itemId == R.id.nav_home) {
                     startActivity(new Intent(StudentHome2.this, std_crs_reg.class));

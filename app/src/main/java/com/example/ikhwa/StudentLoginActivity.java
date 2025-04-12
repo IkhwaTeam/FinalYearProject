@@ -9,91 +9,91 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class StudentLoginActivity extends AppCompatActivity {
-    EditText emailInput, passwordInput;
-    Button loginButton;
-    ProgressBar progressBar;
-    TextView errorText;
 
-    //DatabaseReference databaseReference;
+    EditText stEmail, stPassword;
+    Button stLoginBtn, stSignupBtn;
+    ProgressBar progressBar;
+    TextView errorMessage;
+
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_login);
-        findViewById(R.id.st_btn_login).setOnClickListener(listener -> {
-            // Navigate to CoursesActivity
-            startActivity(new Intent(StudentLoginActivity.this, StudentHome2.class));
-        });
 
-        /*emailInput = findViewById(R.id.st_email);
-        passwordInput = findViewById(R.id.st_password);
-        loginButton = findViewById(R.id.st_btn_login);
+        stEmail = findViewById(R.id.st_email);
+        stPassword = findViewById(R.id.st_password);
+        stLoginBtn = findViewById(R.id.st_btn_login);
+        stSignupBtn = findViewById(R.id.st_sign_up);
         progressBar = findViewById(R.id.progress_bar);
-        errorText = findViewById(R.id.error_message);
+        errorMessage = findViewById(R.id.error_message);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("Student");
+        mAuth = FirebaseAuth.getInstance();
 
-        loginButton.setOnClickListener(v -> validateAndLogin());
+        // Login button click event
+        stLoginBtn.setOnClickListener(v -> loginStudent());
+
+        // Sign up button intent
+        stSignupBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(StudentLoginActivity.this, StudentRegistrationActivity.class);
+            startActivity(intent);
+        });
     }
 
-    private void validateAndLogin() {
-        String email = emailInput.getText().toString().trim();
-        String password = passwordInput.getText().toString().trim();
+    private void loginStudent() {
+        String email = stEmail.getText().toString().trim();
+        String password = stPassword.getText().toString().trim();
 
-        errorText.setVisibility(View.GONE);
-
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            emailInput.setError("Enter a valid email");
+        // Input validation
+        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
+            showError("All fields are required");
             return;
         }
 
-        if (password.length() < 6 || password.length() > 16) {
-            passwordInput.setError("Password must be 6-16 characters");
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            showError("Please enter a valid email address");
             return;
         }
 
         progressBar.setVisibility(View.VISIBLE);
 
-        databaseReference.orderByChild("email").equalTo(email).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                progressBar.setVisibility(View.GONE);
+        // Firebase Authentication login
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, task -> {
+                    progressBar.setVisibility(View.GONE);
 
-                if (snapshot.exists()) {
-                    for (DataSnapshot user : snapshot.getChildren()) {
-                        String storedPassword = user.child("password").getValue(String.class);
+                    if (task.isSuccessful()) {
+                        // Login successful
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        Toast.makeText(StudentLoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
 
-                        if (storedPassword != null && storedPassword.equals(password)) {
-                            errorText.setVisibility(View.GONE);
-                            // Proceed to student home screen
-                        } else {
-                            errorText.setText("Incorrect password");
-                            errorText.setVisibility(View.VISIBLE);
-                        }
+                        // Redirect to home screen
+                        Intent intent = new Intent(StudentLoginActivity.this, StudentHome2.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        showError("Invalid email or password");
                     }
-                } else {
-                    errorText.setText("No account found with this email");
-                    errorText.setVisibility(View.VISIBLE);
-                }
-            }
+                })
+                .addOnFailureListener(e -> {
+                    progressBar.setVisibility(View.GONE);
+                    showError("Error: " + e.getMessage());
+                });
+    }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                progressBar.setVisibility(View.GONE);
-                errorText.setText("Database error. Try again.");
-                errorText.setVisibility(View.VISIBLE);
-            }
-        });*/
+    private void showError(String message) {
+        errorMessage.setText(message);
+        errorMessage.setVisibility(View.VISIBLE);
     }
 }

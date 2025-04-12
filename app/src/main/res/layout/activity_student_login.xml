@@ -27,7 +27,7 @@
             android:id="@+id/st_email"
             android:layout_width="325dp"
             android:layout_height="wrap_content"
-            android:hint="Student Name"
+            android:hint="Student Email"
             android:textColor="@color/black"
             android:textColorHint="#80000000"
             android:textSize="20sp"
@@ -37,19 +37,6 @@
             android:backgroundTint="@color/white"
             android:background="@drawable/shape5"/>
 
-        <EditText
-            android:id="@+id/st_id"
-            android:layout_width="325dp"
-            android:layout_height="wrap_content"
-            android:hint="Student_ID"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:textColorHint="#80000000"
-            android:inputType="textEmailAddress"
-            android:padding="10dp"
-            android:layout_marginBottom="16dp"
-            android:backgroundTint="@color/white"
-            android:background="@drawable/shape5"/>
 
         <EditText
             android:id="@+id/st_password"

@@ -58,9 +58,10 @@
                     android:layout_gravity="center">
 
                     <TextView
+                        android:id="@+id/studentNameText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Welcome\nHumaira Salah ud din"
+                        android:text="Welcome"
                         android:textSize="18sp"
                         android:textColor="@color/white"
                         android:layout_marginTop="8dp"
@@ -68,9 +69,19 @@
                         android:textStyle="bold"/>
 
                     <TextView
+                        android:id="@+id/st_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="IQI74"
+                        android:textSize="18sp"
+                        android:textColor="@color/white"
+                        android:layout_marginTop="8dp"
+                        android:paddingLeft="5dp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/st_email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:paddingLeft="5dp"
                         android:textColor="@color/white"/>
                 </LinearLayout>

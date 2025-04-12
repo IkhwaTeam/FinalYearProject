@@ -21,7 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
 
 public class StudentRegistrationActivity extends AppCompatActivity {
-    EditText emailInput, studentIdInput, ageInput, phoneInput, addressInput, passwordInput;
+    EditText nameInput,emailInput,fathernameInput, ageInput, phoneInput, addressInput, passwordInput;
     Button registerButton;
     ProgressBar progressBar;
     TextView errorText;
@@ -35,7 +35,8 @@ public class StudentRegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_student_registration);
 
         emailInput = findViewById(R.id.st_email);
-        studentIdInput = findViewById(R.id.st_id);
+        nameInput = findViewById(R.id.st_name);
+        fathernameInput = findViewById(R.id.st_fathername);
         ageInput = findViewById(R.id.st_age);
         phoneInput = findViewById(R.id.st_phone);
         addressInput = findViewById(R.id.st_address);
@@ -52,7 +53,8 @@ public class StudentRegistrationActivity extends AppCompatActivity {
 
     private void validateAndRegister() {
         String email = emailInput.getText().toString().trim();
-        String studentId = studentIdInput.getText().toString().trim();
+        String name = nameInput.getText().toString().trim();
+        String fathername = fathernameInput.getText().toString().trim();
         String age = ageInput.getText().toString().trim();
         String phone = phoneInput.getText().toString().trim();
         String address = addressInput.getText().toString().trim();
@@ -65,8 +67,13 @@ public class StudentRegistrationActivity extends AppCompatActivity {
             return;
         }
 
-        if (TextUtils.isEmpty(studentId)) {
-            studentIdInput.setError("Student ID is required");
+        if (TextUtils.isEmpty(name)) {
+            nameInput.setError("Name is required");
+            return;
+        }
+
+        if (TextUtils.isEmpty(fathername)) {
+            fathernameInput.setError("Name is required");
             return;
         }
 
@@ -104,10 +111,14 @@ public class StudentRegistrationActivity extends AppCompatActivity {
                             HashMap<String, Object> studentData = new HashMap<>();
                             studentData.put("uid", userId);
                             studentData.put("email", email);
-                            studentData.put("student_id", studentId);
+                            studentData.put("student_name", name);
+                            studentData.put("father_name", fathername);
                             studentData.put("age", age);
                             studentData.put("phone", phone);
                             studentData.put("address", address);
+                            studentData.put("password", password);
+
+
 
                             databaseReference.child(userId).setValue(studentData)
                                     .addOnSuccessListener(aVoid -> {

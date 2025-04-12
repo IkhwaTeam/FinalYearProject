@@ -16,6 +16,12 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".StdEditProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".stdprofile"
+            android:exported="false" />
+        <activity
             android:name=".TeacherCourseActivity"
             android:exported="false" />
         <activity
