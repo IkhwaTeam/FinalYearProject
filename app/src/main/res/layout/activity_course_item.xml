@@ -1,0 +1,56 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="160dp"
+    android:layout_height="160dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginEnd="8dp"
+    android:orientation="vertical"
+    android:background="@drawable/std_shape1"
+    android:padding="12dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/courseTitle"
+        android:text="Asma e Husna"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="4dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/courseDuration"
+        android:text="20 days"
+        android:textSize="12sp"
+        android:textColor="@android:color/black"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:progress="0"
+        android:max="100"
+        android:progressDrawable="@drawable/custom_progress"/>
+
+    <TextView
+        android:id="@+id/enrollmentStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Not enrolled"
+        android:textSize="10sp"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="6dp"/>
+
+    <Button
+        android:id="@+id/main_button"
+        android:layout_width="75dp"
+        android:layout_height="40dp"
+        android:text="View"
+        android:textColor="@color/white"
+        android:backgroundTint="#3F45EC"
+        android:background="@drawable/shape5"
+        android:textAllCaps="false"
+        android:textSize="12dp"/>
+</LinearLayout>
