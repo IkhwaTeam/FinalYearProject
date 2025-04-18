@@ -172,6 +172,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/notification_update"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="New Updates"
@@ -180,6 +181,20 @@
                         android:layout_marginTop="8dp"
                         android:paddingLeft="5dp"
                         android:textStyle="bold"/>
+                    <TextView
+                        android:id="@+id/notification_count"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_alignTop="@id/notification_update"
+                        android:layout_alignEnd="@id/notification_update"
+                        android:layout_marginStart="3dp"
+                        android:layout_marginTop="-6dp"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="@android:color/white"
+                        android:background="@drawable/notificationstore"
+                        android:visibility="gone"
+                        android:textSize="10sp"/>
 
                     <Button
                         android:id="@+id/main_button"
