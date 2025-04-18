@@ -7,7 +7,7 @@
     android:background="#F9F9F9"
     tools:context=".NotificationsActivity">
 
-    <!-- Header Section -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
@@ -36,7 +36,7 @@
 
     </LinearLayout>
 
-    <!-- Notification Input Section -->
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -110,7 +110,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp" />
 
-    <!-- Dynamic Notification Container -->
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import com.google.firebase.database.ChildEventListener;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -30,6 +31,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+
 public class CourseActivity extends AppCompatActivity {
 
     private LinearLayout currentCourseContainer, previousCourseContainer;
@@ -40,6 +42,27 @@ public class CourseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course);
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Courses");
+
+        ref.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
+                String title = "New Course Uploaded";
+                String description = "";
+
+                if (snapshot.child("title").exists()) {
+                    description = snapshot.child("title").getValue(String.class) + " course has been added.";
+                }
+
+                Notificationclass.showNotificationDesignActivity(CourseActivity.this, title, description);
+            }
+
+            @Override public void onChildChanged(DataSnapshot snapshot, String previousChildName) {}
+            @Override public void onChildRemoved(DataSnapshot snapshot) {}
+            @Override public void onChildMoved(DataSnapshot snapshot, String previousChildName) {}
+            @Override public void onCancelled(DatabaseError error) {}
+        });
+
 
         currentCourseContainer = findViewById(R.id.current_course_container);
         previousCourseContainer = findViewById(R.id.previous_course_container);

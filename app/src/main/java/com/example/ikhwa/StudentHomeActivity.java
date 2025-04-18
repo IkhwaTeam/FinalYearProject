@@ -7,8 +7,15 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class StudentHomeActivity extends AppCompatActivity {
 
@@ -19,7 +26,25 @@ public class StudentHomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_home);
 
-        // Initialize the toolbar AFTER setContentView()
+        // ✅ Firebase Notification Listener
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Notifications");
+
+        dbRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                String title = snapshot.child("title").getValue(String.class);
+                String description = snapshot.child("description").getValue(String.class);
+
+                Notificationclass.showNotificationDesignActivity(StudentHomeActivity.this, title, description);
+            }
+
+            @Override public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
+            @Override public void onChildRemoved(@NonNull DataSnapshot snapshot) {}
+            @Override public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
+            @Override public void onCancelled(@NonNull DatabaseError error) {}
+        });
+
+        // ✅ Toolbar Setup
         toolbar = findViewById(R.id.student_toolbar);
         setSupportActionBar(toolbar);
 
@@ -35,6 +60,7 @@ public class StudentHomeActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.sttr_logout, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.timings_menu) {
@@ -47,5 +73,4 @@ public class StudentHomeActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 }
