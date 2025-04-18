@@ -3,10 +3,10 @@ package com.example.ikhwa;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class TeacherCourseActivity extends AppCompatActivity {
@@ -17,14 +17,14 @@ public class TeacherCourseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_teacher_course);
 
         // ✅ Current Course Dialog Open
-        findViewById(R.id.t1).setOnClickListener(view -> showCurrentCourseDialog());
+        findViewById(R.id.t1).setOnClickListener(view -> showCurrentCourseDialogTea());
 
         // ✅ Previous Course Dialog Open
-        findViewById(R.id.t1).setOnClickListener(view -> showPreviousCourseDialog());
+        findViewById(R.id.t5).setOnClickListener(view -> showPreviousCourseDialogTea());
     }
 
     // ✅ Current Course Dialog Function (Mark Attendance)
-    private void showCurrentCourseDialog() {
+    private void showCurrentCourseDialogTea() {
         Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.currentcoursedialogtea);
@@ -49,7 +49,7 @@ public class TeacherCourseActivity extends AppCompatActivity {
     }
 
     // ✅ Previous Course Dialog Function (View Attendance)
-    private void showPreviousCourseDialog() {
+    private void showPreviousCourseDialogTea() {
         Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.previouscoursedialogtea);

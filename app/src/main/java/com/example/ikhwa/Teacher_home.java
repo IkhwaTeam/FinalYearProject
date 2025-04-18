@@ -53,19 +53,24 @@ public class Teacher_home extends AppCompatActivity {
         tv_analytics = findViewById(R.id.tvt_analytics);
 
         // ✅ Button Clicks
-        t_course_see_more.setOnClickListener(view -> {
-            Intent intent = new Intent(Teacher_home.this, TeacherCourseActivity.class);
-            startActivity(intent);
+        t_course_see_more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(Teacher_home.this, TeacherCourseActivity.class);
+                startActivity(intent);
+            }
         });
-
-        t_staff_see_more.setOnClickListener(view -> {
-            Intent intent = new Intent(Teacher_home.this, StafftActivity.class);
-            startActivity(intent);
+        t_staff_see_more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(Teacher_home.this,StafftActivity.class);
+                startActivity(intent);
+            }
         });
-
-        tv_analytics.setOnClickListener(view -> {
+        tv_analytics.setOnClickListener(v -> {
             Intent intent = new Intent(Teacher_home.this, AnalyticsTeacherActivity.class);
             startActivity(intent);
         });
+
     }
 }
