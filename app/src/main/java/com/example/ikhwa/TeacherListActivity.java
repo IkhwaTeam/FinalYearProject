@@ -1,78 +1,119 @@
 package com.example.ikhwa;
 
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-public class TeacherListActivity extends AppCompatActivity implements TeacherFormDialog.OnTeacherAddedListener {
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
-    private LinearLayout teachersListLayout; // Reference to the LinearLayout where FrameLayouts will be added
-    Button back_button;
+public class TeacherListActivity extends AppCompatActivity implements TeacherFormDialog.TeacherDataListener {
+
+    private RecyclerView teachersRecyclerView;
+    private TeacherAdapter adapter;
+    private List<TeacherDetails> teacherList = new ArrayList<>();
+    private HashMap<String, TeacherDetails> teacherDataMap = new HashMap<>();
+    private Button back_button;
+
+    private DatabaseReference teacherRef; // Firebase Database Reference
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_list);
 
-        // Initialize views
-        teachersListLayout = findViewById(R.id.teacherslist);
-        FloatingActionButton fabAdd = findViewById(R.id.fab_add);
+        // Initialize Firebase Database reference
+        teacherRef = FirebaseDatabase.getInstance().getReference("teacherProfiles");
 
-        // Open the dialog when FAB is clicked
+        // Initialize RecyclerView
+        teachersRecyclerView = findViewById(R.id.teacherslist);
+        teachersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new TeacherAdapter(teacherList);
+        teachersRecyclerView.setAdapter(adapter);
+
+        // Fetch data from Firebase
+        fetchTeachersFromFirebase();
+
+        // FAB action
+        FloatingActionButton fabAdd = findViewById(R.id.fab_add);
         fabAdd.setOnClickListener(v -> {
-            TeacherFormDialog dialog = new TeacherFormDialog(this, this);
-            dialog.show();
+            TeacherFormDialog dialogFragment = new TeacherFormDialog();
+            dialogFragment.show(getSupportFragmentManager(), "TeacherFormDialog");
         });
 
+        // Back button
         back_button = findViewById(R.id.btn_back);
-        back_button.setOnClickListener(v -> {
-            finish();
+        back_button.setOnClickListener(v -> finish());
+    }
+
+    // Method to fetch teacher data from Firebase
+    private void fetchTeachersFromFirebase() {
+        teacherRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Clear existing teacher data
+                teacherList.clear();
+
+                // Loop through the snapshot and retrieve teacher data
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    TeacherDetails teacher = snapshot.getValue(TeacherDetails.class);
+                    if (teacher != null) {
+                        teacherList.add(teacher); // Add teacher to the list
+                    }
+                }
+
+                // Notify adapter to update the RecyclerView
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle possible errors
+            }
         });
     }
 
     @Override
-    public void onTeacherAdded(String name, String id, String jobTitle, String joinDate) {
-        // Create a new FrameLayout dynamically
-        FrameLayout teacherFrame = new FrameLayout(this);
-        LinearLayout.LayoutParams frameParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                dpToPx(120)  // Set height to 120dp
-        );
-        frameParams.setMargins(dpToPx(8), dpToPx(16), dpToPx(8), dpToPx(8)); // Apply margins
-        teacherFrame.setLayoutParams(frameParams);
-        teacherFrame.setBackgroundResource(R.drawable.g_out); // Use your existing background
-        teacherFrame.setElevation(dpToPx(10)); // Apply elevation
+    public void onTeacherDataEntered(TeacherDetails teacher) {
+        // Add the teacher data to Firebase
+        String teacherId = teacher.getId();  // Ensure this is unique
+        teacherRef.child(teacherId).setValue(teacher);
 
-        // Create a TextView to show the teacher's name
-        TextView teacherText = new TextView(this);
-        FrameLayout.LayoutParams textParams = new FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.WRAP_CONTENT,
-                FrameLayout.LayoutParams.WRAP_CONTENT
-        );
-        textParams.gravity = android.view.Gravity.CENTER; // Center the text
-        teacherText.setLayoutParams(textParams);
-        teacherText.setText(name); // Set teacher's name
-        teacherText.setTextSize(22); // Set text size
-        teacherText.setTypeface(null, Typeface.BOLD); // Set text to bold
-        teacherText.setTextColor(android.graphics.Color.parseColor("#25C3E9")); // Set text color
-
-        // Add TextView to FrameLayout
-        teacherFrame.addView(teacherText);
-
-        // Add FrameLayout to the teacher list layout
-        teachersListLayout.addView(teacherFrame);
+        // Add to local list for RecyclerView update
+        teacherDataMap.put(teacherId, teacher);
+        teacherList.add(teacher); // Add to list
+        adapter.notifyItemInserted(teacherList.size() - 1); // Notify adapter that item has been inserted
     }
 
-    // Helper method to convert dp to pixels
-    private int dpToPx(int dp) {
-        float density = getResources().getDisplayMetrics().density;
-        return Math.round(dp * density);
+    @Override
+    public void onTeacherDataUpdated(TeacherDetails updatedTeacher) {
+        // Update teacher data in Firebase
+        String teacherId = updatedTeacher.getId();
+        teacherRef.child(teacherId).setValue(updatedTeacher);
+
+        // Find and update teacher in local list
+        for (int i = 0; i < teacherList.size(); i++) {
+            if (teacherList.get(i).getId().equals(teacherId)) {
+                teacherList.set(i, updatedTeacher); // Replace with updated data
+                adapter.notifyItemChanged(i); // Notify adapter to refresh this item
+                break;
+            }
+        }
     }
 
+    // Method to fetch teacher details by their ID
+    public TeacherDetails getTeacherDetailsById(String id) {
+        return teacherDataMap.get(id);
+    }
 }
