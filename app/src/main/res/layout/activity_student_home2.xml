@@ -197,7 +197,7 @@
                         android:textSize="10sp"/>
 
                     <Button
-                        android:id="@+id/main_button"
+                        android:id="@+id/notification_click_to_open"
                         android:layout_width="140dp"
                         android:layout_height="40dp"
                         android:layout_marginTop="4dp"
