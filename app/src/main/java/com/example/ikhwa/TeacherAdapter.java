@@ -29,8 +29,7 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.TeacherV
     @Override
     public void onBindViewHolder(@NonNull TeacherViewHolder holder, int position) {
         TeacherDetails teacher = teacherList.get(position);
-        holder.nameTextView.setText(teacher.getName());
-        // You can bind more views like ID, Email etc. if added in layout
+        holder.nameTextView.setText(teacher.getName());  // Bind only the teacher's name
     }
 
     @Override

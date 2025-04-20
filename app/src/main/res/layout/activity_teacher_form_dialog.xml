@@ -72,164 +72,164 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="350dp">
-            <!-- New Teacher Form -->
-
-            <LinearLayout
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Provide Following Information:"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="#333333"
-                android:layout_marginStart="16dp"/>
+                android:layout_height="350dp">
+                <!-- New Teacher Form -->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Teacher's Name"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="#555555"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"/>
-
-                <EditText
-                    android:id="@+id/et_name"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="@drawable/shape7"
-                    android:hint="Enter teacher's name"
-                    android:inputType="textPersonName"
-                    android:padding="12dp"
-                    android:textColor="#1D1D1D"
-                    android:textColorHint="#80000000" />
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Provide Following Information:"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="#333333"
+                        android:layout_marginStart="16dp"/>
 
-                <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Father's Name"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="#555555"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="12dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Teacher's Name"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#555555"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"/>
 
-            <EditText
-                android:id="@+id/et_father_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Enter father's name"
-                android:textColor="#1D1D1D"
-                android:textColorHint="#80000000"
-                android:inputType="textPersonName"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:padding="12dp"
-                android:background="@drawable/shape7"/>
+                    <EditText
+                        android:id="@+id/et_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/shape7"
+                        android:hint="Enter teacher's name"
+                        android:inputType="textPersonName"
+                        android:padding="12dp"
+                        android:textColor="#1D1D1D"
+                        android:textColorHint="#80000000" />
 
-                <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Teacher's ID"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="#555555"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="12dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Father's Name"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#555555"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="12dp"/>
 
-            <EditText
-                android:id="@+id/et_id"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Enter unique ID number"
-                android:textColor="#1D1D1D"
-                android:textColorHint="#80000000"
-                android:inputType="text"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:padding="12dp"
-                android:background="@drawable/shape7"/>
+                    <EditText
+                        android:id="@+id/et_father_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Enter father's name"
+                        android:textColor="#1D1D1D"
+                        android:textColorHint="#80000000"
+                        android:inputType="textPersonName"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:padding="12dp"
+                        android:background="@drawable/shape7"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Teacher's ID"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#555555"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="12dp"/>
+
+                    <EditText
+                        android:id="@+id/et_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Enter unique ID"
+                        android:textColor="#1D1D1D"
+                        android:textColorHint="#80000000"
+                        android:inputType="text"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:padding="12dp"
+                        android:background="@drawable/shape7"/>
 
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Teacher's Email"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="#555555"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="12dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Teacher's Email"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#555555"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="12dp"/>
 
-                <EditText
-                    android:id="@+id/et_email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="@drawable/shape7"
-                    android:hint="Enter email address"
-                    android:inputType="text"
-                    android:padding="12dp"
-                    android:textColor="#1D1D1D"
-                    android:textColorHint="#80000000" />
+                    <EditText
+                        android:id="@+id/et_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/shape7"
+                        android:hint="Enter email address"
+                        android:inputType="textEmailAddress"
+                        android:padding="12dp"
+                        android:textColor="#1D1D1D"
+                        android:textColorHint="#80000000" />
 
-                <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Phone Number"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="#555555"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="12dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Phone Number"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#555555"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="12dp"/>
 
-            <EditText
-                android:id="@+id/et_phone_no"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Enter phone number"
-                android:textColor="#1D1D1D"
-                android:textColorHint="#80000000"
-                android:inputType="phone"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:padding="12dp"
-                android:background="@drawable/shape7"/>
+                    <EditText
+                        android:id="@+id/et_phone_no"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Enter phone number"
+                        android:textColor="#1D1D1D"
+                        android:textColorHint="#80000000"
+                        android:inputType="phone"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:padding="12dp"
+                        android:background="@drawable/shape7"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Joining Date"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="#555555"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="12dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Joining Date"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#555555"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="12dp"/>
 
-            <EditText
-                android:id="@+id/et_join_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="DD/MM/YYYY"
-                android:textColor="#1D1D1D"
-                android:textColorHint="#80000000"
-                android:inputType="date"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:padding="12dp"
-                android:background="@drawable/shape7"/>
-        </LinearLayout>
-        </ScrollView>
+                    <EditText
+                        android:id="@+id/et_join_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="DD/MM/YYYY"
+                        android:textColor="#1D1D1D"
+                        android:textColorHint="#80000000"
+                        android:inputType="date"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:padding="12dp"
+                        android:background="@drawable/shape7"/>
+                </LinearLayout>
+            </ScrollView>
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -276,221 +276,221 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:visibility="gone">
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="350dp">
-            <LinearLayout
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Teacher Search"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="#333333"
-                android:layout_marginStart="16dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Teacher ID"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="#555555"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"/>
-                <EditText
-                    android:id="@+id/et_search_id"
+                android:layout_height="350dp">
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:hint="Enter teacher ID to search"
-                    android:textColor="#1D1D1D"
-                    android:textColorHint="#80000000"
-                    android:inputType="text"
-                    android:padding="12dp"
-                    android:layout_marginStart="16dp"
-                    android:background="@drawable/shape7"/>
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Teacher Search"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="#333333"
+                        android:layout_marginStart="16dp"/>
 
-                <Button
-                    android:id="@+id/btn_search"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Search"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="12dp"
-                    android:background="@drawable/view_bg" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Teacher ID"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#555555"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"/>
+                    <EditText
+                        android:id="@+id/et_search_id"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:hint="Enter teacher ID to search"
+                        android:textColor="#1D1D1D"
+                        android:textColorHint="#80000000"
+                        android:inputType="text"
+                        android:padding="12dp"
+                        android:layout_marginStart="16dp"
+                        android:background="@drawable/shape7"/>
 
-            <TextView
-                android:id="@+id/tv_teacher_info"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textColor="#333333"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/shape7"
-                android:visibility="gone"
-                android:text="Teacher information will be displayed here"/>
+                    <Button
+                        android:id="@+id/btn_search"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Search"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="12dp"
+                        android:background="@drawable/view_bg" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#DDDDDD"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="16dp"/>
+                    <TextView
+                        android:id="@+id/tv_teacher_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:textColor="#333333"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginTop="12dp"
+                        android:background="@drawable/shape7"
+                        android:visibility="gone"
+                        android:text="Teacher information will be displayed here"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Edit Information Here"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="#333333"
-                android:layout_marginStart="16dp"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#DDDDDD"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="16dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Teacher's Name"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="#555555"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Edit Information Here"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="#333333"
+                        android:layout_marginStart="16dp"/>
 
-            <EditText
-                android:id="@+id/pr_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Enter teacher's name"
-                android:textColor="#1D1D1D"
-                android:textColorHint="#80000000"
-                android:inputType="textPersonName"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:padding="12dp"
-                android:background="@drawable/shape7"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Teacher's Name"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#555555"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Father's Name"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="#555555"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="12dp"/>
+                    <EditText
+                        android:id="@+id/pr_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Enter teacher's name"
+                        android:textColor="#1D1D1D"
+                        android:textColorHint="#80000000"
+                        android:inputType="textPersonName"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:padding="12dp"
+                        android:background="@drawable/shape7"/>
 
-            <EditText
-                android:id="@+id/pr_father_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Enter father's name"
-                android:textColor="#1D1D1D"
-                android:textColorHint="#80000000"
-                android:inputType="textPersonName"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:padding="12dp"
-                android:background="@drawable/shape7"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Father's Name"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#555555"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="12dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Teacher's Email"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="#555555"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="12dp"/>
+                    <EditText
+                        android:id="@+id/pr_father_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Enter father's name"
+                        android:textColor="#1D1D1D"
+                        android:textColorHint="#80000000"
+                        android:inputType="textPersonName"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:padding="12dp"
+                        android:background="@drawable/shape7"/>
 
-            <EditText
-                android:id="@+id/pr_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Enter email address"
-                android:textColor="#1D1D1D"
-                android:textColorHint="#80000000"
-                android:inputType="text"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:padding="12dp"
-                android:background="@drawable/shape7"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Teacher's ID"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#555555"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="12dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Teacher's ID"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="#555555"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="12dp"/>
+                    <EditText
+                        android:id="@+id/pr_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Enter unique ID"
+                        android:textColor="#1D1D1D"
+                        android:textColorHint="#80000000"
+                        android:inputType="text"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:padding="12dp"
+                        android:background="@drawable/shape7"/>
 
-            <EditText
-                android:id="@+id/pr_id"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Enter unique ID number"
-                android:textColor="#1D1D1D"
-                android:textColorHint="#80000000"
-                android:inputType="text"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:padding="12dp"
-                android:background="@drawable/shape7"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Teacher's Email"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#555555"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="12dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Phone Number"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="#555555"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="12dp"/>
+                    <EditText
+                        android:id="@+id/pr_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Enter Email Address"
+                        android:textColor="#1D1D1D"
+                        android:textColorHint="#80000000"
+                        android:inputType="text"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:padding="12dp"
+                        android:background="@drawable/shape7"/>
 
-            <EditText
-                android:id="@+id/pr_phone_no"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Enter phone number"
-                android:textColor="#1D1D1D"
-                android:textColorHint="#80000000"
-                android:inputType="phone"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:padding="12dp"
-                android:background="@drawable/shape7"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Phone Number"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#555555"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="12dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Joining Date"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="#555555"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="12dp"/>
+                    <EditText
+                        android:id="@+id/pr_phone_no"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Enter phone number"
+                        android:textColor="#1D1D1D"
+                        android:textColorHint="#80000000"
+                        android:inputType="phone"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:padding="12dp"
+                        android:background="@drawable/shape7"/>
 
-            <EditText
-                android:id="@+id/pr_join_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="DD/MM/YYYY"
-                android:textColor="#1D1D1D"
-                android:textColorHint="#80000000"
-                android:inputType="date"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:padding="12dp"
-                android:background="@drawable/shape7"/>
-            </LinearLayout>
-        </ScrollView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Joining Date"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#555555"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="12dp"/>
+
+                    <EditText
+                        android:id="@+id/pr_join_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="DD/MM/YYYY"
+                        android:textColor="#1D1D1D"
+                        android:textColorHint="#80000000"
+                        android:inputType="date"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:padding="12dp"
+                        android:background="@drawable/shape7"/>
+                </LinearLayout>
+            </ScrollView>
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -530,5 +530,5 @@
             </FrameLayout>
 
         </LinearLayout>
-</LinearLayout>
+    </LinearLayout>
 </LinearLayout>
