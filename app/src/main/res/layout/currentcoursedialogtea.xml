@@ -7,9 +7,12 @@
     android:layout_height="350dp"
     android:layout_gravity="center"
     android:orientation="vertical"
-    android:background="@drawable/shape11tea">
-
-    <FrameLayout
+    android:background="@android:color/transparent">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/dialog_back">    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp">
@@ -157,5 +160,6 @@
         android:layout_margin="15dp"
         android:background="@drawable/shape5"
         android:backgroundTint="@color/white"/>
+</LinearLayout>
 
 </LinearLayout>

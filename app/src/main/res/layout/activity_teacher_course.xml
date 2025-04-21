@@ -18,20 +18,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="VisualLintBounds">
-        <ImageView
-            android:id="@+id/menu_image"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="43dp"
+        <Button
+            android:id="@+id/back"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="40dp"
             android:layout_marginStart="10dp"
-            android:background="@drawable/menu"/>
+            android:background="@drawable/back"/>
 
         <TextView
             android:id="@+id/text_course"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="42dp"
+            android:layout_marginTop="43dp"
             android:layout_marginEnd="15dp"
             android:text="Course List"
             android:textColor="@color/white"
@@ -44,186 +44,69 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="100dp"
+        android:paddingTop="80dp"
         android:background="#F9F9F9">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+        <!-- Current Courses Section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Current Courses"
+            android:textSize="20sp"
+            android:padding="8dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/blue_205cdc"/>
 
-        <LinearLayout
+        <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingStart="15dp"
-            android:paddingEnd="12dp">
-
-            <!-- Current Courses Section -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Current Courses"
-                android:textSize="26sp"
-                android:textStyle="bold"
-                android:textColor="#337CEA"
-                android:layout_marginBottom="10dp" />
-
-            <!-- Previous Courses Section -->
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="horizontal">
-
-                <LinearLayout
-                    android:id="@+id/course_container"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="25dp"
-                    android:orientation="horizontal"
-                    >
-
-                    <FrameLayout
-                        android:id="@+id/t1"
-                        android:layout_width="150dp"
-                        android:layout_height="120dp"
-                        android:layout_marginEnd="8dp"
-                        android:background="@drawable/g_out"
-                        android:elevation="3dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="Tajweed B2"
-                            android:textColor="#3F51B5"
-                            android:textSize="22sp"
-                            android:textStyle="bold" />
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:layout_width="150dp"
-                        android:layout_height="120dp"
-                        android:layout_marginEnd="8dp"
-                        android:elevation="3dp"
-                        android:background="@drawable/g_out">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="Tajweed B2"
-                            android:textColor="#3F51B5"
-                            android:textSize="22sp"
-                            android:textStyle="bold" />
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:layout_width="150dp"
-                        android:layout_height="120dp"
-                        android:layout_marginEnd="8dp"
-                        android:elevation="3dp"
-                        android:background="@drawable/g_out">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="Tajweed B2"
-                            android:textColor="#3F51B5"
-                            android:textSize="22sp"
-                            android:textStyle="bold" />
-                    </FrameLayout>
-
-
-                    <FrameLayout
-                        android:layout_width="150dp"
-                        android:layout_height="120dp"
-                        android:layout_marginEnd="8dp"
-                        android:elevation="3dp"
-                        android:background="@drawable/g_out">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="Seerah"
-                            android:textColor="#3F51B5"
-                            android:textSize="22sp"
-                            android:textStyle="bold" />
-                    </FrameLayout>
-
-                </LinearLayout>
-            </HorizontalScrollView>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Previous Courses"
-                android:textSize="26sp"
-                android:textStyle="bold"
-                android:textColor="#337CEA"
-                android:layout_marginBottom="10dp"/>
+            android:layout_height="wrap_content"
+            android:scrollbars="horizontal">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="220dp">
-
-                <FrameLayout
-                    android:id="@+id/t5"
-                    android:layout_width="0dp"
-                    android:layout_height="120dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/g_out"
-                    android:elevation="3dp"
-                    android:layout_marginEnd="8dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Asma e Husna"
-                        android:textSize="22sp"
-                        android:layout_gravity="center"
-                        android:textStyle="bold"
-                        android:textColor="#3F51B5" />
-                </FrameLayout>
-
-                <FrameLayout
-                    android:layout_width="0dp"
-                    android:layout_height="120dp"
-                    android:layout_weight="1"
-                    android:elevation="3dp"
-                    android:background="@drawable/g_out"
-                    android:layout_marginEnd="8dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="40 Ahadees"
-                        android:textSize="22sp"
-                        android:layout_gravity="center"
-                        android:textStyle="bold"
-                        android:textColor="#3F51B5" />
-                </FrameLayout>
-            </LinearLayout>
-
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab_add_course"
+                android:id="@+id/current_course_container"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:backgroundTint="#29AEEA"
-                android:src="@drawable/add"
-                android:elevation="3dp"
-                android:layout_gravity="right"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:contentDescription="Add Teacher" />
+                android:orientation="horizontal"
+                android:padding="6dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"/>
+        </HorizontalScrollView>
 
-        </LinearLayout>
+        <!-- Previous Courses Section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Previous Courses"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginTop="20dp"
+            android:padding="8dp"
+            android:textColor="@color/blue_205cdc"/>
 
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="horizontal">
 
+            <LinearLayout
+                android:id="@+id/previous_course_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="6dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"/>
+        </HorizontalScrollView>
+
+</LinearLayout>
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

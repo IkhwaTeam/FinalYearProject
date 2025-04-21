@@ -1,12 +1,13 @@
 package com.example.ikhwa;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
-import com.google.firebase.database.ChildEventListener;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -19,6 +20,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,20 +33,21 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-
 public class CourseActivity extends AppCompatActivity {
 
     private LinearLayout currentCourseContainer, previousCourseContainer;
     private DatabaseReference courseRef;
     private FloatingActionButton btnAddCourse;
+    Button backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course);
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Courses");
+        courseRef = FirebaseDatabase.getInstance().getReference("Courses");
 
-        ref.addChildEventListener(new ChildEventListener() {
+        // Listen for new course additions
+        courseRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
                 String title = "New Course Uploaded";
@@ -63,12 +66,17 @@ public class CourseActivity extends AppCompatActivity {
             @Override public void onCancelled(DatabaseError error) {}
         });
 
+        backButton = findViewById(R.id.back);
+        backButton.setOnClickListener(v -> {
+            Intent intent = new Intent(CourseActivity.this, AdminHomeActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish(); // This clears the current activity from the back stack
+        });
 
         currentCourseContainer = findViewById(R.id.current_course_container);
         previousCourseContainer = findViewById(R.id.previous_course_container);
         btnAddCourse = findViewById(R.id.btn_add_course);
-
-        courseRef = FirebaseDatabase.getInstance().getReference("Courses");
 
         btnAddCourse.setOnClickListener(v -> showAddCourseDialog());
 
@@ -104,7 +112,14 @@ public class CourseActivity extends AppCompatActivity {
 
             String id = courseRef.push().getKey();
             Course model = new Course(title, description, duration, startDate, endDate);
-            courseRef.child(id).setValue(model);
+
+            // Determine if course is current or previous
+            boolean isCurrent = isCurrentCourse(endDate);
+            String category = isCurrent ? "currentCourse" : "previousCourse";
+
+            if (id != null) {
+                courseRef.child(category).child(id).setValue(model); // Save under appropriate category
+            }
 
             dialog.dismiss();
         });
@@ -136,12 +151,22 @@ public class CourseActivity extends AppCompatActivity {
                 currentCourseContainer.removeAllViews();
                 previousCourseContainer.removeAllViews();
 
-                for (DataSnapshot data : snapshot.getChildren()) {
+                // Load current courses
+                DataSnapshot currentCoursesSnapshot = snapshot.child("currentCourse");
+                for (DataSnapshot data : currentCoursesSnapshot.getChildren()) {
                     Course model = data.getValue(Course.class);
-                    if (model == null) continue;
+                    if (model != null) {
+                        addCourseToLayout(model, true);
+                    }
+                }
 
-                    boolean isCurrent = isCurrentCourse(model.getEndDate());
-                    addCourseToLayout(model.getTitle(), isCurrent);
+                // Load previous courses
+                DataSnapshot previousCoursesSnapshot = snapshot.child("previousCourse");
+                for (DataSnapshot data : previousCoursesSnapshot.getChildren()) {
+                    Course model = data.getValue(Course.class);
+                    if (model != null) {
+                        addCourseToLayout(model, false);
+                    }
                 }
             }
 
@@ -160,7 +185,7 @@ public class CourseActivity extends AppCompatActivity {
         }
     }
 
-    private void addCourseToLayout(String title, boolean isCurrent) {
+    private void addCourseToLayout(Course model, boolean isCurrent) {
         FrameLayout frame = new FrameLayout(this);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(300, 200);
         params.setMargins(16, 16, 16, 16);
@@ -168,7 +193,7 @@ public class CourseActivity extends AppCompatActivity {
         frame.setBackgroundResource(R.drawable.std_shape1); // replace with your drawable
 
         TextView text = new TextView(this);
-        text.setText(title);
+        text.setText(model.getTitle());
         text.setTextColor(Color.parseColor("#3F51B5"));
         text.setTextSize(20);
         text.setTypeface(null, Typeface.BOLD);

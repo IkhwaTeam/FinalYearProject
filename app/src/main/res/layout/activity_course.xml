@@ -1,103 +1,118 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#F9F9F9">
 
-
-    <LinearLayout
+    <!-- Scrollable Content -->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:background="@drawable/shape"
-            android:layout_marginTop="-15dp"
-            android:layout_gravity="center">
-            <Button
-                android:id="@+id/beck"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_marginStart="5dp"
-                android:background="@drawable/back"
-                android:layout_gravity="center"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="-20dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal"
+                android:elevation="8dp"
+                android:background="@drawable/shape"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:ignore="VisualLintBounds">
+                <Button
+                    android:id="@+id/back"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/back"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="43dp"
+                    android:layout_marginEnd="15dp"
+                    android:text="Course "
+                    android:textColor="@color/white"
+                    android:textSize="26sp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+            <!-- Current Courses Section -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Course Lists"
-                android:textSize="24sp"
+                android:text="Current Courses"
+                android:textSize="20sp"
+                android:padding="8dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
                 android:textStyle="bold"
-                android:layout_gravity="center"
-                android:layout_marginLeft="5dp"
-                android:textColor="@color/white"/>
+                android:layout_marginTop="20dp"
+                android:textColor="@color/blue_205cdc"/>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/current_course_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="6dp"/>
+            </HorizontalScrollView>
+
+            <!-- Previous Courses Section -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Previous Courses"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginTop="20dp"
+                android:padding="8dp"
+                android:textColor="@color/blue_205cdc"/>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/previous_course_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="6dp"/>
+            </HorizontalScrollView>
+
+            <!-- Add some bottom padding so content doesn’t overlap FAB -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="80dp"/>
         </LinearLayout>
+    </ScrollView>
 
-
-        <!-- Current Courses Section -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Current Courses"
-            android:textSize="20sp"
-            android:padding="8dp"
-            android:textStyle="bold"
-            android:layout_marginTop="20dp"
-            android:textColor="@color/blue_205cdc"/>
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="horizontal">
-
-            <LinearLayout
-                android:id="@+id/current_course_container"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="6dp"/>
-        </HorizontalScrollView>
-
-        <!-- Previous Courses Section -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Previous Courses"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginTop="20dp"
-            android:padding="8dp"
-            android:textColor="@color/blue_205cdc"/>
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="horizontal">
-
-            <LinearLayout
-                android:id="@+id/previous_course_container"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="6dp"/>
-
-        </HorizontalScrollView>
-
-        <!-- Button to Add Course -->
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btn_add_course"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="200dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:backgroundTint="#29AEEA"
-            android:src="@drawable/add"
-            android:elevation="3dp"
-            android:layout_gravity="right"/>
-
-    </LinearLayout>
-</ScrollView>
+    <!-- FAB Attached to Bottom End -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_add_course"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:backgroundTint="#29AEEA"
+        android:src="@drawable/add"
+        android:elevation="3dp"/>
+</FrameLayout>
