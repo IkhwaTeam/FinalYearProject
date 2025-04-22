@@ -15,6 +15,8 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,18 +27,25 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class StudentHome2 extends AppCompatActivity {
 
     Dialog myDialog, myDialog2;
     TextView studentNameText, studentEmailText, notificationTitle, notificationCount, clickToOpen;
-    Button mainButton;
     DatabaseReference databaseReference;
+
     FirebaseAuth mAuth;
 
     int unseenCount = 0;
     String latestNotificationId = "";
     String latestNotificationTitle = "";
     String latestNotificationDesc = "";
+
+    RecyclerView courseRecycler;
+    List<Course> courseList;
+    CourseAdapter courseAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +60,14 @@ public class StudentHome2 extends AppCompatActivity {
         studentEmailText = findViewById(R.id.st_email);
         notificationTitle = findViewById(R.id.notification_update);
         notificationCount = findViewById(R.id.notification_count);
-        clickToOpen = findViewById(R.id.notification_click_to_open); // <-- "Click to open" textView
-        mainButton = findViewById(R.id.main_button);
-        Button mainButton1 = findViewById(R.id.main_button1);
+        clickToOpen = findViewById(R.id.notification_click_to_open);
+
+        // Initialize RecyclerView
+        courseRecycler = findViewById(R.id.recyclerCourseContainer);
+        courseRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        courseList = new ArrayList<>();
+        courseAdapter = new CourseAdapter(this, courseList);
+        courseRecycler.setAdapter(courseAdapter);
 
         if (currentUser != null) {
             String uid = currentUser.getUid();
@@ -74,9 +88,6 @@ public class StudentHome2 extends AppCompatActivity {
         myDialog = new Dialog(this);
         myDialog2 = new Dialog(this);
 
-        mainButton.setOnClickListener(v -> show_dialog());
-        mainButton1.setOnClickListener(v -> show_dialog2());
-
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
@@ -93,8 +104,8 @@ public class StudentHome2 extends AppCompatActivity {
             return false;
         });
 
-        // 🔔 Load Notifications
         loadNotification();
+        loadCurrentCourses();
     }
 
     private void loadNotification() {
@@ -134,14 +145,12 @@ public class StudentHome2 extends AppCompatActivity {
                                 intent.putExtra("role", "student");
                                 startActivity(intent);
 
-                                // Mark as seen
                                 seenRef.child(latestNotificationId).setValue(true);
 
                                 unseenCount = 0;
                                 notificationCount.setVisibility(View.GONE);
                             };
 
-                            // 👇 Assign listener to both
                             notificationTitle.setOnClickListener(openNotification);
                             clickToOpen.setOnClickListener(openNotification);
                         }
@@ -153,6 +162,26 @@ public class StudentHome2 extends AppCompatActivity {
                     @Override public void onCancelled(@NonNull DatabaseError error) {}
                 });
             }
+        });
+    }
+
+    private void loadCurrentCourses() {
+        DatabaseReference courseRef = FirebaseDatabase.getInstance().getReference("Courses/currentCourse");
+
+        courseRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                Course course = snapshot.getValue(Course.class);
+                if (course != null) {
+                    courseList.add(course);
+                    courseAdapter.notifyItemInserted(courseList.size() - 1);
+                }
+            }
+
+            @Override public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
+            @Override public void onChildRemoved(@NonNull DataSnapshot snapshot) {}
+            @Override public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
+            @Override public void onCancelled(@NonNull DatabaseError error) {}
         });
     }
 

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -187,7 +188,7 @@ public class CourseActivity extends AppCompatActivity {
 
     private void addCourseToLayout(Course model, boolean isCurrent) {
         FrameLayout frame = new FrameLayout(this);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(300, 200);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(400, 300);
         params.setMargins(16, 16, 16, 16);
         frame.setLayoutParams(params);
         frame.setBackgroundResource(R.drawable.std_shape1); // replace with your drawable
@@ -196,8 +197,13 @@ public class CourseActivity extends AppCompatActivity {
         text.setText(model.getTitle());
         text.setTextColor(Color.parseColor("#3F51B5"));
         text.setTextSize(20);
+        text.setPadding(5,5,5,5);
         text.setTypeface(null, Typeface.BOLD);
         text.setGravity(Gravity.CENTER);
+        text.setMaxLines(2);
+        text.setEllipsize(TextUtils.TruncateAt.END);
+        text.setHorizontallyScrolling(false);
+
 
         FrameLayout.LayoutParams textParams = new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.WRAP_CONTENT,
