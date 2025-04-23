@@ -7,19 +7,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import java.util.Map;
-import java.util.HashMap;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-
-import androidx.appcompat.app.AppCompatActivity;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+import java.util.HashMap;
+import java.util.Map;
 
 public class NotificationsActivity extends AppCompatActivity {
 
@@ -28,12 +26,15 @@ public class NotificationsActivity extends AppCompatActivity {
     private Spinner spinnerRecipients;
     private LinearLayout notificationContainer;
 
+    private DatabaseReference notificationRef;
+    private String editingNotificationId = null;
+    private View editingNotificationView = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notifications);
 
-        // Initialize UI Components
         back_button = findViewById(R.id.back_btn);
         btnSendNotification = findViewById(R.id.btnSendNotification);
         etTitle = findViewById(R.id.etTitle);
@@ -41,68 +42,133 @@ public class NotificationsActivity extends AppCompatActivity {
         spinnerRecipients = findViewById(R.id.spinnerRecipients);
         notificationContainer = findViewById(R.id.notificationContainer);
 
-        // Back Button Click Listener
+        notificationRef = FirebaseDatabase.getInstance().getReference("Notifications");
+
         back_button.setOnClickListener(view -> finish());
 
-        // Send Notification Action
-        // Inside your onClick of the Send Notification Button:
         btnSendNotification.setOnClickListener(v -> {
             String title = etTitle.getText().toString().trim();
             String description = etDescription.getText().toString().trim();
 
             if (!title.isEmpty() && !description.isEmpty()) {
-                // 1. Firebase پر save کرنا
-                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Notifications");
-                String key = ref.push().getKey();
-
-                Map<String, Object> map = new HashMap<>();
-                map.put("title", title);
-                map.put("description", description);
-
-                ref.child(key).setValue(map);
-
-                Toast.makeText(NotificationsActivity.this, "Notification sent", Toast.LENGTH_SHORT).show();
-
-                // 2. Custom Notification بھیجنا
-                Notificationclass.showNotificationDesignActivity(NotificationsActivity.this, title, description);
+                // Show a confirmation dialog to confirm sending the notification
+                showConfirmationDialog(title, description);
             } else {
-                Toast.makeText(NotificationsActivity.this, "Please fill both fields", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Please fill both fields", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void showConfirmationDialog(final String title, final String description) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Confirm Notification")
+                .setMessage("Do you want to send this notification?\n\nTitle: " + title + "\nDescription: " + description)
+                .setPositiveButton("Send", (dialog, which) -> {
+                    // Send the notification after confirmation
+                    sendNotification(title, description);
+                })
+                .setNegativeButton("Edit", (dialog, which) -> {
+                    // Allow the admin to edit the notification
+                    etTitle.setText(title);
+                    etDescription.setText(description);
+                })
+                .setNeutralButton("Delete", (dialog, which) -> {
+                    // Allow the admin to delete the notification
+                    etTitle.setText("");
+                    etDescription.setText("");
+                    Toast.makeText(this, "Notification deleted", Toast.LENGTH_SHORT).show();
+                });
+
+        builder.create().show();
+    }
+
+    private void sendNotification(String title, String description) {
+        if (editingNotificationId == null) {
+            // New notification
+            String key = notificationRef.push().getKey();
+
+            Map<String, Object> map = new HashMap<>();
+            map.put("title", title);
+            map.put("description", description);
+
+            notificationRef.child(key).setValue(map);
+
+            Toast.makeText(this, "Notification sent", Toast.LENGTH_SHORT).show();
+
+            // Add notification to layout without edit/delete buttons initially
+            addNotificationToLayout(key, title, description, true);  // 'true' allows editing after sending
+        } else {
+            // Update existing notification
+            Map<String, Object> updateMap = new HashMap<>();
+            updateMap.put("title", title);
+            updateMap.put("description", description);
+
+            notificationRef.child(editingNotificationId).updateChildren(updateMap);
+
+            // Update the view content
+            if (editingNotificationView != null) {
+                TextView tvTitle = editingNotificationView.findViewById(R.id.tvTitle);
+                TextView tvDescription = editingNotificationView.findViewById(R.id.tvDescription);
+                tvTitle.setText(title);
+                tvDescription.setText(description);
+            }
+
+            Toast.makeText(this, "Notification updated", Toast.LENGTH_SHORT).show();
+
+            // Reset editing state
+            editingNotificationId = null;
+            editingNotificationView = null;
+            btnSendNotification.setText("Send Notification");
+        }
+
+        // Reset input fields after sending
+        etTitle.setText("");
+        etDescription.setText("");
+    }
+
+    private void addNotificationToLayout(String id, String title, String description, boolean isEditable) {
+        View notificationView = LayoutInflater.from(this).inflate(R.layout.item_notification_admin, null);
+
+        TextView tvTitle = notificationView.findViewById(R.id.tvTitle);
+        TextView tvDescription = notificationView.findViewById(R.id.tvDescription);
+        Button btnEdit = notificationView.findViewById(R.id.btnEdit);
+        Button btnDelete = notificationView.findViewById(R.id.btnDelete);
+
+        tvTitle.setText(title);
+        tvDescription.setText(description);
+
+        // Only show edit and delete buttons if the notification is editable (i.e., after it has been sent)
+        if (isEditable) {
+            btnEdit.setVisibility(View.VISIBLE);
+            btnDelete.setVisibility(View.VISIBLE);
+        } else {
+            btnEdit.setVisibility(View.GONE);
+            btnDelete.setVisibility(View.GONE);
+        }
+
+        btnEdit.setOnClickListener(v -> {
+            etTitle.setText(title);
+            etDescription.setText(description);
+            editingNotificationId = id;
+            editingNotificationView = notificationView;
+            btnSendNotification.setText("Update Notification");
+        });
+
+        btnDelete.setOnClickListener(v -> {
+            notificationRef.child(id).removeValue();
+            notificationContainer.removeView(notificationView);
+            Toast.makeText(this, "Notification deleted", Toast.LENGTH_SHORT).show();
+
+            // Reset editing if the one being edited is deleted
+            if (editingNotificationId != null && editingNotificationId.equals(id)) {
+                etTitle.setText("");
+                etDescription.setText("");
+                btnSendNotification.setText("Send Notification");
+                editingNotificationId = null;
+                editingNotificationView = null;
             }
         });
 
-
-    }
-
-    // Add notification to the LinearLayout dynamically
-    private void addNotification() {
-        String title = etTitle.getText().toString().trim();
-        String description = etDescription.getText().toString().trim();
-        String recipient = spinnerRecipients.getSelectedItem().toString();
-
-        if (!title.isEmpty() && !description.isEmpty()) {
-            // Inflate new notification layout
-            View notificationView = LayoutInflater.from(this).inflate(R.layout.item_notification, null);
-
-            // Reference notification layout views
-            TextView tvNotificationTitle = notificationView.findViewById(R.id.tr1);
-            TextView tvNotificationDescription = notificationView.findViewById(R.id.tr1);
-
-            // Set notification content
-            tvNotificationTitle.setText("Ikhwa ." + getCurrentTime() + " min");
-            tvNotificationDescription.setText(title + " - " + description);
-
-            // Add notification to the container
-            notificationContainer.addView(notificationView, 0);
-
-            // Clear input fields
-            etTitle.setText("");
-            etDescription.setText("");
-        }
-    }
-
-    // Get current time in HH:mm format
-    private String getCurrentTime() {
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
-        return sdf.format(new Date());
+        notificationContainer.addView(notificationView, 0);
     }
 }

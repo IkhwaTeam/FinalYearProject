@@ -28,6 +28,7 @@ public class Teacher_home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.teacher_home);
+        
 
         // ✅ Firebase Notification Listener
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Notifications");
