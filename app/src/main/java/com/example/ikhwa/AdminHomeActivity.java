@@ -26,8 +26,7 @@ public class AdminHomeActivity extends AppCompatActivity {
         toolbar.getOverflowIcon().setTint(getResources().getColor(android.R.color.white));
         LinearLayout layout = findViewById(R.id.teach);
         LinearLayout layout1 = findViewById(R.id.course_view);
-        LinearLayout layout2 = findViewById(R.id.timing_view);
-        LinearLayout layout3 = findViewById(R.id.notification_view);
+        LinearLayout layout2 = findViewById(R.id.notification_view);
 
         layout.setOnClickListener(view -> {
             // Navigate to TeachersActivity
@@ -39,12 +38,8 @@ public class AdminHomeActivity extends AppCompatActivity {
             Intent intent = new Intent(AdminHomeActivity.this, CourseActivity.class);
             startActivity(intent);
         });
+
         layout2.setOnClickListener(view -> {
-            // Navigate to TimingsActivity
-            Intent intent = new Intent(AdminHomeActivity.this, TimingsActivity.class);
-            startActivity(intent);
-        });
-        layout3.setOnClickListener(view -> {
             // Navigate to NotificationsActivity
             Intent intent = new Intent(AdminHomeActivity.this, NotificationsActivity.class);
             startActivity(intent);
