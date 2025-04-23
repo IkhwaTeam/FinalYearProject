@@ -89,7 +89,7 @@
         android:theme="@style/CustomSpinnerTheme" />
 
     <Button
-        android:id="@+id/btnSendNotification"
+        android:id="@+id/btn_send_notification"
         android:layout_width="180dp"
         android:textSize="16sp"
         android:textStyle="bold"

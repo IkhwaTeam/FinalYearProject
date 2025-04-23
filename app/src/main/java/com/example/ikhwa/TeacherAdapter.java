@@ -29,7 +29,7 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.TeacherV
     @Override
     public void onBindViewHolder(@NonNull TeacherViewHolder holder, int position) {
         TeacherDetails teacher = teacherList.get(position);
-        holder.nameTextView.setText(teacher.getName());  // Bind only the teacher's name
+        holder.nameTextView.setText(teacher.getName());  // Bind teacher's name
     }
 
     @Override
@@ -42,7 +42,7 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.TeacherV
 
         public TeacherViewHolder(@NonNull View itemView) {
             super(itemView);
-            nameTextView = itemView.findViewById(R.id.teacher_name); // Make sure this ID matches
+            nameTextView = itemView.findViewById(R.id.teacher_name); // Ensure this matches
         }
     }
 }

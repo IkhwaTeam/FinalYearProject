@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Ikhwa</string>
+    <string-array name="recipients_array">
+        <item>Student</item>
+        <item>Teacher</item>
+        <item>All</item>
+    </string-array>
+
 </resources>

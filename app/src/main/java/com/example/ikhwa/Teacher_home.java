@@ -18,17 +18,25 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import java.util.List;
+import java.util.ArrayList;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
+
 
 public class Teacher_home extends AppCompatActivity {
 
     Button t_staff_see_more, t_course_see_more;
     TextView tv_analytics;
+     // RecyclerView for notifications
+    TeacherAdapter teacherAdapter;  // Adapter for RecyclerView
+    List<TeacherDetails> teacherList = new ArrayList<>();  // List for teacher data
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.teacher_home);
-        
 
         // ✅ Firebase Notification Listener
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Notifications");
@@ -38,7 +46,6 @@ public class Teacher_home extends AppCompatActivity {
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 String title = snapshot.child("title").getValue(String.class);
                 String description = snapshot.child("description").getValue(String.class);
-
                 Notificationclass.showNotificationDesignActivity(Teacher_home.this, title, description);
             }
 
@@ -47,6 +54,14 @@ public class Teacher_home extends AppCompatActivity {
             @Override public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
             @Override public void onCancelled(@NonNull DatabaseError error) {}
         });
+
+        // ✅ Initialize RecyclerView and Adapter
+
+
+        teacherAdapter = new TeacherAdapter(teacherList);
+
+        // ✅ Load Teacher Data (Optional)
+        loadTeacherData();
 
         // ✅ Button Initialization
         t_staff_see_more = findViewById(R.id.tbtn_see_staff);
@@ -57,21 +72,26 @@ public class Teacher_home extends AppCompatActivity {
         t_course_see_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(Teacher_home.this, TeacherCourseActivity.class);
+                Intent intent = new Intent(Teacher_home.this, TeacherCourseActivity.class);
                 startActivity(intent);
             }
         });
+
         t_staff_see_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(Teacher_home.this,StafftActivity.class);
+                Intent intent = new Intent(Teacher_home.this, StafftActivity.class);
                 startActivity(intent);
             }
         });
+
         tv_analytics.setOnClickListener(v -> {
             Intent intent = new Intent(Teacher_home.this, AnalyticsTeacherActivity.class);
             startActivity(intent);
         });
+    }
 
+    private void loadTeacherData() {
+        // Here you can load teacher data for RecyclerView if needed
     }
 }
