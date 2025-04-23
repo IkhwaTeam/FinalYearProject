@@ -46,9 +46,6 @@
             android:name=".AdminHomeActivity"
             android:exported="false" />
         <activity
-            android:name=".AdminLoginActivity"
-            android:exported="false" />
-        <activity
             android:name=".SelectionActivity"
             android:exported="false" />
         <activity
@@ -83,9 +80,6 @@
             android:exported="false" />
         <activity
             android:name=".AnalyticsTeacherActivity"
-            android:exported="false" />
-        <activity
-            android:name=".TimingsActivity"
             android:exported="false" />
         <activity android:name=".std_crs_att" />
     </application>
