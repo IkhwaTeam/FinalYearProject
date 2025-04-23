@@ -13,7 +13,6 @@ public class SelectionActivity extends AppCompatActivity {
 
     private boolean isStudentSelected = false;
     private boolean isTeacherSelected = false;
-    private Button btn_admin;  // Declare button outside the method
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,25 +67,6 @@ public class SelectionActivity extends AppCompatActivity {
                 Toast.makeText(SelectionActivity.this, "Select an account type", Toast.LENGTH_SHORT).show();
             }
         });
-
-        ImageView logoImage = findViewById(R.id.logoImage); // Logo image ka reference
-
-
-
-
-// Logo Image Long Press Listener
-        logoImage.setOnLongClickListener(v -> {
-            // Add 8-second delay before navigating to Admin Home
-            new Handler().postDelayed(() -> {
-                // Navigate to Admin Home Activity
-                Intent intent = new Intent(SelectionActivity.this, AdminLoginActivity.class);
-                startActivity(intent);
-            }, 3000); // 3000 milliseconds = 3 seconds
-
-            return true; // Indicate that the long-click event is consumed
-        });
-
-
 
 
     }

@@ -20,7 +20,7 @@ import com.google.firebase.database.*;
 
 public class TeacherLoginActivity extends AppCompatActivity {
 
-    private EditText emailInput, passwordInput;
+    private EditText emailInput, passwordInput, teacherIdInput;
     private Button loginButton;
     private TextView errorText;
     private ProgressBar progressBar;
@@ -34,6 +34,7 @@ public class TeacherLoginActivity extends AppCompatActivity {
 
         emailInput = findViewById(R.id.teacher_email);
         passwordInput = findViewById(R.id.teacher_password);
+        teacherIdInput = findViewById(R.id.teacher_id);
         loginButton = findViewById(R.id.teacher_btn_login);
         errorText = findViewById(R.id.error_message);
         progressBar = findViewById(R.id.progress_bar);
@@ -48,19 +49,38 @@ public class TeacherLoginActivity extends AppCompatActivity {
     private void validateTeacherLogin() {
         String email = emailInput.getText().toString().trim();
         String password = passwordInput.getText().toString().trim();
+        String teacherId = teacherIdInput.getText().toString().trim();
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            errorText.setText("Enter a valid email.");
+        // If fields are empty
+        if (email.isEmpty() || password.isEmpty() || teacherId.isEmpty()) {
+            Toast.makeText(this, "All fields are required!", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (TextUtils.isEmpty(password)) {
-            errorText.setText("Please enter password.");
+        // If fields contain spaces
+        if (email.contains(" ") || password.contains(" ") || teacherId.contains(" ")) {
+            Toast.makeText(this, "Fields should not contain spaces.", Toast.LENGTH_SHORT).show();
             return;
         }
+        // If wrong password format entered
+        if (!password.matches("^(?=.*[a-zA-Z])(?=.*[@#$%^&+=!]).{8,15}$")) {
+            Toast.makeText(this, "Invalid password entered!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        // If wrong email format entered
+        if (!email.matches("^[a-z0-9]+@[a-z]{3,10}\\.[a-z]{2,6}$")) {
+            Toast.makeText(this, "Invalid email format!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        // If wrong id entered
+        if (!teacherId.matches("^[a-zA-Z0-9@\\-_]{10,20}$")) {
+            Toast.makeText(this, "Invalid ID format!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
 
         progressBar.setVisibility(View.VISIBLE);
 
-        // ✅ Authenticate with Firebase Authentication
+        // Authenticate with Firebase Authentication
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     progressBar.setVisibility(View.GONE);
@@ -70,13 +90,14 @@ public class TeacherLoginActivity extends AppCompatActivity {
                             checkUserRole(user.getUid(), email);
                         }
                     } else {
-                        errorText.setText("Login failed: " + task.getException().getMessage());
+                        // Firebase sign-in failure
+                        Toast.makeText(this, "Login failed. Please check your email or password.", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
     private void checkUserRole(String uid, String email) {
-        // ✅ Admin Check
+        // Admin Check
         if (email.equals("ikhwa1122@gmail.com")) {
             Toast.makeText(TeacherLoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(TeacherLoginActivity.this, AdminHomeActivity.class));
@@ -84,7 +105,7 @@ public class TeacherLoginActivity extends AppCompatActivity {
             return;
         }
 
-        // ✅ Teacher Check (Using Email Instead of UID)
+        // Teacher Check (Using Email Instead of UID)
         Query teacherQuery = teacherRef.orderByChild("email").equalTo(email);
         teacherQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
