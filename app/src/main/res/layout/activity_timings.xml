@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F9F9F9">
+
+    <!-- Header Layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="-20dp"
+        android:orientation="horizontal"
+        android:elevation="8dp"
+        android:background="@drawable/shape">
+
+        <Button
+            android:id="@+id/back_button"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/back" />
+
+        <TextView
+            android:id="@+id/text_timing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="42dp"
+            android:layout_marginEnd="15dp"
+            android:text="Timing"
+            android:textColor="@color/white"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+    <Spinner
+        android:id="@+id/classSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/custom_spinner_bg"
+        android:theme="@style/CustomSpinnerTheme"/>
+
+
+    <!-- Title Input (Initially Hidden) -->
+    <EditText
+        android:id="@+id/titleEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints="Morning Class"
+        android:textColorHint="#80000000"
+        android:textColor="#0060F4"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:inputType="text"
+        android:hint="Enter title (e.g., Morning Class)"
+        android:padding="8dp"
+        android:visibility="gone" />
+
+    <!-- Modern Clock Time Picker -->
+
+    <!-- Add Button -->
+
+    <TimePicker
+        android:id="@+id/timePicker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:contextClickable="true"
+        android:headerBackground="#1D93F0"
+        android:numbersBackgroundColor="@color/white"
+        android:numbersInnerTextColor="@color/black"
+        android:numbersSelectorColor="@color/blue"
+        android:numbersTextColor="@color/black"
+        android:padding="12dp"
+        android:theme="@style/CustomTimePicker"
+        android:timePickerMode="clock" />
+
+    <Button
+        android:id="@+id/addButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Time"
+        android:textStyle="bold"
+        android:textSize="18dp"
+        android:layout_margin="12dp"
+        android:background="@drawable/view_bg"
+        android:layout_marginTop="8dp" />
+
+</LinearLayout>
