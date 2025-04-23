@@ -12,9 +12,9 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ikhwa_app_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ikhwa_app_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:targetApi="31">
@@ -52,16 +52,10 @@
             android:name=".SelectionActivity"
             android:exported="false" />
         <activity
-            android:name=".StudentHomeActivity"
-            android:exported="false" />
-        <activity
             android:name=".StudentLoginActivity"
             android:exported="false" />
         <activity
             android:name=".StudentRegistrationActivity"
-            android:exported="false" />
-        <activity
-            android:name=".TeacherHomeActivity"
             android:exported="false" />
         <activity
             android:name=".TeacherLoginActivity"
@@ -93,7 +87,6 @@
         <activity
             android:name=".TimingsActivity"
             android:exported="false" />
-        <activity android:name=".std_crs_reg" />
         <activity android:name=".std_crs_att" />
     </application>
 

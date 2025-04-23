@@ -12,123 +12,125 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-       <LinearLayout
-           android:id="@+id/selection_header"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:orientation="vertical"
-           android:gravity="center"
-           android:elevation="5dp"
-           android:layout_marginTop="-19dp"
-           android:background="@drawable/shape"
-
-           app:layout_constraintTop_toTopOf="parent"
-           tools:ignore="VisualLintBounds">
-        <!-- Logo ImageView -->
-        <ImageView
-            android:id="@+id/logoImage"
-            android:layout_width="100dp"
-            android:layout_height="108dp"
-            android:layout_marginTop="70dp"
-            android:src="@drawable/logo" />
-        <!-- Title TextView -->
-        <TextView
-            android:id="@+id/titleText"
+        <LinearLayout
+            android:id="@+id/selection_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
+            android:layout_marginTop="-20dp"
+            android:background="@drawable/shape"
+            android:elevation="8dp"
             android:gravity="center"
-            android:padding="10dp"
-            android:text=" Select Account Type"
-            android:textColor="@color/white"
-            android:textSize="32sp"
-            android:textStyle="bold" />
-       </LinearLayout>
+            android:orientation="vertical"
+
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="VisualLintBounds">
+            <!-- Logo ImageView -->
+            <ImageView
+                android:id="@+id/logoImage"
+                android:layout_width="100dp"
+                android:layout_height="108dp"
+                android:layout_marginTop="70dp"
+                android:src="@drawable/logo" />
+            <!-- Title TextView -->
+            <TextView
+                android:id="@+id/titleText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text=" Select Account Type"
+                android:textColor="@color/white"
+                android:textSize="32sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
         <RelativeLayout
             android:id="@+id/buttonLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/selection_header"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="30dp"
-            android:gravity="center">
-
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/selection_header">
 
             <!-- Student Button -->
             <Button
                 android:id="@+id/studentButton"
-                android:layout_width="180dp"
-                android:layout_height="190dp"
-                android:textStyle="bold"
+                android:layout_width="170dp"
+                android:layout_height="170dp"
+                android:background="@drawable/g1_1"
+                android:contentDescription="Student"
+                android:contextClickable="true"
                 android:textAllCaps="false"
                 android:textColor="#205CDC"
                 android:textSize="22dp"
-                android:contextClickable="true"
-                android:background="@drawable/g1_1"
-                android:contentDescription="Student" />
+                android:textStyle="bold" />
 
             <!-- Teacher Button -->
             <Button
                 android:id="@+id/teacherButton"
-                android:layout_width="180dp"
-                android:layout_height="190dp"
+                android:layout_width="170dp"
+                android:layout_height="170dp"
+                android:layout_marginStart="5dp"
+                android:layout_toEndOf="@id/studentButton"
+                android:background="@drawable/g2_1"
                 android:textAllCaps="false"
                 android:textColor="#205CDC"
                 android:textSize="22dp"
-                android:textStyle="bold"
-                android:background="@drawable/g2_1"
-                android:layout_toEndOf="@id/studentButton"
-                android:layout_marginStart="5dp" />
+                android:textStyle="bold" />
 
         </RelativeLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:gravity="center"
+            android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@id/buttonLayout">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Student"
-                android:textSize="26sp"
-                android:textStyle="bold"
-                android:padding="5dp"
                 android:layout_marginStart="35dp"
                 android:layout_marginEnd="35dp"
-                android:textColor="#5BABF0"/>
+                android:padding="5dp"
+                android:text="Student"
+                android:textColor="#5BABF0"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Teacher"
-                android:textSize="26sp"
-                android:textStyle="bold"
-                android:padding="5dp"
                 android:layout_marginStart="50dp"
                 android:layout_marginEnd="30dp"
-                android:textColor="#5BABF0"/>
+                android:padding="5dp"
+                android:text="Teacher"
+                android:textColor="#5BABF0"
+                android:textSize="24sp"
+                android:textStyle="bold" />
         </LinearLayout>
         <!-- Continue Button -->
         <Button
             android:id="@+id/continueButton"
-            android:layout_width="360dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="230dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="40dp"
             android:background="@drawable/shape4"
+            android:elevation="10dp"
             android:text="CONTINUE"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:elevation="10dp"
             android:translationZ="5dp"
-            android:layout_marginTop="200dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="40dp"
-            app:layout_constraintTop_toBottomOf="@id/buttonLayout"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/container"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/container"/>
-
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/buttonLayout" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -140,9 +140,10 @@
                     android:layout_marginTop="10dp"
                     android:background="#DCDCDC"/>
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="horizontal"
                     android:layout_marginTop="10dp">
                     <TextView
                         android:layout_width="wrap_content"
@@ -150,17 +151,22 @@
                         android:text="Address:"
                         android:textSize="16sp"
                         android:textColor="#2742D7"
-                        android:textStyle="bold"
-                        android:layout_alignParentStart="true"/>
+                        android:textStyle="bold"/>
+
                     <EditText
+                        id="@+id/etAddress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/etAddress"
-                        android:text="House 2 Satellite town Gujranwala"
-                        android:textColor="#565454"
                         android:background="@android:color/transparent"
-                        android:layout_alignParentEnd="true"/>
-                </RelativeLayout>
+                        android:ellipsize="end"
+                        android:gravity="end|right"
+                        android:inputType="textMultiLine"
+                        android:maxLines="3"
+                        android:minLines="2"
+                        android:scrollHorizontally="false"
+                        android:text="House 2 Satellite town Gujranwala"
+                        android:textColor="#565454" />
+                </LinearLayout>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"

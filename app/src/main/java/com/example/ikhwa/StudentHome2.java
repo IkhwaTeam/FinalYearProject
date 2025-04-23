@@ -95,7 +95,7 @@ public class StudentHome2 extends AppCompatActivity {
                 startActivity(new Intent(StudentHome2.this, stdprofile.class));
                 return true;
             } else if (itemId == R.id.nav_home) {
-                startActivity(new Intent(StudentHome2.this, std_crs_reg.class));
+                startActivity(new Intent(StudentHome2.this, StudentHome2.class));
                 return true;
             } else if (itemId == R.id.nav_setting) {
                 startActivity(new Intent(StudentHome2.this, std_crs_att.class));
@@ -200,7 +200,7 @@ public class StudentHome2 extends AppCompatActivity {
         TextView intent_btn = myDialog.findViewById(R.id.crs_reg);
         if (intent_btn != null) {
             intent_btn.setOnClickListener(view -> {
-                Intent intent = new Intent(StudentHome2.this, std_crs_reg.class);
+                Intent intent = new Intent(StudentHome2.this, StudentHome2.class);
                 startActivity(intent);
             });
         }
