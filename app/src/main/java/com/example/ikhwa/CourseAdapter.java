@@ -2,6 +2,7 @@ package com.example.ikhwa;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.List;
 
@@ -37,44 +40,20 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
 
     @Override
     public void onBindViewHolder(@NonNull CourseViewHolder holder, int position) {
-        // Getting current course
         Course course = courseList.get(position);
 
-        // course data to UI components
         holder.title.setText(course.getTitle());
         holder.duration.setText(course.getDuration());
-        holder.progressBar.setProgress(0); // Default progress
-        holder.enrollmentStatus.setText("Not enrolled"); // Default status
-
-        // default button text
+        holder.progressBar.setProgress(0);
+        holder.enrollmentStatus.setText("Not enrolled");
         holder.viewButton.setText("Enroll Now");
 
-        // Handle View button click
         holder.viewButton.setOnClickListener(v -> {
-            // Inflate the custom dialog view
-            View dialogView = LayoutInflater.from(context).inflate(R.layout.course_dialog_show, null);
-
-            // Initializing dialog components
-            ImageView closeBtn = dialogView.findViewById(R.id.close_btn);
-            Button enrollButton = dialogView.findViewById(R.id.crs_reg);
-
-            // Building and showing dialog
-            AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setView(dialogView);
-            AlertDialog dialog = builder.create();
-            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-            dialog.show();
-
-            // Close button behavior
-            closeBtn.setOnClickListener(view -> dialog.dismiss());
-
-            // Enroll button behavior
-            enrollButton.setOnClickListener(view -> {
-                Toast.makeText(context, "Enrolled in: " + course.getTitle(), Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
-            });
+            Course selectedCourse = courseList.get(position);
+            showBottomSheet(context, selectedCourse);
         });
     }
+
 
     @Override
     public int getItemCount() {
@@ -96,4 +75,30 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
             viewButton = itemView.findViewById(R.id.main_button);
         }
     }
+    private void showBottomSheet(Context context, Course course) {
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context);
+        View view = LayoutInflater.from(context).inflate(R.layout.course_bottom_sheet, null);
+
+        TextView title = view.findViewById(R.id.bottom_sheet_course_title);
+        TextView duration = view.findViewById(R.id.bottom_sheet_course_duration);
+        TextView description = view.findViewById(R.id.bottom_sheet_course_description);
+        Button confirmBtn = view.findViewById(R.id.confirm_enroll_btn);
+
+
+        title.setText(course.getTitle());
+        duration.setText(course.getDuration());
+        description.setText(course.getDescription());
+
+        bottomSheetDialog.setContentView(view);
+        bottomSheetDialog.show();
+
+        confirmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "You have enrolled successfully!", Toast.LENGTH_SHORT).show();
+                bottomSheetDialog.dismiss();
+            }
+        });
+    }
+
 }
