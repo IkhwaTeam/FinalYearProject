@@ -5,11 +5,13 @@
     android:layout_marginEnd="8dp"
     android:orientation="vertical"
     android:background="@drawable/std_shape1"
-    android:padding="12dp">
+    android:padding="12dp"
+    >
 
 
 
     <TextView
+        android:id="@+id/course_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Asma e Husna"
@@ -19,6 +21,7 @@
         android:layout_marginTop="4dp"/>
 
     <TextView
+        android:id="@+id/course_duration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="20 days"
@@ -36,6 +39,7 @@
         android:max="100"
         android:progressDrawable="@drawable/custom_progress"/>
     <TextView
+        android:id="@+id/enroll_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Not enrolled"
@@ -48,7 +52,7 @@
         android:layout_height="40dp"
         android:layout_below="@id/tvProgress"
         android:layout_marginTop="8dp"
-        android:text="View"
+        android:text="Enroll Now"
         android:textColor="@color/white"
         android:backgroundTint="#3F45EC"
         android:background="@drawable/shape5"
