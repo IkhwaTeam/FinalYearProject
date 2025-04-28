@@ -1,8 +1,11 @@
 package com.example.ikhwa;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,7 +26,6 @@ public class TeacherListActivity extends AppCompatActivity implements TeacherFor
     private List<TeacherDetails> teacherList = new ArrayList<>();
     private HashMap<String, TeacherDetails> teacherDataMap = new HashMap<>();
     private Button back_button;
-
     private DatabaseReference teacherRef;
 
     @Override
@@ -48,6 +50,8 @@ public class TeacherListActivity extends AppCompatActivity implements TeacherFor
 
         back_button = findViewById(R.id.btn_back);
         back_button.setOnClickListener(v -> finish());
+
+
     }
 
     private void fetchTeachersFromFirebase() {

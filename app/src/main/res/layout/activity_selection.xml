@@ -1,137 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/white"
-    android:paddingBottom="10dp">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/container"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="775dp"
+        android:gravity="center"
+        android:background="#FFFFFF">
 
-        <LinearLayout
-            android:id="@+id/selection_header"
+        <!-- Image at bottom -->
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="46dp"
+            android:contentDescription="Selection Illustration"
+            android:scaleType="fitCenter"
+            android:src="@drawable/logo" />
+
+        <!-- Selection Title -->
+        <TextView
+            android:id="@+id/selectionTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-20dp"
-            android:background="@drawable/shape"
-            android:elevation="8dp"
+            android:layout_below="@+id/imageView"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="25dp"
             android:gravity="center"
-            android:orientation="vertical"
+            android:text="Select Account Type"
+            android:textColor="#242E67"
+            android:textSize="28sp"
+            android:textStyle="bold" />
 
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="VisualLintBounds">
-            <!-- Logo ImageView -->
-            <ImageView
-                android:id="@+id/logoImage"
-                android:layout_width="100dp"
-                android:layout_height="108dp"
-                android:layout_marginTop="70dp"
-                android:src="@drawable/logo" />
-            <!-- Title TextView -->
-            <TextView
-                android:id="@+id/titleText"
+        <!-- Selection Description -->
+        <TextView
+            android:id="@+id/selectionDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/selectionTitle"
+            android:layout_marginTop="8dp"
+            android:layout_marginHorizontal="24dp"
+            android:text="Please choose your account type to continue"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:textColor="#242E67" />
+
+        <!-- Card Container -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/selectionCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/selectionDescription"
+            android:layout_marginTop="36dp"
+            android:layout_marginHorizontal="24dp"
+            android:backgroundTint="#FFFFFF"
+            android:layout_margin="30dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="8dp">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="40dp"
-                android:gravity="center"
-                android:padding="10dp"
-                android:text=" Select Account Type"
-                android:textColor="@color/white"
-                android:textSize="32sp"
-                android:textStyle="bold" />
-        </LinearLayout>
+                android:orientation="vertical"
+                android:padding="16dp">
 
-        <RelativeLayout
-            android:id="@+id/buttonLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:gravity="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/selection_header">
+                <!-- Teacher Option -->
+                <RelativeLayout
+                    android:id="@+id/teacherOption"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:background="@drawable/option_selector_bg"
+                    android:padding="10dp"
+                    android:layout_marginBottom="16dp">
 
-            <!-- Student Button -->
-            <Button
-                android:id="@+id/studentButton"
-                android:layout_width="170dp"
-                android:layout_height="170dp"
-                android:background="@drawable/g1_1"
-                android:contentDescription="Student"
-                android:contextClickable="true"
-                android:textAllCaps="false"
-                android:textColor="#205CDC"
-                android:textSize="22dp"
-                android:textStyle="bold" />
+                    <ImageView
+                        android:id="@+id/teacherIcon"
+                        android:layout_width="85dp"
+                        android:layout_height="90dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentStart="true"
+                        android:src="@drawable/teacher_op"
+                        android:contentDescription="Teacher Icon" />
 
-            <!-- Teacher Button -->
-            <Button
-                android:id="@+id/teacherButton"
-                android:layout_width="170dp"
-                android:layout_height="170dp"
-                android:layout_marginStart="5dp"
-                android:layout_toEndOf="@id/studentButton"
-                android:background="@drawable/g2_1"
-                android:textAllCaps="false"
-                android:textColor="#205CDC"
-                android:textSize="22dp"
-                android:textStyle="bold" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@id/teacherIcon"
+                        android:layout_marginStart="10dp"
+                        android:orientation="vertical">
 
-        </RelativeLayout>
+                        <TextView
+                            android:id="@+id/teacherText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Teacher"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            android:textColor="#F44336" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/buttonLayout">
+                    </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="35dp"
-                android:layout_marginEnd="35dp"
-                android:padding="5dp"
-                android:text="Student"
-                android:textColor="#5BABF0"
-                android:textSize="24sp"
-                android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:layout_marginEnd="30dp"
-                android:padding="5dp"
-                android:text="Teacher"
-                android:textColor="#5BABF0"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-        </LinearLayout>
+                </RelativeLayout>
+
+                <!-- Student Option -->
+                <RelativeLayout
+                    android:id="@+id/studentOption"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:background="@drawable/option_selector_bg"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/studentIcon"
+                        android:layout_width="74dp"
+                        android:layout_height="80dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentStart="true"
+                        android:src="@drawable/student_op"
+                        android:contentDescription="Student Icon" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@id/studentIcon"
+                        android:layout_marginStart="16dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/studentText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Student"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            android:textColor="#F44336" />
+
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
         <!-- Continue Button -->
-        <Button
-            android:id="@+id/continueButton"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/continueButtonCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="250dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="40dp"
-            android:background="@drawable/shape4"
-            android:elevation="10dp"
-            android:text="CONTINUE"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:translationZ="5dp"
-            app:layout_constraintBottom_toBottomOf="@id/container"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/buttonLayout" />
+            android:layout_below="@id/selectionCard"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="36dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="#256F43">
+
+            <TextView
+                android:id="@+id/continueButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Continue"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:padding="16dp"
+                android:gravity="center" />
+        </androidx.cardview.widget.CardView>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 </ScrollView>

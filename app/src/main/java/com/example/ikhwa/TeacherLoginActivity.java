@@ -1,12 +1,15 @@
 package com.example.ikhwa;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,7 +28,10 @@ public class TeacherLoginActivity extends AppCompatActivity {
     private TextView errorText;
     private ProgressBar progressBar;
     private FirebaseAuth mAuth;
+    ImageView passwordToggle;
     private DatabaseReference teacherRef, adminRef;
+    boolean isPasswordVisible = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +50,29 @@ public class TeacherLoginActivity extends AppCompatActivity {
         adminRef = FirebaseDatabase.getInstance().getReference("Admin");
 
         loginButton.setOnClickListener(v -> validateTeacherLogin());
+
+        passwordToggle = findViewById(R.id.password_toggle);
+        // Password toggle click event
+        passwordToggle.setOnClickListener(v -> {
+            // Save current Typeface
+            Typeface currentTypeface = passwordInput.getTypeface();
+
+            if (isPasswordVisible) {
+                passwordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                passwordToggle.setImageResource(R.drawable.ic_visible_off); // closed eye icon
+                isPasswordVisible = false;
+            } else {
+                passwordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                passwordToggle.setImageResource(R.drawable.ic_password); // open eye icon
+                isPasswordVisible = true;
+            }
+
+            // Restore Typeface to keep the font style same
+            passwordInput.setTypeface(currentTypeface);
+
+            // Move cursor to the end after toggling
+            passwordInput.setSelection(passwordInput.length());
+        });
     }
 
     private void validateTeacherLogin() {

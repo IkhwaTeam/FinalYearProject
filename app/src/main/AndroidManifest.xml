@@ -45,6 +45,7 @@
         </activity> <!-- ✅ Ensure other activities are properly defined -->
         <activity
             android:name=".AdminHomeActivity"
+
             android:exported="false" />
 
         <activity
