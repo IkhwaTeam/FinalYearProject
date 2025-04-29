@@ -3,10 +3,8 @@ package com.example.ikhwa;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,11 +45,13 @@ public class StudentHome2 extends AppCompatActivity {
     List<Course> courseList;
     CourseAdapter courseAdapter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_student_home2);
+        setContentView(R.layout.student_home2);
+
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -88,7 +88,7 @@ public class StudentHome2 extends AppCompatActivity {
         myDialog = new Dialog(this);
         myDialog2 = new Dialog(this);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.nav_profile) {
@@ -98,7 +98,7 @@ public class StudentHome2 extends AppCompatActivity {
                 startActivity(new Intent(StudentHome2.this, StudentHome2.class));
                 return true;
             } else if (itemId == R.id.nav_setting) {
-                startActivity(new Intent(StudentHome2.this, std_crs_att.class));
+                startActivity(new Intent(StudentHome2.this, SettingActivity.class));
                 return true;
             }
             return false;

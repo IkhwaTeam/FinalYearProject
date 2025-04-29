@@ -154,6 +154,7 @@
                             android:textSize="14sp"/>
                     </LinearLayout>
 
+
                     <ProgressBar
                         android:layout_width="80dp"
                         android:layout_height="50dp"

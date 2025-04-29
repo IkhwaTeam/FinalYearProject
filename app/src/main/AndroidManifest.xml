@@ -20,6 +20,21 @@
             android:name=".OnboardActivity"
             android:exported="false" />
         <activity
+            android:name=".SettingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TermsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PrivacyPolicyActivity4"
+            android:exported="false" />
+        <activity
+            android:name=".AboutUsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HelpActivity"
+            android:exported="false" />
+        <activity
             android:name=".StudentNotificationListActivity"
             android:exported="false" />
         <activity
