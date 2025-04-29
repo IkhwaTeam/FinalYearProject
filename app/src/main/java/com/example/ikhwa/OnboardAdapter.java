@@ -51,8 +51,8 @@ public class OnboardAdapter extends RecyclerView.Adapter<OnboardAdapter.Onboardi
             super(itemView);
             title = itemView.findViewById(R.id.textTitle);
             description = itemView.findViewById(R.id.textDescription);
-            imageView = itemView.findViewById(R.id.imageView);   // Image that changes every screen
-            logoView = itemView.findViewById(R.id.logoView);     // Logo only on first screen
+            imageView = itemView.findViewById(R.id.imageView);
+            logoView = itemView.findViewById(R.id.logoView);
             btnGetStarted = itemView.findViewById(R.id.btnGetStarted);
         }
 
