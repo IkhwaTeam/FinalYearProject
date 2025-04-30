@@ -1,34 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/termsScrollView"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:padding="24dp"
-    android:background="#FFFFFF">
+    android:background="#FFFFFF"
+    tools:context=".TermsActivity">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Privacy Policy"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:id="@+id/line1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:text="We value your privacy."
+        android:textSize="16sp"
+        android:textColor="#444444"
+        android:layout_marginBottom="8dp" />
 
-        <TextView
-            android:id="@+id/termsTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Terms and Conditions"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="#000000"
-            android:layout_marginBottom="16dp" />
+    <TextView
+        android:id="@+id/line2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Your personal data is safe with us."
+        android:textSize="16sp"
+        android:textColor="#444444"
+        android:layout_marginBottom="8dp" />
 
-        <TextView
-            android:id="@+id/termsContent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="By using this app, you agree to the following terms and conditions:\n\n1. You will not misuse the app or its services.\n2. All user data is handled with care and in compliance with privacy policies.\n3. Unauthorized access or attempts to manipulate the system will result in action.\n4. The app may change or update features without prior notice.\n5. Continued use of the app means acceptance of updated terms.\n\nIf you do not agree with these terms, please discontinue use of the app.\n\nFor any questions, contact us at: legal@example.com"
-            android:textSize="16sp"
-            android:lineSpacingExtra="6dp"
-            android:textColor="#444444" />
+    <TextView
+        android:id="@+id/line3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="We do not share data with third parties."
+        android:textSize="16sp"
+        android:textColor="#444444"
+        android:layout_marginBottom="8dp" />
 
-    </LinearLayout>
-</ScrollView>
+    <TextView
+        android:id="@+id/line4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="We only use data to improve your experience."
+        android:textSize="16sp"
+        android:textColor="#444444"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:id="@+id/line5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="By using this app you agree to our policy."
+        android:textSize="16sp"
+        android:textColor="#444444"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:id="@+id/line6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="For queries contact support@example.com"
+        android:textSize="16sp"
+        android:textColor="#444444" />
+
+</LinearLayout>

@@ -1,34 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/aboutUsScrollView"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="24dp"
-    android:background="#FFFFFF">
+    android:padding="35dp"
+    android:background="#FFFFFF"
+    tools:context=".AboutUsActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:text="About Us"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:id="@+id/aboutTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="About Us"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="#000000"
-            android:layout_marginBottom="16dp" />
+    <TextView
+        android:id="@+id/line1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="This app is developed to manage attendance,"
+        android:textSize="16sp"
+        android:textColor="#444444"
+        app:layout_constraintTop_toBottomOf="@id/titleText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
 
-        <TextView
-            android:id="@+id/aboutContent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Our app is developed to enhance the learning experience for students and simplify management for teachers and administrators.\n\nWe aim to provide:\n\n- Easy student attendance tracking\n- Real-time notifications\n- Course and group management\n\nOur team is committed to continuous improvement. If you have suggestions or feedback, feel free to reach out.\n\nContact: info@example.com"
-            android:textSize="16sp"
-            android:lineSpacingExtra="6dp"
-            android:textColor="#444444" />
+    <TextView
+        android:id="@+id/line2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="notifications, and user information"
+        android:textSize="16sp"
+        android:textColor="#444444"
+        app:layout_constraintTop_toBottomOf="@id/line1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp" />
 
-    </LinearLayout>
-</ScrollView>
+    <TextView
+        android:id="@+id/line3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="for students, teachers, and admins."
+        android:textSize="16sp"
+        android:textColor="#444444"
+        app:layout_constraintTop_toBottomOf="@id/line2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/line4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Our goal is to provide a simple,"
+        android:textSize="16sp"
+        android:textColor="#444444"
+        app:layout_constraintTop_toBottomOf="@id/line3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/line5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="user-friendly experience with real-time updates."
+        android:textSize="16sp"
+        android:textColor="#444444"
+        app:layout_constraintTop_toBottomOf="@id/line4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/line6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="We are constantly improving our app"
+        android:textSize="16sp"
+        android:textColor="#444444"
+        app:layout_constraintTop_toBottomOf="@id/line5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/line7"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="to serve you better."
+        android:textSize="16sp"
+        android:textColor="#444444"
+        app:layout_constraintTop_toBottomOf="@id/line6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

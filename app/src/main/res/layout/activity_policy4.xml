@@ -1,34 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/policyScrollView"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:padding="24dp"
-    android:background="#FFFFFF">
+    android:background="#FFFFFF"
+    tools:context=".PrivacyPolicyActivity4">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Privacy Policy"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:id="@+id/line1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:text="We value your privacy."
+        android:textSize="16sp"
+        android:textColor="#444444"
+        android:layout_marginBottom="8dp" />
 
-        <TextView
-            android:id="@+id/policyTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Privacy Policy"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="#000000"
-            android:layout_marginBottom="16dp" />
+    <TextView
+        android:id="@+id/line2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Your personal data is safe with us."
+        android:textSize="16sp"
+        android:textColor="#444444"
+        android:layout_marginBottom="8dp" />
 
-        <TextView
-            android:id="@+id/policyContent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="We are committed to protecting your privacy. This policy outlines how we collect, use, and safeguard your information:\n\n1. We collect basic user information to improve app functionality.\n2. Your data is never shared with third parties without consent.\n3. All information is stored securely.\n4. You can contact us anytime to request data removal.\n5. We may update this policy to reflect changes in our practices.\n\nBy using this app, you agree to this privacy policy.\n\nContact for queries: privacy@example.com"
-            android:textSize="16sp"
-            android:lineSpacingExtra="6dp"
-            android:textColor="#444444" />
+    <TextView
+        android:id="@+id/line3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="We do not share data with third parties."
+        android:textSize="16sp"
+        android:textColor="#444444"
+        android:layout_marginBottom="8dp" />
 
-    </LinearLayout>
-</ScrollView>
+    <TextView
+        android:id="@+id/line4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="We only use data to improve your experience."
+        android:textSize="16sp"
+        android:textColor="#444444"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:id="@+id/line5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="By using this app you agree to our policy."
+        android:textSize="16sp"
+        android:textColor="#444444"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:id="@+id/line6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="For queries contact support@example.com"
+        android:textSize="16sp"
+        android:textColor="#444444" />
+
+</LinearLayout>
