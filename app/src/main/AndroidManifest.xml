@@ -17,6 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:targetApi="31">
+
         <activity
             android:name=".OnboardActivity"
             android:exported="false" />
@@ -34,12 +35,6 @@
             android:exported="false" />
         <activity
             android:name=".HelpActivity"
-            android:exported="false" />
-        <activity
-            android:name=".StudentNotificationListActivity"
-            android:exported="false" />
-        <activity
-            android:name=".NotificationDesignActivity"
             android:exported="false" />
         <activity
             android:name=".StdEditProfileActivity"

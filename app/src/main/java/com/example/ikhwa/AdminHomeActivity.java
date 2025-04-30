@@ -1,6 +1,8 @@
 package com.example.ikhwa;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -8,14 +10,19 @@ import android.text.style.ForegroundColorSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageButton;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 public class AdminHomeActivity extends AppCompatActivity {
 
     private ImageButton courseBtn, teacherBtn, studentBtn, notificationBtn, menuBtn;
+    private static final String TAG = "AdminHomeActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,20 +73,34 @@ public class AdminHomeActivity extends AppCompatActivity {
 
         popupMenu.setOnMenuItemClickListener(item -> {
             if (item.getItemId() == R.id.menu_logout) {
-                Intent intent = new Intent(AdminHomeActivity.this, TeacherLoginActivity.class);
-                startActivity(intent);
-                finish();
+                logoutUser();
                 return true;
             }
             return false;
         });
 
         popupMenu.show();
-
     }
 
+    private void logoutUser() {
+        Log.d(TAG, "Logging out user");
 
-    // These two methods are optional now because you are handling the menu through a popup
+        // Clear the saved role from SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences(SplashActivity.PREF_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove(SplashActivity.ROLE_KEY);  // Remove the role stored
+        editor.apply();
+
+        // Log the user out from Firebase Authentication
+        FirebaseAuth.getInstance().signOut();
+
+        // Redirect to login screen after logout
+        Intent intent = new Intent(AdminHomeActivity.this, SelectionActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish(); // Ensure that the AdminHomeActivity is closed
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.logout, menu);
@@ -89,11 +110,27 @@ public class AdminHomeActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.menu_logout) {
-            Intent intent = new Intent(this, TeacherLoginActivity.class);
-            startActivity(intent);
-            finish();
+            logoutUser();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
+    // Override the back button behavior
+    @SuppressLint("MissingSuperCall")
+    @Override
+    public void onBackPressed() {
+        // Remove super.onBackPressed() to stop navigating back
+        new AlertDialog.Builder(this)
+                .setTitle("Exit Application")
+                .setMessage("Are you sure you want to exit?")
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    // Close all activities
+                    finishAffinity();
+                })
+                .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                .create()
+                .show();
+    }
+
 }

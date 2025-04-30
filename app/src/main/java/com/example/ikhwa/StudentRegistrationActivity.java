@@ -156,7 +156,27 @@ public class StudentRegistrationActivity extends AppCompatActivity {
 
         progressBar.setVisibility(View.VISIBLE);
 
-        // Register student in Firebase Authentication
+        // Check if the email is already in use
+        mAuth.fetchSignInMethodsForEmail(email)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        // If the list is not empty, the email already exists
+                        if (!task.getResult().getSignInMethods().isEmpty()) {
+                            progressBar.setVisibility(View.GONE);
+                            emailInput.setError("This email is already registered");
+                            return;
+                        }
+
+                        // Proceed with registration if email is not already used
+                        registerUser(email, password, name, fathername, age, phone, address);
+                    } else {
+                        progressBar.setVisibility(View.GONE);
+                        errorText.setText("Error checking email: " + task.getException().getMessage());
+                        errorText.setVisibility(View.VISIBLE);
+                    }
+                });
+    }
+    private void registerUser(String email, String password, String name, String fathername, String age, String phone, String address) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -174,8 +194,6 @@ public class StudentRegistrationActivity extends AppCompatActivity {
                             studentData.put("phone", phone);
                             studentData.put("address", address);
                             studentData.put("password", password);
-
-
 
                             databaseReference.child(userId).setValue(studentData)
                                     .addOnSuccessListener(aVoid -> {

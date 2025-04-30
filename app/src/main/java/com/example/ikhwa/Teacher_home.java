@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.ChildEventListener;
@@ -29,7 +30,7 @@ public class Teacher_home extends AppCompatActivity {
 
     Button t_staff_see_more, t_course_see_more;
     TextView tv_analytics;
-     // RecyclerView for notifications
+    // RecyclerView for notifications
     TeacherAdapter teacherAdapter;  // Adapter for RecyclerView
     List<TeacherDetails> teacherList = new ArrayList<>();  // List for teacher data
 
@@ -93,5 +94,27 @@ public class Teacher_home extends AppCompatActivity {
 
     private void loadTeacherData() {
         // Here you can load teacher data for RecyclerView if needed
+    }
+
+    // Override the back button behavior to exit the app instead of going back to selection screen
+    @Override
+    public void onBackPressed() {
+        // Show a confirmation dialog when back button is pressed
+        super.onBackPressed();
+        new AlertDialog.Builder(this)
+                .setTitle("Exit Application")
+                .setMessage("Are you sure you want to exit?")
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    // If user confirms, exit the app completely
+                    finishAffinity();
+                    // Alternative approach if finishAffinity() doesn't work as expected
+                    // Intent intent = new Intent(Intent.ACTION_MAIN);
+                    // intent.addCategory(Intent.CATEGORY_HOME);
+                    // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    // startActivity(intent);
+                })
+                .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                .create()
+                .show();
     }
 }

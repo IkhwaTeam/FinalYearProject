@@ -122,9 +122,20 @@ public class SettingActivity extends AppCompatActivity {
                 .setTitle("Logout")
                 .setMessage("Are you sure you want to log out?")
                 .setPositiveButton("Yes", (dialog, which) -> {
+                    // Clear all relevant SharedPreferences on logout
+                    getSharedPreferences("app_prefs", MODE_PRIVATE).edit().clear().apply();
+
+                    // Also clear the user role preferences used in SplashActivity
+                    getSharedPreferences(SplashActivity.PREF_NAME, MODE_PRIVATE).edit().clear().apply();
+
+                    // Sign out from Firebase
                     authProfile.signOut();
+
+                    // Show Toast message
                     showToast("Logged out successfully.");
-                    Intent intent = new Intent(this, SettingActivity.class);
+
+                    // Navigate to the SelectionActivity
+                    Intent intent = new Intent(this, SelectionActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     finish();
@@ -133,6 +144,7 @@ public class SettingActivity extends AppCompatActivity {
                 .create()
                 .show();
     }
+
 
     private void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();

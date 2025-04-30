@@ -1,6 +1,7 @@
 package com.example.ikhwa;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.InputType;
@@ -13,8 +14,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,6 +30,7 @@ public class StudentLoginActivity extends AppCompatActivity {
     ImageView passwordToggle;
     FirebaseAuth mAuth;
     boolean isPasswordVisible = false;
+    private static final String TAG = "StudentLoginActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,25 @@ public class StudentLoginActivity extends AppCompatActivity {
         passwordToggle = findViewById(R.id.password_toggle);
 
         mAuth = FirebaseAuth.getInstance();
+
+        // Auto-login check
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            // Check if the current user is already logged in as a student
+            SharedPreferences prefs = getSharedPreferences(SplashActivity.PREF_NAME, MODE_PRIVATE);
+            String savedRole = prefs.getString(SplashActivity.ROLE_KEY, "");
+
+            if ("student".equals(savedRole)) {
+                Log.d(TAG, "Current user is a student, navigating to StudentHome2");
+                startActivity(new Intent(StudentLoginActivity.this, StudentHome2.class));
+                finish();
+            } else if (!TextUtils.isEmpty(savedRole)) {
+                // User is logged in but not as a student
+                Log.d(TAG, "User logged in as: " + savedRole + ", sign out first");
+                Toast.makeText(this, "Please log out from your " + savedRole + " account first", Toast.LENGTH_SHORT).show();
+                // You might want to handle this case differently
+            }
+        }
 
         // Password toggle click event
         passwordToggle.setOnClickListener(v -> {
@@ -105,7 +126,24 @@ public class StudentLoginActivity extends AppCompatActivity {
                         FirebaseUser user = mAuth.getCurrentUser();
                         Toast.makeText(StudentLoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
 
-                        // Redirect to home screen
+                        // IMPORTANT: Use the same preference name and key as in SplashActivity
+                        SharedPreferences prefs = getSharedPreferences(SplashActivity.PREF_NAME, MODE_PRIVATE);
+                        String existingRole = prefs.getString(SplashActivity.ROLE_KEY, "");
+
+                        if (!existingRole.isEmpty() && !existingRole.equals("student")) {
+                            // Someone already logged in with another role, block access
+                            Toast.makeText(this, "Another user is logged in. Please logout first.", Toast.LENGTH_SHORT).show();
+                            // Sign out this user as we're not allowing the login
+                            mAuth.signOut();
+                            finish();
+                            return;
+                        }
+
+                        // Save role to shared preferences
+                        prefs.edit().putString(SplashActivity.ROLE_KEY, "student").apply();
+                        Log.d(TAG, "Saved role 'student' in SharedPreferences");
+
+                        // Redirect to StudentHome2 activity
                         Intent intent = new Intent(StudentLoginActivity.this, StudentHome2.class);
                         startActivity(intent);
                         finish();
