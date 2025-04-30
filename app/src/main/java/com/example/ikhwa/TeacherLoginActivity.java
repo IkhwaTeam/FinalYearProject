@@ -27,7 +27,7 @@ public class TeacherLoginActivity extends AppCompatActivity {
 
     private EditText emailInput, passwordInput, teacherIdInput;
     private Button loginButton;
-    private TextView errorText;
+    private TextView errorText, forgetPasswordText;
     private ProgressBar progressBar;
     private FirebaseAuth mAuth;
     private ImageView passwordToggle;
@@ -65,14 +65,19 @@ public class TeacherLoginActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.teacher_btn_login);
         errorText = findViewById(R.id.error_message);
         progressBar = findViewById(R.id.progress_bar);
+        forgetPasswordText = findViewById(R.id.forgot_password);
 
         teacherRef = FirebaseDatabase.getInstance().getReference("Teacher");
         adminRef = FirebaseDatabase.getInstance().getReference("Admin");
 
-        loginButton.setOnClickListener(v -> validateTeacherLogin());
+        // Forget password functionality
+        forgetPasswordText.setOnClickListener(v -> {
+            startActivity(new Intent(TeacherLoginActivity.this, ResetPasswordActivity.class));
+        });
 
+
+        // Password Toggle Functionality
         passwordToggle = findViewById(R.id.password_toggle);
-        // Password toggle click event
         passwordToggle.setOnClickListener(v -> {
             // Save current Typeface
             Typeface currentTypeface = passwordInput.getTypeface();
@@ -93,7 +98,23 @@ public class TeacherLoginActivity extends AppCompatActivity {
             // Move cursor to the end after toggling
             passwordInput.setSelection(passwordInput.length());
         });
+
+        loginButton.setOnClickListener(v -> validateTeacherLogin());
     }
+
+    // Password Reset Method
+    private void resetPassword(String email) {
+        FirebaseAuth.getInstance().sendPasswordResetEmail(email)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(TeacherLoginActivity.this, "Password reset link sent to your email", Toast.LENGTH_LONG).show();
+                        finish();
+                    } else {
+                        Toast.makeText(TeacherLoginActivity.this, "Failed to send reset link: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
+
 
     private void validateTeacherLogin() {
         String email = emailInput.getText().toString().trim();

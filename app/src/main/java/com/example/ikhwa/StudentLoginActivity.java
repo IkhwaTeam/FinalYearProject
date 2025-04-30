@@ -26,7 +26,7 @@ public class StudentLoginActivity extends AppCompatActivity {
     EditText stEmail, stPassword;
     Button stLoginBtn, stSignupBtn;
     ProgressBar progressBar;
-    TextView errorMessage;
+    TextView errorMessage, resetPassword;
     ImageView passwordToggle;
     FirebaseAuth mAuth;
     boolean isPasswordVisible = false;
@@ -44,6 +44,7 @@ public class StudentLoginActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progress_bar);
         errorMessage = findViewById(R.id.error_message);
         passwordToggle = findViewById(R.id.password_toggle);
+        resetPassword = findViewById(R.id.forgot_password);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -96,6 +97,38 @@ public class StudentLoginActivity extends AppCompatActivity {
             Intent intent = new Intent(StudentLoginActivity.this, StudentRegistrationActivity.class);
             startActivity(intent);
             finish();
+        });
+
+        // Reset password click event
+        resetPassword.setOnClickListener(v -> {
+            String email = stEmail.getText().toString().trim();
+
+            if (TextUtils.isEmpty(email)) {
+                Toast.makeText(StudentLoginActivity.this, "Please enter your email address", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                Toast.makeText(StudentLoginActivity.this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            progressBar.setVisibility(View.VISIBLE);
+            mAuth.sendPasswordResetEmail(email)
+                    .addOnCompleteListener(task -> {
+                        progressBar.setVisibility(View.GONE);
+
+                        if (task.isSuccessful()) {
+                            Toast.makeText(StudentLoginActivity.this, "Reset link sent to your email", Toast.LENGTH_SHORT).show();
+                            finish(); // Dismiss the screen after sending reset link
+                        } else {
+                            Toast.makeText(StudentLoginActivity.this, "Failed to send reset email", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(StudentLoginActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    });
         });
     }
 
