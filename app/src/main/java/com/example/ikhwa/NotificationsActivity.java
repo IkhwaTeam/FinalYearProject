@@ -117,8 +117,14 @@ public class NotificationsActivity extends AppCompatActivity {
                     String key = snapshot.getKey();
                     String title = snapshot.child("title").getValue(String.class);
                     String description = snapshot.child("description").getValue(String.class);
-                    long timestamp = snapshot.child("timestamp").getValue(Long.class);
-                    addNotificationToLayout(key, title, description, timestamp, false);
+                    Long timestampObj = snapshot.child("timestamp").getValue(Long.class);
+
+                    if (timestampObj != null) {
+                        long timestamp = timestampObj;
+                        addNotificationToLayout(key, title, description, timestamp, false);
+                    } else {
+                        Toast.makeText(this, "Skipped a notification with no timestamp", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
