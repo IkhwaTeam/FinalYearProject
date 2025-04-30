@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:text="Welcome Back"
             android:textSize="30sp"
-            android:textColor="#242E67"
+            android:textColor="#3F51B5"
             android:textStyle="bold"
             android:gravity="center"
             android:fontFamily="sans-serif"
@@ -37,7 +37,7 @@
             android:text="Enter your details below"
             android:layout_marginTop="8dp"
             android:textSize="16sp"
-            android:textColor="#242E67"
+            android:textColor="#3F51B5"
             android:gravity="center"
             android:fontFamily="sans-serif"
             android:background="@color/white"/>
@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             android:hint="Teacher Email"
             android:textColor="@color/black"
-            android:textColorHint="#80000000"
+            android:textColorHint="#70262A43"
             android:textSize="20sp"
             android:fontFamily="sans-serif"
             android:inputType="textEmailAddress"
@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:hint="Teacher ID"
             android:textColor="@color/black"
-            android:textColorHint="#80000000"
+            android:textColorHint="#70262A43"
             android:textSize="20sp"
             android:fontFamily="sans-serif"
             android:inputType="textEmailAddress"
@@ -99,7 +99,7 @@
                 android:padding="10dp"
                 android:textSize="20sp"
                 android:fontFamily="sans-serif"
-                android:textColorHint="#80000000"
+                android:textColorHint="#70262A43"
                 android:background="@android:color/transparent"/>
 
             <ImageView
@@ -131,8 +131,7 @@
             android:textColor="@color/white"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="10dp"
-            android:backgroundTint="#256F43"
-            android:background="@drawable/shape5"/>
+            android:background="@drawable/form_btn3"/>
 
     </LinearLayout>
 </ScrollView>

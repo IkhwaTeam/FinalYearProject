@@ -29,11 +29,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ikhwa"
-            android:textColor="@color/blue"
+            android:textColor="#3F51B5"
             android:layout_marginTop="25dp"
             android:layout_marginStart="3dp"
             android:textStyle="bold" />
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/notification_time"
+            android:layout_marginTop="25dp"
+            android:textSize="12sp"
+            android:textColor="#A0A0A2"
+            android:layout_marginStart="5dp"/>
 
     </LinearLayout>
 
@@ -42,7 +49,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Course Uploaded"
-        android:textColor="@color/blue"
+        android:textColor="#3F51B5"
         android:textSize="18sp"
         android:textStyle="bold"
         android:layout_marginStart="15dp"

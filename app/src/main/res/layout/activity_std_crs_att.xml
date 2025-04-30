@@ -9,10 +9,11 @@
     <!-- Header Section with Gradient Background -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:background="@drawable/header_background"
+        android:layout_height="230dp"
+        android:background="@drawable/shape"
         android:orientation="vertical"
         android:padding="15dp"
+        android:layout_marginTop="-18dp"
         android:gravity="center">
 
         <TextView
@@ -40,7 +41,7 @@
         android:layout_height="wrap_content"
         android:text="Muhammad Ahmad"
         android:textSize="18sp"
-        android:textColor="@color/black"
+        android:textColor="#3F51B5"
         android:paddingTop="18dp"
         android:paddingLeft="18dp"
         android:textStyle="bold"/>
@@ -49,7 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="AH24"
-        android:textColor="@color/black"
+        android:textColor="#3F51B5"
         android:textSize="14sp"
         android:paddingLeft="18dp"/>
 
@@ -85,7 +86,7 @@
         android:text="Attendance Summary"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:textColor="@color/black"
+        android:textColor="#3F51B5"
         android:layout_marginTop="20dp"
         android:paddingLeft="18dp"/>
 
@@ -104,6 +105,7 @@
             android:background="@drawable/card_background"
             android:padding="12dp"
             android:gravity="center"
+            android:layout_margin="8dp"
             android:elevation="4dp">
 
             <TextView
@@ -116,10 +118,6 @@
                 android:textColor="@color/green"/>
         </LinearLayout>
 
-        <View
-            android:layout_width="10dp"
-            android:layout_height="match_parent"/>
-
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -127,6 +125,8 @@
             android:background="@drawable/card_background"
             android:padding="12dp"
             android:gravity="center"
+            android:layout_margin="8dp"
+
             android:elevation="4dp">
 
             <TextView
@@ -139,9 +139,6 @@
                 android:textColor="@color/red"/>
         </LinearLayout>
 
-        <View
-            android:layout_width="10dp"
-            android:layout_height="match_parent"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -150,6 +147,8 @@
             android:background="@drawable/card_background"
             android:padding="12dp"
             android:gravity="center"
+            android:layout_margin="8dp"
+
             android:elevation="4dp">
 
             <TextView

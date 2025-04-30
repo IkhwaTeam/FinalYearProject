@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:orientation="vertical"
-            android:background="@drawable/shapetr1"
+            android:background="@drawable/shape"
             android:gravity="center"
             android:layout_marginTop="-18dp"
             android:padding="10dp">

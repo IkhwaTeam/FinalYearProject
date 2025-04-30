@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="20dp"
     android:orientation="vertical"
-    android:background="@color/primary"
+    android:background="#3F51B5"
     app:cardBackgroundColor="@android:color/transparent"
     app:cardElevation="8dp">
 
@@ -74,10 +74,10 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textColor="@color/nav_item_color"
+        android:textColor="@color/white"
         android:textSize="20sp"
         android:textAllCaps="false"
-        android:background="@drawable/card_background"
+        android:background="@drawable/form_btn1"
         android:text="Confirm"
         android:layout_marginTop="15dp"/>
 

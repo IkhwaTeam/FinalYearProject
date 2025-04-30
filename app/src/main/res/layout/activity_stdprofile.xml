@@ -12,8 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="230dp"
         android:orientation="vertical"
-        android:background="@drawable/stdprofile_header"
+        android:background="@drawable/shape"
         android:gravity="center"
+        android:layout_marginTop="-18dp"
         android:padding="10dp">
 
         <ImageView
@@ -67,8 +68,9 @@
                         android:layout_height="wrap_content"
                         android:text="Father's Name:"
                         android:textSize="16dp"
-                        android:textColor="#2742D7"
+                        android:textColor="#3F51B5"
                         android:textStyle="bold"
+                        android:layout_marginTop="2dp"
                         android:layout_alignParentStart="true"/>
                     <EditText
                         android:layout_width="wrap_content"
@@ -94,8 +96,9 @@
                         android:layout_height="wrap_content"
                         android:text="Number:"
                         android:textSize="16dp"
-                        android:textColor="#2742D7"
+                        android:textColor="#3F51B5"
                         android:textStyle="bold"
+                        android:layout_marginTop="2dp"
                         android:layout_alignParentStart="true"/>
                     <EditText
                         android:layout_width="wrap_content"
@@ -121,8 +124,9 @@
                         android:layout_height="wrap_content"
                         android:text="Age:"
                         android:textSize="16sp"
-                        android:textColor="#2742D7"
+                        android:textColor="#3F51B5"
                         android:textStyle="bold"
+                        android:layout_marginTop="2dp"
                         android:layout_alignParentStart="true"/>
                     <EditText
                         android:layout_width="wrap_content"
@@ -150,7 +154,8 @@
                         android:layout_height="wrap_content"
                         android:text="Address:"
                         android:textSize="16sp"
-                        android:textColor="#2742D7"
+                        android:textColor="#3F51B5"
+                        android:layout_marginTop="2dp"
                         android:textStyle="bold"/>
 
                     <EditText
@@ -182,8 +187,9 @@
                         android:layout_height="wrap_content"
                         android:text="Email:"
                         android:textSize="16sp"
-                        android:textColor="#2742D7"
+                        android:textColor="#3F51B5"
                         android:textStyle="bold"
+                        android:layout_marginTop="2dp"
                         android:layout_alignParentStart="true"/>
                     <EditText
                         android:layout_width="wrap_content"
@@ -203,8 +209,7 @@
                 <Button
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/shape5"
-                    android:backgroundTint="#3862C3"
+                    android:background="@drawable/form_btn3"
                     android:text="Edit Profile"
                     android:id="@+id/btnEditprofile"
                     android:layout_marginTop="20dp"

@@ -32,7 +32,7 @@
             android:id="@+id/btnEdit"
             android:text="Edit"
             android:layout_width="wrap_content"
-            android:background="@drawable/view_bg"
+            android:background="@drawable/form_btn3"
             android:layout_height="wrap_content"/>
 
         <Button
@@ -40,7 +40,7 @@
             android:text="Delete"
             android:layout_marginStart="10dp"
             android:layout_width="wrap_content"
-            android:background="@drawable/view_bg"
+            android:background="@drawable/form_btn2"
             android:layout_height="wrap_content"/>
 
 

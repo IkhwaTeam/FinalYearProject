@@ -126,7 +126,7 @@
             android:layout_margin="8dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="0dp"
-            app:cardBackgroundColor="#256F43">
+            app:cardBackgroundColor="#1DB586">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -184,7 +184,7 @@
             android:layout_margin="8dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="0dp"
-            app:cardBackgroundColor="#FF6B6B">
+            app:cardBackgroundColor="#FD6A63">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -243,7 +243,7 @@
             android:layout_margin="8dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="0dp"
-            app:cardBackgroundColor="#FFBE3D">
+            app:cardBackgroundColor="#FDC25B">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -301,7 +301,7 @@
             android:layout_margin="8dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="0dp"
-            app:cardBackgroundColor="#3F51B5">
+            app:cardBackgroundColor="#03A9F4">
 
             <LinearLayout
                 android:layout_width="match_parent"
