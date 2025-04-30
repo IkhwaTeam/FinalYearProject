@@ -143,7 +143,11 @@ public class TeacherCourseActivity extends AppCompatActivity {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.previouscoursedialogtea);
         dialog.setCancelable(true);
+        CircularProgressView progressView = dialog.findViewById(R.id.custom_progress5);
 
+        // ✅ Set Progress and Color
+        progressView.setProgress(70); // Set your desired progress here
+        progressView.setProgressColor(0xFFFFFFFF);
         ImageView closeBtn = dialog.findViewById(R.id.teacher_close_btn_pre);
         if (closeBtn != null) closeBtn.setOnClickListener(v -> dialog.dismiss());
 

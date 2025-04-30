@@ -3,15 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#673AB7">
+    android:padding="16dp"
+    android:background="@drawable/settingshape">
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/logo"
+        android:layout_marginLeft="150dp"
+        android:layout_marginBottom="10dp" />
 
-    <!-- Header -->
+
     <TextView
         android:id="@+id/textView_settings_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginStart="130dp"
+
+        android:layout_marginTop="60dp"
         android:text="Settings"
         android:textColor="#FFFFFF"
         android:textSize="32sp"
@@ -50,8 +58,8 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_centerVertical="true"
-                        android:src="@android:drawable/ic_popup_reminder"
-                        android:backgroundTint="#673AB7" />
+                        android:src="@drawable/ic_notification_settting"
+                        android:backgroundTint="#0D37EF" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -70,7 +78,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:checked="true"
-                        app:thumbTint="#673AB7"
+                        app:thumbTint="#0D38F6"
                         app:trackTint="#D1C4E9" />
                 </RelativeLayout>
 
@@ -90,8 +98,8 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_centerVertical="true"
-                        android:src="@android:drawable/ic_lock_lock"
-                        android:backgroundTint="#673AB7"
+                        android:src="@drawable/lock_icon"
+                        android:backgroundTint="#062BF7"
                         />
 
                     <TextView
@@ -110,7 +118,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:src="@android:drawable/ic_media_play"
-                        android:backgroundTint="#673AB7"
+                        android:backgroundTint="#062BF7"
                     />
                 </RelativeLayout>
 
@@ -130,8 +138,9 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_centerVertical="true"
-                        android:backgroundTint="#673AB7"
-                        android:src="@android:drawable/ic_menu_info_details"
+                        android:backgroundTint="#062CF7"
+                        android:src="@drawable/terms_condition"
+
                         />
 
                     <TextView
@@ -149,7 +158,7 @@
                         android:layout_height="24dp"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        android:backgroundTint="#673AB7"
+                        android:backgroundTint="#072EF7"
                         android:src="@android:drawable/ic_media_play"
                        />
                 </RelativeLayout>
@@ -170,8 +179,8 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_centerVertical="true"
-                        android:src="@android:drawable/ic_menu_share"
-                        android:backgroundTint="#673AB7"
+                        android:src="@drawable/share"
+                        android:backgroundTint="#062AF7"
                         />
 
                     <TextView
@@ -190,7 +199,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:src="@android:drawable/ic_media_play"
-                        android:backgroundTint="#673AB7"
+                        android:backgroundTint="#072CF7"
                     />
                 </RelativeLayout>
 
@@ -210,7 +219,8 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_centerVertical="true"
-                        android:src="@android:drawable/ic_dialog_info"
+                        android:src="@drawable/aboutus"
+
                         android:backgroundTint="#673AB7"
                          />
 
@@ -230,7 +240,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:src="@android:drawable/ic_media_play"
-                        android:backgroundTint="#673AB7"
+                        android:backgroundTint="#072DF7"
                       />
                 </RelativeLayout>
 
@@ -250,8 +260,9 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_centerVertical="true"
-                        android:src="@android:drawable/ic_menu_help"
-                        android:backgroundTint="#673AB7"
+                        android:src="@drawable/help"
+
+                        android:backgroundTint="#062CF7"
                         />
 
                     <TextView
@@ -270,7 +281,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:src="@android:drawable/ic_media_play"
-                        android:backgroundTint="#673AB7"
+                        android:backgroundTint="#062BF7"
                        />
                 </RelativeLayout>
 
@@ -290,8 +301,9 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_centerVertical="true"
-                        android:src="@android:drawable/btn_star"
-                        android:backgroundTint="#673AB7"
+
+                        android:src="@drawable/rating"
+
                          />
 
                     <TextView
@@ -301,7 +313,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_toEndOf="@id/icon_rate"
                         android:text="Rate this app"
-                        android:textColor="#808080"
+                        android:textColor="#7F7F7F"
                         android:textSize="16sp" />
 
                     <ImageView
@@ -309,8 +321,10 @@
                         android:layout_height="24dp"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
+
+
                         android:src="@android:drawable/ic_media_play"
-                        android:backgroundTint="#673AB7"
+                        android:backgroundTint="#062CF7"
                         />
                 </RelativeLayout>
 
@@ -333,12 +347,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="30dp"
+        android:layout_marginStart="160dp"
         android:layout_marginBottom="30dp"
-        android:backgroundTint="#673AB7"
+        android:backgroundTint="#0B34F7"
         android:src="@android:drawable/ic_lock_power_off"
         android:tint="#FFFFFF"
         app:borderWidth="0dp"
+
         app:elevation="6dp"
         app:fabSize="normal" />
 

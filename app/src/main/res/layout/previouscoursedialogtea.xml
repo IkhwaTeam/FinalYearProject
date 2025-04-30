@@ -137,17 +137,11 @@
         </LinearLayout>
 
     </LinearLayout>
-    <ProgressBar
+    <com.example.ikhwa.CircularProgressView
+        android:id="@+id/custom_progress5"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        style="?android:attr/progressBarStyleLarge"
-        android:indeterminate="false"
-        android:progress="70"
-        android:max="100"
-        android:progressTint="@color/blue"
         android:layout_gravity="center"
-        android:layout_marginTop="15dp"
-        android:indeterminateTint="#FDFDFD"
-        android:progressBackgroundTint="@color/gray"/>
+        />
 
 </LinearLayout>
