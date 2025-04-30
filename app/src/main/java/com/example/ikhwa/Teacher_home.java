@@ -46,7 +46,7 @@ public class Teacher_home extends AppCompatActivity {
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 String title = snapshot.child("title").getValue(String.class);
                 String description = snapshot.child("description").getValue(String.class);
-                Notificationclass.showNotificationDesignActivity(Teacher_home.this, title, description);
+
             }
 
             @Override public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}

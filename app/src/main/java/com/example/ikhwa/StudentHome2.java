@@ -31,20 +31,14 @@ import java.util.List;
 public class StudentHome2 extends AppCompatActivity {
 
     Dialog myDialog, myDialog2;
-    TextView studentNameText, studentEmailText, notificationTitle, notificationCount, clickToOpen;
+    TextView studentNameText, studentEmailText;
     DatabaseReference databaseReference;
 
     FirebaseAuth mAuth;
 
-    int unseenCount = 0;
-    String latestNotificationId = "";
-    String latestNotificationTitle = "";
-    String latestNotificationDesc = "";
-
     RecyclerView courseRecycler;
     List<Course> courseList;
     CourseAdapter courseAdapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,15 +46,11 @@ public class StudentHome2 extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.student_home2);
 
-
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         studentNameText = findViewById(R.id.st_name);
         studentEmailText = findViewById(R.id.st_email);
-        notificationTitle = findViewById(R.id.notification_update);
-        notificationCount = findViewById(R.id.notification_count);
-        clickToOpen = findViewById(R.id.notification_click_to_open);
 
         // Initialize RecyclerView
         courseRecycler = findViewById(R.id.recyclerCourseContainer);
@@ -104,65 +94,7 @@ public class StudentHome2 extends AppCompatActivity {
             return false;
         });
 
-        loadNotification();
         loadCurrentCourses();
-    }
-
-    private void loadNotification() {
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser == null) return;
-
-        String uid = currentUser.getUid();
-
-        DatabaseReference notificationRef = FirebaseDatabase.getInstance().getReference("Notifications");
-        DatabaseReference seenRef = FirebaseDatabase.getInstance().getReference("StudentSeenNotifications").child(uid);
-
-        seenRef.get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                DataSnapshot seenSnapshot = task.getResult();
-                notificationRef.addChildEventListener(new ChildEventListener() {
-                    @Override
-                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                        String notifId = snapshot.getKey();
-                        String title = snapshot.child("title").getValue(String.class);
-                        String description = snapshot.child("description").getValue(String.class);
-
-                        if (!seenSnapshot.hasChild(notifId)) {
-                            unseenCount++;
-                            notificationCount.setText(String.valueOf(unseenCount));
-                            notificationCount.setVisibility(View.VISIBLE);
-                            notificationTitle.setText("New Update");
-
-                            latestNotificationId = notifId;
-                            latestNotificationTitle = title;
-                            latestNotificationDesc = description;
-
-                            View.OnClickListener openNotification = v -> {
-                                Intent intent = new Intent(StudentHome2.this, NotificationDesignActivity.class);
-                                intent.putExtra("title", latestNotificationTitle);
-                                intent.putExtra("description", latestNotificationDesc);
-                                intent.putExtra("id", latestNotificationId);
-                                intent.putExtra("role", "student");
-                                startActivity(intent);
-
-                                seenRef.child(latestNotificationId).setValue(true);
-
-                                unseenCount = 0;
-                                notificationCount.setVisibility(View.GONE);
-                            };
-
-                            notificationTitle.setOnClickListener(openNotification);
-                            clickToOpen.setOnClickListener(openNotification);
-                        }
-                    }
-
-                    @Override public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
-                    @Override public void onChildRemoved(@NonNull DataSnapshot snapshot) {}
-                    @Override public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
-                    @Override public void onCancelled(@NonNull DatabaseError error) {}
-                });
-            }
-        });
     }
 
     private void loadCurrentCourses() {

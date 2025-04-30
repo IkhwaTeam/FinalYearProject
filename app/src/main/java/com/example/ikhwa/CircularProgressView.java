@@ -16,7 +16,7 @@ public class CircularProgressView extends View {
     private RectF rectF;
     private float progress = 0; // 0 to 100
 
-    private int progressColor = 0xFF3F51B5; // Default Blue
+    private int progressColor = 0xFF3F51B5;
 
     public CircularProgressView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
