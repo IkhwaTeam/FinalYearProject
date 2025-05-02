@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".AddVideoQuizDetailActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <!-- Video Section -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Video Lecture"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:paddingTop="8dp"
+                android:paddingBottom="4dp"/>
+
+            <EditText
+                android:id="@+id/et_video_lecture_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Lecture Title"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/et_video_url"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Video URL"
+                android:inputType="textUri"
+                android:layout_marginTop="8dp"/>
+
+            <Button
+                android:id="@+id/btn_add_video"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add Video"
+                android:layout_marginTop="8dp"/>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#CCCCCC"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- Quiz Section -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Quiz for Above Lecture"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:paddingBottom="4dp"/>
+
+            <EditText
+                android:id="@+id/et_quiz_question"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Quiz Question"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/et_quiz_option_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Option 1"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/et_quiz_option_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Option 2"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/et_quiz_option_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Option 3"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/et_quiz_option_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Option 4"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/et_quiz_correct_answer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Correct Answer"
+                android:inputType="text" />
+
+            <Button
+                android:id="@+id/btn_add_quiz"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add Quiz"
+                android:layout_marginTop="8dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

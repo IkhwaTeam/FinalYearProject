@@ -1,6 +1,7 @@
 package com.example.ikhwa;
 
 public class Course {
+    private String id; // ✅ Course ID for Firebase key
     private String title;
     private String description;
     private String duration;
@@ -17,6 +18,15 @@ public class Course {
         this.duration = duration;
         this.startDate = startDate;
         this.endDate = endDate;
+    }
+
+    // ✅ Getter and Setter for ID
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     // Getters and Setters

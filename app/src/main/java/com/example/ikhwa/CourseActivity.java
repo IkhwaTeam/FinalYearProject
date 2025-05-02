@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -14,7 +13,6 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.app.DatePickerDialog;
-import android.widget.DatePicker;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -45,19 +43,15 @@ public class CourseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course);
+
         courseRef = FirebaseDatabase.getInstance().getReference("Courses");
 
-        // Listen for new course additions
+        // Notification for new course
         courseRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
+            @Override public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
                 String title = "New Course Uploaded";
-                String description = "";
-
-                if (snapshot.child("title").exists()) {
-                    description = snapshot.child("title").getValue(String.class) + " course has been added.";
-                }
-
+                String description = snapshot.child("title").exists()
+                        ? snapshot.child("title").getValue(String.class) + " course has been added." : "";
                 Notificationclass.showNotificationDesignActivity(CourseActivity.this, title, description);
             }
 
@@ -72,7 +66,7 @@ public class CourseActivity extends AppCompatActivity {
             Intent intent = new Intent(CourseActivity.this, AdminHomeActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
-            finish(); // This clears the current activity from the back stack
+            finish();
         });
 
         currentCourseContainer = findViewById(R.id.current_course_container);
@@ -80,7 +74,6 @@ public class CourseActivity extends AppCompatActivity {
         btnAddCourse = findViewById(R.id.btn_add_course);
 
         btnAddCourse.setOnClickListener(v -> showAddCourseDialog());
-
         loadCoursesFromFirebase();
     }
 
@@ -97,7 +90,6 @@ public class CourseActivity extends AppCompatActivity {
         TextView btnSave = view.findViewById(R.id.btn_save);
         TextView btnCancel = view.findViewById(R.id.btn_cancel);
 
-        // Date pickers
         etStart.setOnClickListener(v -> showDatePickerDialog(etStart));
         etEnd.setOnClickListener(v -> showDatePickerDialog(etEnd));
 
@@ -113,13 +105,13 @@ public class CourseActivity extends AppCompatActivity {
 
             String id = courseRef.push().getKey();
             Course model = new Course(title, description, duration, startDate, endDate);
+            model.setId(id); // ✅ Set course ID
 
-            // Determine if course is current or previous
             boolean isCurrent = isCurrentCourse(endDate);
             String category = isCurrent ? "currentCourse" : "previousCourse";
 
             if (id != null) {
-                courseRef.child(category).child(id).setValue(model); // Save under appropriate category
+                courseRef.child(category).child(id).setValue(model);
             }
 
             dialog.dismiss();
@@ -130,17 +122,13 @@ public class CourseActivity extends AppCompatActivity {
 
     private void showDatePickerDialog(final EditText editText) {
         Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-
         DatePickerDialog datePickerDialog = new DatePickerDialog(
                 CourseActivity.this,
                 (view, year1, month1, dayOfMonth) -> {
                     String date = String.format(Locale.getDefault(), "%04d-%02d-%02d", year1, month1 + 1, dayOfMonth);
                     editText.setText(date);
                 },
-                year, month, day
+                calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)
         );
         datePickerDialog.show();
     }
@@ -152,34 +140,30 @@ public class CourseActivity extends AppCompatActivity {
                 currentCourseContainer.removeAllViews();
                 previousCourseContainer.removeAllViews();
 
-                // Load current courses
-                DataSnapshot currentCoursesSnapshot = snapshot.child("currentCourse");
-                for (DataSnapshot data : currentCoursesSnapshot.getChildren()) {
+                for (DataSnapshot data : snapshot.child("currentCourse").getChildren()) {
                     Course model = data.getValue(Course.class);
                     if (model != null) {
+                        model.setId(data.getKey()); // ✅ Save key as ID
                         addCourseToLayout(model, true);
                     }
                 }
 
-                // Load previous courses
-                DataSnapshot previousCoursesSnapshot = snapshot.child("previousCourse");
-                for (DataSnapshot data : previousCoursesSnapshot.getChildren()) {
+                for (DataSnapshot data : snapshot.child("previousCourse").getChildren()) {
                     Course model = data.getValue(Course.class);
                     if (model != null) {
+                        model.setId(data.getKey()); // ✅ Save key as ID
                         addCourseToLayout(model, false);
                     }
                 }
             }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) { }
+            @Override public void onCancelled(@NonNull DatabaseError error) {}
         });
     }
 
     private boolean isCurrentCourse(String endDate) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         try {
-            Date end = sdf.parse(endDate);
+            Date end = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(endDate);
             return new Date().before(end);
         } catch (ParseException e) {
             return true;
@@ -191,19 +175,18 @@ public class CourseActivity extends AppCompatActivity {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(400, 300);
         params.setMargins(16, 16, 16, 16);
         frame.setLayoutParams(params);
-        frame.setBackgroundResource(R.drawable.std_shape1); // replace with your drawable
+        frame.setBackgroundResource(R.drawable.std_shape1);
 
         TextView text = new TextView(this);
         text.setText(model.getTitle());
         text.setTextColor(Color.parseColor("#3F51B5"));
         text.setTextSize(20);
-        text.setPadding(5,5,5,5);
+        text.setPadding(5, 5, 5, 5);
         text.setTypeface(null, Typeface.BOLD);
         text.setGravity(Gravity.CENTER);
         text.setMaxLines(2);
         text.setEllipsize(TextUtils.TruncateAt.END);
         text.setHorizontallyScrolling(false);
-
 
         FrameLayout.LayoutParams textParams = new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.WRAP_CONTENT,
@@ -213,6 +196,14 @@ public class CourseActivity extends AppCompatActivity {
         text.setLayoutParams(textParams);
 
         frame.addView(text);
+
+        // ✅ Click opens CourseContentActivity
+        frame.setOnClickListener(v -> {
+            Intent intent = new Intent(CourseActivity.this, CourseContentActivity.class);
+            intent.putExtra("courseId", model.getId());
+            startActivity(intent);
+        });
+
         if (isCurrent)
             currentCourseContainer.addView(frame);
         else
