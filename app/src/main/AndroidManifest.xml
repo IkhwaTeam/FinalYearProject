@@ -18,6 +18,9 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".YourCoursesActivity"
+            android:exported="false" />
+        <activity
             android:name=".PendingRequestActivity"
             android:exported="false" />
         <activity

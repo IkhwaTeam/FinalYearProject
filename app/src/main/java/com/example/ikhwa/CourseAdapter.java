@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.List;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseViewHolder> {
 
@@ -84,7 +86,6 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
         TextView description = view.findViewById(R.id.bottom_sheet_course_description);
         Button confirmBtn = view.findViewById(R.id.confirm_enroll_btn);
 
-
         title.setText(course.getTitle());
         duration.setText(course.getDuration());
         description.setText(course.getDescription());
@@ -95,10 +96,22 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "You have enrolled successfully!", Toast.LENGTH_SHORT).show();
+                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                String uid = (currentUser != null) ? currentUser.getUid() : null;
+
+                if (uid != null) {
+                    EnrolledCoursesManager.enrollCourse(context, uid, course.getTitle());
+                    Toast.makeText(context, "You have enrolled successfully!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "User not logged in!", Toast.LENGTH_SHORT).show();
+                }
+
                 bottomSheetDialog.dismiss();
             }
         });
+
     }
 
 }
+
+

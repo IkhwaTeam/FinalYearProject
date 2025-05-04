@@ -118,6 +118,7 @@
                 android:clipToPadding="false"/>
 
             <TextView
+                android:id="@+id/st_your_courses"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Your Courses"
@@ -128,12 +129,15 @@
                 android:paddingLeft="4dp"/>
 
             <HorizontalScrollView
+                android:id="@+id/st_horizontal_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:overScrollMode="never">
 
                 <LinearLayout
+                    android:id="@+id/st_add_your"
                     android:layout_width="wrap_content"
+
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
@@ -142,6 +146,18 @@
                     <include layout="@layout/your_course_card3"/>
                 </LinearLayout>
             </HorizontalScrollView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/your_courses_horizontal_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="16dp"
+                android:clipToPadding="false"
+                android:overScrollMode="never"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:orientation="horizontal"/>
+
 
             <TextView
                 android:layout_width="wrap_content"

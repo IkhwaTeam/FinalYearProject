@@ -4,8 +4,11 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,13 +31,15 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class StudentHome2 extends AppCompatActivity {
 
     Dialog myDialog, myDialog2;
     TextView studentNameText, studentEmailText;
     DatabaseReference databaseReference;
-
+    int[] backgroundColors = { R.drawable.bg_green, R.drawable.bg_blue, R.drawable.bg_red };
+    LinearLayout layout;
     FirebaseAuth mAuth;
 
     RecyclerView courseRecycler;
@@ -53,6 +58,7 @@ public class StudentHome2 extends AppCompatActivity {
 
         studentNameText = findViewById(R.id.st_name);
         studentEmailText = findViewById(R.id.st_email);
+        layout = findViewById(R.id.st_add_your); // initialize layout
 
         // Initialize RecyclerView
         courseRecycler = findViewById(R.id.recyclerCourseContainer);
@@ -71,6 +77,9 @@ public class StudentHome2 extends AppCompatActivity {
                     String email = task.getResult().child("email").getValue(String.class);
                     studentNameText.setText(name);
                     studentEmailText.setText(email);
+
+                    // Load enrolled courses after getting UID
+                    showEnrolledCourses(uid);
                 } else {
                     Toast.makeText(StudentHome2.this, "Failed to load student data", Toast.LENGTH_SHORT).show();
                 }
@@ -87,7 +96,7 @@ public class StudentHome2 extends AppCompatActivity {
                 startActivity(new Intent(StudentHome2.this, stdprofile.class));
                 return true;
             } else if (itemId == R.id.nav_home) {
-                startActivity(new Intent(StudentHome2.this, StudentHome2.class));
+                startActivity(new Intent(StudentHome2.this, YourCoursesActivity.class));
                 return true;
             } else if (itemId == R.id.nav_setting) {
                 startActivity(new Intent(StudentHome2.this, SettingActivity.class));
@@ -117,6 +126,33 @@ public class StudentHome2 extends AppCompatActivity {
             @Override public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
             @Override public void onCancelled(@NonNull DatabaseError error) {}
         });
+    }
+
+    private void showEnrolledCourses(String uid) {
+        Set<String> enrolledCourses = EnrolledCoursesManager.getEnrolledCourses(this, uid);
+        List<String> courseList = new ArrayList<>(enrolledCourses);
+
+        layout.removeAllViews(); // clear previous views
+
+        for (int i = 0; i < courseList.size(); i++) {
+            String title = courseList.get(i);
+            View courseView = getLayoutInflater().inflate(R.layout.your_course_card, null);
+
+            TextView tvCourseTitle = courseView.findViewById(R.id.tv_course_title);
+            TextView tvChapterCount = courseView.findViewById(R.id.tv_chapter_count);
+            TextView tvProgress = courseView.findViewById(R.id.tv_progress);
+
+            LinearLayout cardLayout = courseView.findViewById(R.id.card_background_layout);
+
+            tvCourseTitle.setText(title);
+            tvChapterCount.setText("40 Days");
+            tvProgress.setText("0/40 Completed");
+
+            int colorResId = backgroundColors[i % backgroundColors.length];
+            cardLayout.setBackgroundResource(colorResId);
+
+            layout.addView(courseView);
+        }
     }
 
     public void show_dialog() {
@@ -165,7 +201,6 @@ public class StudentHome2 extends AppCompatActivity {
         myDialog2.show();
     }
 
-    // Override the back button behavior to exit the app instead of going back to selection screen
     @SuppressLint("MissingSuperCall")
     @Override
     public void onBackPressed() {
@@ -177,5 +212,4 @@ public class StudentHome2 extends AppCompatActivity {
                 .create()
                 .show();
     }
-
 }

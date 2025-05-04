@@ -7,14 +7,16 @@
     app:cardCornerRadius="16dp"
     app:cardElevation="4dp">
 
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/card_background_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#1DB586"
+        android:orientation="vertical"
         android:padding="12dp">
 
         <TextView
-            android:id="@+id/tvCourseTitle"
+            android:id="@+id/tv_course_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="40 Ahadees Nabvi"
@@ -23,31 +25,31 @@
             android:textColor="@android:color/white"/>
 
         <TextView
-            android:id="@+id/tvChapterCount"
+            android:id="@+id/tv_chapter_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvCourseTitle"
+            android:layout_below="@id/tv_course_title"
             android:text="40 Days"
             android:textSize="14sp"
             android:textColor="@android:color/white"
             android:layout_marginTop="4dp"/>
 
         <ProgressBar
-            android:id="@+id/progressBar"
+            android:id="@+id/progress_bar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="8dp"
-            android:layout_below="@id/tvChapterCount"
+            android:layout_below="@id/tv_chapter_count"
             android:layout_marginTop="8dp"
             android:progress="25"
             android:max="100"
             android:progressDrawable="@drawable/custom_progress"/>
 
         <TextView
-            android:id="@+id/tvProgress"
+            android:id="@+id/tv_progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/progressBar"
+            android:layout_below="@id/progress_bar"
             android:text="10/40 Completed"
             android:textSize="12sp"
             android:textColor="@android:color/white"
@@ -57,7 +59,7 @@
             android:id="@+id/main_button1"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_below="@id/tvProgress"
+            android:layout_below="@id/tv_progress"
             android:layout_marginTop="8dp"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
@@ -69,7 +71,7 @@
 
 
 
-    </RelativeLayout>
+    </LinearLayout>
 
 
 
