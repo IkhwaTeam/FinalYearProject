@@ -1,28 +1,22 @@
 package com.example.ikhwa;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import java.util.HashSet;
-import java.util.Set;
+import android.widget.Toast;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class EnrolledCoursesManager {
 
-    private static final String PREF_NAME = "EnrolledCoursesPref";
-
     public static void enrollCourse(Context context, String uid, String courseTitle) {
-        if (uid == null) return;
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("EnrolledCourses").child(uid);
 
-        SharedPreferences prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-        Set<String> courses = prefs.getStringSet(uid, new HashSet<>());
-        Set<String> updatedCourses = new HashSet<>(courses);
-        updatedCourses.add(courseTitle);
-        prefs.edit().putStringSet(uid, updatedCourses).apply();
-    }
-
-    public static Set<String> getEnrolledCourses(Context context, String uid) {
-        if (uid == null) return new HashSet<>();
-
-        SharedPreferences prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-        return prefs.getStringSet(uid, new HashSet<>());
+        ref.child(courseTitle).setValue(true)
+                .addOnSuccessListener(unused -> {
+                    Toast.makeText(context, "Course enrolled in database!", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(context, "Failed to enroll: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
     }
 }

@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +29,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -58,9 +60,8 @@ public class StudentHome2 extends AppCompatActivity {
 
         studentNameText = findViewById(R.id.st_name);
         studentEmailText = findViewById(R.id.st_email);
-        layout = findViewById(R.id.st_add_your); // initialize layout
+        layout = findViewById(R.id.st_add_your);
 
-        // Initialize RecyclerView
         courseRecycler = findViewById(R.id.recyclerCourseContainer);
         courseRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         courseList = new ArrayList<>();
@@ -77,8 +78,6 @@ public class StudentHome2 extends AppCompatActivity {
                     String email = task.getResult().child("email").getValue(String.class);
                     studentNameText.setText(name);
                     studentEmailText.setText(email);
-
-                    // Load enrolled courses after getting UID
                     showEnrolledCourses(uid);
                 } else {
                     Toast.makeText(StudentHome2.this, "Failed to load student data", Toast.LENGTH_SHORT).show();
@@ -96,7 +95,7 @@ public class StudentHome2 extends AppCompatActivity {
                 startActivity(new Intent(StudentHome2.this, stdprofile.class));
                 return true;
             } else if (itemId == R.id.nav_home) {
-                startActivity(new Intent(StudentHome2.this, YourCoursesActivity.class));
+                startActivity(new Intent(StudentHome2.this, StudentHome2.class));
                 return true;
             } else if (itemId == R.id.nav_setting) {
                 startActivity(new Intent(StudentHome2.this, SettingActivity.class));
@@ -129,30 +128,39 @@ public class StudentHome2 extends AppCompatActivity {
     }
 
     private void showEnrolledCourses(String uid) {
-        Set<String> enrolledCourses = EnrolledCoursesManager.getEnrolledCourses(this, uid);
-        List<String> courseList = new ArrayList<>(enrolledCourses);
+        DatabaseReference enrolledRef = FirebaseDatabase.getInstance().getReference("EnrolledCourses").child(uid);
+        layout.removeAllViews();
 
-        layout.removeAllViews(); // clear previous views
+        enrolledRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DataSnapshot snapshot = task.getResult();
+                List<String> courseTitles = new ArrayList<>();
 
-        for (int i = 0; i < courseList.size(); i++) {
-            String title = courseList.get(i);
-            View courseView = getLayoutInflater().inflate(R.layout.your_course_card, null);
+                for (DataSnapshot courseSnap : snapshot.getChildren()) {
+                    String courseTitle = courseSnap.getKey();
+                    courseTitles.add(courseTitle);
+                }
 
-            TextView tvCourseTitle = courseView.findViewById(R.id.tv_course_title);
-            TextView tvChapterCount = courseView.findViewById(R.id.tv_chapter_count);
-            TextView tvProgress = courseView.findViewById(R.id.tv_progress);
+                for (int i = 0; i < courseTitles.size(); i++) {
+                    String title = courseTitles.get(i);
+                    View courseView = getLayoutInflater().inflate(R.layout.your_course_card, null);
 
-            LinearLayout cardLayout = courseView.findViewById(R.id.card_background_layout);
+                    TextView tvCourseTitle = courseView.findViewById(R.id.tv_course_title);
+                    TextView tvChapterCount = courseView.findViewById(R.id.tv_chapter_count);
+                    TextView tvProgress = courseView.findViewById(R.id.tv_progress);
+                    RelativeLayout cardLayout = courseView.findViewById(R.id.card_background_layout);
 
-            tvCourseTitle.setText(title);
-            tvChapterCount.setText("40 Days");
-            tvProgress.setText("0/40 Completed");
+                    tvCourseTitle.setText(title);
+                    tvChapterCount.setText("40 Days");
+                    tvProgress.setText("0/40 Completed");
 
-            int colorResId = backgroundColors[i % backgroundColors.length];
-            cardLayout.setBackgroundResource(colorResId);
+                    int colorResId = backgroundColors[i % backgroundColors.length];
+                    cardLayout.setBackgroundResource(colorResId);
 
-            layout.addView(courseView);
-        }
+                    layout.addView(courseView);
+                }
+            }
+        });
     }
 
     public void show_dialog() {
