@@ -87,9 +87,34 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginTop="24dp"
-            android:layout_marginBottom="30dp"
             android:padding="10dp"
             android:background="@drawable/shape5"/>
+        <RadioGroup
+            android:id="@+id/rg_course_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            android:padding="16dp">
+
+            <RadioButton
+                android:id="@+id/rb_attendance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Attendance Based"
+                android:textColor="@color/black"
+                android:buttonTint="@color/black"/>
+
+            <RadioButton
+                android:id="@+id/rb_quiz"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Quiz Based"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/black"
+                android:buttonTint="@color/black"/>
+        </RadioGroup>
+
 
         <Button
             android:id="@+id/btn_save"

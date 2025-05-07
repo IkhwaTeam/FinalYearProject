@@ -29,11 +29,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class StudentHome2 extends AppCompatActivity {
 
@@ -156,6 +153,9 @@ public class StudentHome2 extends AppCompatActivity {
 
                     int colorResId = backgroundColors[i % backgroundColors.length];
                     cardLayout.setBackgroundResource(colorResId);
+
+                    // 👇 Click listener to show dialog on tap
+                    courseView.setOnClickListener(view -> show_dialog2());
 
                     layout.addView(courseView);
                 }

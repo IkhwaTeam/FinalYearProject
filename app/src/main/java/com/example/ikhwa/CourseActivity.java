@@ -1,5 +1,6 @@
 package com.example.ikhwa;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -8,11 +9,13 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.app.DatePickerDialog;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -46,7 +49,6 @@ public class CourseActivity extends AppCompatActivity {
 
         courseRef = FirebaseDatabase.getInstance().getReference("Courses");
 
-        // Notification for new course
         courseRef.addChildEventListener(new ChildEventListener() {
             @Override public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
                 String title = "New Course Uploaded";
@@ -87,6 +89,9 @@ public class CourseActivity extends AppCompatActivity {
         EditText etDuration = view.findViewById(R.id.et_job_title);
         EditText etStart = view.findViewById(R.id.et_join_date);
         EditText etEnd = view.findViewById(R.id.et_end_date);
+        RadioGroup rgCourseType = view.findViewById(R.id.rg_course_type);
+        RadioButton rbAttendance = view.findViewById(R.id.rb_attendance);
+        RadioButton rbQuiz = view.findViewById(R.id.rb_quiz);
         TextView btnSave = view.findViewById(R.id.btn_save);
         TextView btnCancel = view.findViewById(R.id.btn_cancel);
 
@@ -103,9 +108,22 @@ public class CourseActivity extends AppCompatActivity {
             String startDate = etStart.getText().toString();
             String endDate = etEnd.getText().toString();
 
+            int selectedId = rgCourseType.getCheckedRadioButtonId();
+            String type = "";
+            if (selectedId == R.id.rb_attendance) {
+                type = "Attendance Based";
+            } else if (selectedId == R.id.rb_quiz) {
+                type = "Quiz Based";
+            }
+
+            if (TextUtils.isEmpty(title) || TextUtils.isEmpty(type)) {
+                return;
+            }
+
             String id = courseRef.push().getKey();
-            Course model = new Course(title, description, duration, startDate, endDate);
-            model.setId(id); // ✅ Set course ID
+            Course model = new Course(title, description, duration, startDate, endDate, type);
+            model.setId(id);
+            model.setType(type);
 
             boolean isCurrent = isCurrentCourse(endDate);
             String category = isCurrent ? "currentCourse" : "previousCourse";
@@ -143,7 +161,7 @@ public class CourseActivity extends AppCompatActivity {
                 for (DataSnapshot data : snapshot.child("currentCourse").getChildren()) {
                     Course model = data.getValue(Course.class);
                     if (model != null) {
-                        model.setId(data.getKey()); // ✅ Save key as ID
+                        model.setId(data.getKey());
                         addCourseToLayout(model, true);
                     }
                 }
@@ -151,7 +169,7 @@ public class CourseActivity extends AppCompatActivity {
                 for (DataSnapshot data : snapshot.child("previousCourse").getChildren()) {
                     Course model = data.getValue(Course.class);
                     if (model != null) {
-                        model.setId(data.getKey()); // ✅ Save key as ID
+                        model.setId(data.getKey());
                         addCourseToLayout(model, false);
                     }
                 }
@@ -177,32 +195,42 @@ public class CourseActivity extends AppCompatActivity {
         frame.setLayoutParams(params);
         frame.setBackgroundResource(R.drawable.std_shape1);
 
-        TextView text = new TextView(this);
-        text.setText(model.getTitle());
-        text.setTextColor(Color.parseColor("#3F51B5"));
-        text.setTextSize(20);
-        text.setPadding(5, 5, 5, 5);
-        text.setTypeface(null, Typeface.BOLD);
-        text.setGravity(Gravity.CENTER);
-        text.setMaxLines(2);
-        text.setEllipsize(TextUtils.TruncateAt.END);
-        text.setHorizontallyScrolling(false);
+        LinearLayout innerLayout = new LinearLayout(this);
+        innerLayout.setOrientation(LinearLayout.VERTICAL);
+        innerLayout.setGravity(Gravity.CENTER);
+        innerLayout.setPadding(5, 5, 5, 5);
 
-        FrameLayout.LayoutParams textParams = new FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.WRAP_CONTENT,
-                FrameLayout.LayoutParams.WRAP_CONTENT,
-                Gravity.CENTER
-        );
-        text.setLayoutParams(textParams);
+        TextView titleText = new TextView(this);
+        titleText.setText(model.getTitle());
+        titleText.setTextColor(Color.parseColor("#3F51B5"));
+        titleText.setTextSize(20);
+        titleText.setTypeface(null, Typeface.BOLD);
+        titleText.setGravity(Gravity.CENTER);
+        titleText.setMaxLines(2);
+        titleText.setEllipsize(TextUtils.TruncateAt.END);
 
-        frame.addView(text);
+        TextView typeText = new TextView(this);
+        typeText.setText(model.getType());
+        typeText.setTextColor(Color.DKGRAY);
+        typeText.setTextSize(14);
+        typeText.setGravity(Gravity.CENTER);
 
-        // ✅ Click opens CourseContentActivity
+        innerLayout.addView(titleText);
+        innerLayout.addView(typeText);
+
+        frame.addView(innerLayout);
+
         frame.setOnClickListener(v -> {
-            Intent intent = new Intent(CourseActivity.this, CourseContentActivity.class);
+            Intent intent;
+            if ("Quiz Based".equals(model.getType())) {
+                intent = new Intent(CourseActivity.this, CourseContentActivity.class); // ← Your quiz screen activity
+            } else {
+                intent = new Intent(CourseActivity.this, std_crs_att.class); // ← Default activity
+            }
             intent.putExtra("courseId", model.getId());
             startActivity(intent);
         });
+
 
         if (isCurrent)
             currentCourseContainer.addView(frame);

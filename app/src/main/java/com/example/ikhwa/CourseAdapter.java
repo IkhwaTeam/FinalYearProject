@@ -1,13 +1,10 @@
 package com.example.ikhwa;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,17 +13,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-
-import java.util.List;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.List;
 
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseViewHolder> {
 
     private Context context;
     private List<Course> courseList;
 
-    // Constructor
     public CourseAdapter(Context context, List<Course> courseList) {
         this.context = context;
         this.courseList = courseList;
@@ -35,7 +31,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
     @NonNull
     @Override
     public CourseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Inflate the layout for each item of RecyclerView
+        // Dynamically inflate the layout based on course type (general or enrolled)
         View view = LayoutInflater.from(context).inflate(R.layout.course_card, parent, false);
         return new CourseViewHolder(view);
     }
@@ -44,27 +40,46 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
     public void onBindViewHolder(@NonNull CourseViewHolder holder, int position) {
         Course course = courseList.get(position);
 
-        holder.title.setText(course.getTitle());
+        // Set general course information
+        holder.courseTitle.setText(course.getTitle());
+        holder.courseType.setText(course.getType()); // Display course type (e.g., "Beginner", "Advanced")
         holder.duration.setText(course.getDuration());
-        holder.progressBar.setProgress(0);
-        holder.enrollmentStatus.setText("Not enrolled");
-        holder.viewButton.setText("Enroll Now");
+        holder.progressBar.setProgress(0); // Set initial progress
 
-        holder.viewButton.setOnClickListener(v -> {
-            Course selectedCourse = courseList.get(position);
-            showBottomSheet(context, selectedCourse);
-        });
+        // Check if the course is enrolled by the user
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            // If the course is already enrolled
+            if (course.isEnrolled()) {
+                holder.enrollmentStatus.setText("Enrolled");
+                holder.viewButton.setText("View Course Details");
+                holder.viewButton.setOnClickListener(v -> {
+                    // Show course details (e.g., videos, quizzes) for enrolled courses
+                    showCourseDetails(course);
+                });
+            } else {
+                // If the course is not enrolled yet
+                holder.enrollmentStatus.setText("Not Enrolled");
+                holder.viewButton.setText("Enroll Now");
+                holder.viewButton.setOnClickListener(v -> {
+                    // Show bottom sheet for enrollment
+                    showBottomSheet(context, course);
+                });
+            }
+        } else {
+            holder.enrollmentStatus.setText("Not logged in");
+            holder.viewButton.setText("Log in to Enroll");
+        }
     }
-
 
     @Override
     public int getItemCount() {
         return courseList.size();
     }
 
-    // ViewHolder class to hold references to each view component
     public static class CourseViewHolder extends RecyclerView.ViewHolder {
         TextView title, duration, enrollmentStatus;
+        TextView courseTitle, courseType; // Added
         ProgressBar progressBar;
         Button viewButton;
 
@@ -72,11 +87,16 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
             super(itemView);
             title = itemView.findViewById(R.id.course_title);
             duration = itemView.findViewById(R.id.course_duration);
-            progressBar = itemView.findViewById(R.id.progressBar);
             enrollmentStatus = itemView.findViewById(R.id.enroll_status);
+            progressBar = itemView.findViewById(R.id.progressBar);
             viewButton = itemView.findViewById(R.id.main_button);
+
+            // Initialize new fields (make sure these IDs exist in course_card.xml)
+            courseTitle = itemView.findViewById(R.id.course_title);
+            courseType = itemView.findViewById(R.id.course_type);
         }
     }
+
     private void showBottomSheet(Context context, Course course) {
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context);
         View view = LayoutInflater.from(context).inflate(R.layout.course_bottom_sheet, null);
@@ -93,25 +113,25 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
         bottomSheetDialog.setContentView(view);
         bottomSheetDialog.show();
 
-        confirmBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                String uid = (currentUser != null) ? currentUser.getUid() : null;
+        confirmBtn.setOnClickListener(v -> {
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            String uid = (currentUser != null) ? currentUser.getUid() : null;
 
-                if (uid != null) {
-                    EnrolledCoursesManager.enrollCourse(context, uid, course.getTitle());
-                    Toast.makeText(context, "You have enrolled successfully!", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(context, "User not logged in!", Toast.LENGTH_SHORT).show();
-                }
-
-                bottomSheetDialog.dismiss();
+            if (uid != null) {
+                // Enroll the user in the course
+                EnrolledCoursesManager.enrollCourse(context, uid, course.getTitle());
+                Toast.makeText(context, "You have enrolled successfully!", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(context, "User not logged in!", Toast.LENGTH_SHORT).show();
             }
-        });
 
+            bottomSheetDialog.dismiss();
+        });
     }
 
+    private void showCourseDetails(Course course) {
+        // Logic to display the course content (e.g., videos and quizzes)
+        Toast.makeText(context, "Course details for: " + course.getTitle(), Toast.LENGTH_SHORT).show();
+        // You can implement the functionality to navigate to a CourseDetailActivity
+    }
 }
-
-

@@ -36,7 +36,7 @@ public class AdminHomeActivity extends AppCompatActivity {
         menuBtn = findViewById(R.id.menuButton);
 
         courseBtn.setOnClickListener(view -> {
-            Intent intent = new Intent(AdminHomeActivity.this, PendingRequestActivity.class);
+            Intent intent = new Intent(AdminHomeActivity.this, CourseActivity.class);
             startActivity(intent);
         });
 
