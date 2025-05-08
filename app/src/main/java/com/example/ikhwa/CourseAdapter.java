@@ -119,7 +119,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
 
             if (uid != null) {
                 // Enroll the user in the course
-                EnrolledCoursesManager.enrollCourse(context, uid, course.getTitle());
+                enrollCourse(context, uid, course.getTitle(), course.getDuration(), course.getType(), 0, 100);
                 Toast.makeText(context, "You have enrolled successfully!", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(context, "User not logged in!", Toast.LENGTH_SHORT).show();
@@ -133,5 +133,11 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
         // Logic to display the course content (e.g., videos and quizzes)
         Toast.makeText(context, "Course details for: " + course.getTitle(), Toast.LENGTH_SHORT).show();
         // You can implement the functionality to navigate to a CourseDetailActivity
+    }
+
+    // This method should be placed outside of the OnClickListener
+    private void enrollCourse(Context context, String uid, String courseTitle, String duration, String type, long completed, long total) {
+        // Firebase database logic here
+        // For example: Save the course enrollment to Firebase
     }
 }

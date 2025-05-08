@@ -8,10 +8,13 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class EnrolledCoursesManager {
 
-    public static void enrollCourse(Context context, String uid, String courseTitle) {
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("EnrolledCourses").child(uid);
+    public static void enrollCourse(Context context, String uid, String title,
+                                    String description, String duration, String startDate, String endDate,String type) {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Courses").child(uid);
 
-        ref.child(courseTitle).setValue(true)
+        EnrolledCourse course = new EnrolledCourse( title,  description,  duration,  startDate,  endDate, type) ;
+
+        ref.child(title).setValue(course)
                 .addOnSuccessListener(unused -> {
                     Toast.makeText(context, "Course enrolled in database!", Toast.LENGTH_SHORT).show();
                 })
