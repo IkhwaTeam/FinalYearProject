@@ -132,7 +132,8 @@ public class StudentHome2 extends AppCompatActivity {
             if (task.isSuccessful()) {
                 DataSnapshot snapshot = task.getResult();
                 List<String> courseTitles = new ArrayList<>();
-                List<String> chapter = new ArrayList<>();
+                List<String> chapterCount = new ArrayList<>();
+
 
                 for (DataSnapshot courseSnap : snapshot.getChildren()) {
                     String courseTitle = courseSnap.getKey();

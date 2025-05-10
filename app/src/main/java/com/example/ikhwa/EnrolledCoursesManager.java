@@ -8,11 +8,11 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class EnrolledCoursesManager {
 
-    public static void enrollCourse(Context context, String uid, String title,
+    public static void enrollCourse(Context context, String uid, String title,String chapterCount,String tvProgress,
                                     String description, String duration, String startDate, String endDate,String type) {
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Courses").child(uid);
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("EnrolledCourse").child(uid);
 
-        EnrolledCourse course = new EnrolledCourse( title,  description,  duration,  startDate,  endDate, type) ;
+        EnrolledCourse course = new EnrolledCourse( title,chapterCount,tvProgress,  description,  duration,  startDate,  endDate, type) ;
 
         ref.child(title).setValue(course)
                 .addOnSuccessListener(unused -> {
