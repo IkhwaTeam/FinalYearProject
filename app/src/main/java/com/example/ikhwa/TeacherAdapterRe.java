@@ -49,19 +49,19 @@ public class TeacherAdapterRe extends BaseAdapter {
         TextView why = convertView.findViewById(R.id.tea_why);
         TextView pass = convertView.findViewById(R.id.tea_password);
 
-        Button approveBtn = convertView.findViewById(R.id.buttonApprove);
-        Button rejectBtn = convertView.findViewById(R.id.buttonReject);
+        Button approveBtn = convertView.findViewById(R.id.buttonReject);
+        Button rejectBtn = convertView.findViewById(R.id.buttonApprove);
 
         TeacherModelRe model = list.get(position);
         name.setText("Name: " + model.name);
         email.setText("Email: " + model.email);
         phone.setText("Phone: " + model.phone);
-        qua.setText("Qualification: " + model.qualification);
-        fathername.setText("Father's Name: " + model.fathername);
-        address.setText("Address: " + model.address);
-        pass.setText("Password: " + model.password);
-        inter.setText("Interest: " + model.intrest);
-        why.setText("Why: " + model.why);
+       // qua.setText("Qualification: " + model.qua);
+        //fathername.setText("Father's Name: " + model.fathername);
+        //address.setText("Address: " + model.address);
+        //pass.setText("Password: " + model.password);
+        //inter.setText("Interest: " + model.interest);
+       // why.setText("Why: " + model.why);
 
         String currentKey = keys.get(position);
 

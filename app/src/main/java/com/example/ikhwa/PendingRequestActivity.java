@@ -1,5 +1,4 @@
 package com.example.ikhwa;
-
 import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -16,7 +15,7 @@ public class PendingRequestActivity extends AppCompatActivity {
     ListView listView;
     ArrayList<TeacherModelRe> list;
     ArrayList<String> keys;
-    TeacherAdapter adapter;
+    TeacherAdapterRe adapter;
     DatabaseReference reference;
 
     @Override
@@ -28,8 +27,8 @@ public class PendingRequestActivity extends AppCompatActivity {
         list = new ArrayList<>();
         keys = new ArrayList<>();
 
-       // adapter = new TeacherAdapter(this, list, keys);
-        //listView.setAdapter(adapter);
+        adapter = new TeacherAdapterRe(this, list, keys);
+        listView.setAdapter(adapter);
 
         reference = FirebaseDatabase.getInstance().getReference("PendingTeacherRequests");
 
@@ -48,7 +47,7 @@ public class PendingRequestActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(PendingRequestActivity.this, "Error loading", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PendingRequestActivity.this, "Error loading data", Toast.LENGTH_SHORT).show();
             }
         });
     }
