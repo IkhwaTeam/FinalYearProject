@@ -12,33 +12,34 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#FDFDFD"
-        >
+        android:background="#FDFDFD">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:orientation="vertical"
             android:background="@drawable/shape"
-            android:gravity="center"
-            android:layout_marginTop="-18dp"
-            android:padding="10dp">
+            android:layout_marginTop="-18dp">
+
 
             <ImageView
+                android:id="@+id/logo"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:src="@drawable/logo"/>
+                android:layout_centerInParent="true"
+                android:src="@drawable/logo" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Teacher Analytics"
-                android:textSize="26sp"
-                android:textStyle="bold"
-                android:textColor="#FFFFFF"/>
-        </LinearLayout>
 
-        <!-- Welcome Card -->
+            <ImageView
+                android:id="@+id/bell_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/notifi_bell"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="16dp"/>
+        </RelativeLayout>
+
+
         <androidx.cardview.widget.CardView
             android:layout_width="350dp"
             android:layout_height="150dp"

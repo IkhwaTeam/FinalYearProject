@@ -218,6 +218,8 @@
                     android:src="@drawable/notifi_bell"
                     android:layout_gravity="end"
                     android:paddingRight="5dp"/>
+
+
             </FrameLayout>
 
             <View

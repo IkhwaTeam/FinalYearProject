@@ -18,6 +18,15 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".TeacherNotificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".StudentNotificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminNotificationActivity"
+            android:exported="false" />
+        <activity
             android:name=".AdminApprovalActivity"
             android:exported="false" />
         <activity

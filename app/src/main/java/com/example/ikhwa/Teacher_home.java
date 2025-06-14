@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -30,6 +31,7 @@ public class Teacher_home extends AppCompatActivity {
 
     Button t_staff_see_more, t_course_see_more;
     TextView tv_analytics;
+    ImageView bellIcon;
     // RecyclerView for notifications
     TeacherAdapter teacherAdapter;  // Adapter for RecyclerView
     List<TeacherDetails> teacherList = new ArrayList<>();  // List for teacher data
@@ -38,6 +40,17 @@ public class Teacher_home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.teacher_home);
+
+        ImageView bellIcon = findViewById(R.id.bell_icon);
+
+        bellIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Teacher_home.this, TeacherNotificationActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         // ✅ Firebase Notification Listener
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Notifications");

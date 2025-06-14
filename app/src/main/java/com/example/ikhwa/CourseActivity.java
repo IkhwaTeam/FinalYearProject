@@ -54,7 +54,7 @@ public class CourseActivity extends AppCompatActivity {
                 String title = "New Course Uploaded";
                 String description = snapshot.child("title").exists()
                         ? snapshot.child("title").getValue(String.class) + " course has been added." : "";
-                Notificationclass.showNotificationDesignActivity(CourseActivity.this, title, description);
+
             }
 
             @Override public void onChildChanged(DataSnapshot snapshot, String previousChildName) {}

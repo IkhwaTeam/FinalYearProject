@@ -51,7 +51,7 @@ public class AdminHomeActivity extends AppCompatActivity {
         });
 
         notificationBtn.setOnClickListener(view -> {
-            Intent intent = new Intent(AdminHomeActivity.this, NotificationsActivity.class);
+            Intent intent = new Intent(AdminHomeActivity.this, AdminNotificationActivity.class);
             startActivity(intent);
         });
 

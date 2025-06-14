@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -44,6 +45,7 @@ public class StudentHome2 extends AppCompatActivity {
     RecyclerView courseRecycler;
     List<Course> courseList;
     CourseAdapter courseAdapter;
+    Button notifybtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,18 @@ public class StudentHome2 extends AppCompatActivity {
         courseList = new ArrayList<>();
         courseAdapter = new CourseAdapter(this, courseList);
         courseRecycler.setAdapter(courseAdapter);
+
+        notifybtn = findViewById(R.id.notification_click_to_open);
+
+
+        notifybtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(StudentHome2.this, StudentNotificationActivity.class);
+                startActivity(intent);
+            }
+        });
 
         if (currentUser != null) {
             String uid = currentUser.getUid();
@@ -92,7 +106,7 @@ public class StudentHome2 extends AppCompatActivity {
                 startActivity(new Intent(StudentHome2.this, stdprofile.class));
                 return true;
             } else if (itemId == R.id.nav_home) {
-                startActivity(new Intent(StudentHome2.this, StudentHome2.class));
+                startActivity(new Intent(StudentHome2.this, StudentNotificationActivity.class));
                 return true;
             } else if (itemId == R.id.nav_setting) {
                 startActivity(new Intent(StudentHome2.this, SettingActivity.class));
