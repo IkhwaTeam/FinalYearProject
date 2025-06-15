@@ -1,10 +1,8 @@
-package com.example.ikhwa;
+package com.example.ikhwa.modules;
 
-public class EnrolledCourse {
-    private String id; // Course ID for Firebase key
+public class Course {
+    private String id; // ✅ Course ID for Firebase key
     private String title;
-    private String chapterCount;
-    private String tvProgress;
     private String description;
     private String duration;
     private String startDate;
@@ -13,14 +11,12 @@ public class EnrolledCourse {
     private boolean isEnrolled;
 
 
-    public EnrolledCourse() {
+    public Course() {
         // Default constructor required for calls to DataSnapshot.getValue(Course.class)
     }
 
-    public EnrolledCourse(String title,String chapterCount,String tvProgress, String description, String duration, String startDate, String endDate, String type) {
+    public Course(String title, String description, String duration, String startDate, String endDate, String type) {
         this.title = title;
-        this.chapterCount = chapterCount;
-        this.tvProgress=tvProgress;
         this.description = description;
         this.duration = duration;
         this.startDate = startDate;
@@ -30,7 +26,7 @@ public class EnrolledCourse {
 
     }
 
-    //  Getter and Setter for ID
+    // ✅ Getter and Setter for ID
     public String getId() {
         return id;
     }
@@ -58,22 +54,6 @@ public class EnrolledCourse {
 
     public String getDuration() {
         return duration;
-    }
-
-    public String getChapterCount() {
-        return chapterCount;
-    }
-
-    public void setChapterCount(String chapterCount) {
-        this.chapterCount = chapterCount;
-    }
-
-    public String getTvProgress() {
-        return tvProgress;
-    }
-
-    public void setTvProgress(String tvProgress) {
-        this.tvProgress = tvProgress;
     }
 
     public void setDuration(String duration) {

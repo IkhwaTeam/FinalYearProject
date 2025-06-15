@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.ikhwa.modules.NotificationModel;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;

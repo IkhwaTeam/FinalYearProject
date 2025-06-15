@@ -1,4 +1,4 @@
-package com.example.ikhwa;
+package com.example.ikhwa.modules;
 
 public class TeacherRequest {
     private String id, name, email, phone, qualification, password, interest, why, address, fatherName;

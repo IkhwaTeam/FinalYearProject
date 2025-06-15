@@ -20,9 +20,13 @@ import java.util.List;
 public class StudentNotificationActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    List<NotificationModel> notificationList = new ArrayList<>();
+    List<NotificationModel> notificationList;
     NotificationAdapter adapter;
     DatabaseReference notifRef;
+
+    public StudentNotificationActivity() {
+        notificationList = new ArrayList<>();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

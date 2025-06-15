@@ -63,7 +63,7 @@ public class StudentHome2 extends AppCompatActivity {
 
         courseRecycler = findViewById(R.id.recyclerCourseContainer);
         courseRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        courseList = new ArrayList<>();
+        courseList = new ArrayList<Course>();
         courseAdapter = new CourseAdapter(this, courseList);
         courseRecycler.setAdapter(courseAdapter);
 

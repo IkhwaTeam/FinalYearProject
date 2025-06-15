@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+
+import com.example.ikhwa.modules.TeacherModelRe;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -53,9 +55,9 @@ public class TeacherAdapterRe extends BaseAdapter {
         Button rejectBtn = convertView.findViewById(R.id.buttonApprove);
 
         TeacherModelRe model = list.get(position);
-        name.setText("Name: " + model.name);
-        email.setText("Email: " + model.email);
-        phone.setText("Phone: " + model.phone);
+        name.setText("Name: " + model.getName());
+        email.setText("Email: " + model.getEmail());
+        phone.setText("Phone: " + model.getPhone());
        // qua.setText("Qualification: " + model.qua);
         //fathername.setText("Father's Name: " + model.fathername);
         //address.setText("Address: " + model.address);

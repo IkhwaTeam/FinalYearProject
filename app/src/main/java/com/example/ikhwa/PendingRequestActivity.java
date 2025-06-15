@@ -18,13 +18,16 @@ public class PendingRequestActivity extends AppCompatActivity {
     TeacherAdapterRe adapter;
     DatabaseReference reference;
 
+    public PendingRequestActivity() {
+        list = new ArrayList<TeacherModelRe>();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pending_request);
 
         listView = findViewById(R.id.list_view_requests);
-        list = new ArrayList<>();
         keys = new ArrayList<>();
 
         adapter = new TeacherAdapterRe(this, list, keys);

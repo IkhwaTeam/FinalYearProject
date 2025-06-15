@@ -1,4 +1,4 @@
-package com.example.ikhwa;
+package com.example.ikhwa.modules;
 
 public class Student {
     private String email;
