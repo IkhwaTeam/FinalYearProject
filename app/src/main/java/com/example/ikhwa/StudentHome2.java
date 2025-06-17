@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -29,6 +30,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.example.ikhwa.modules.Course;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -125,7 +127,7 @@ public class StudentHome2 extends AppCompatActivity {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 Course course = snapshot.getValue(Course.class);
-                if (course != null) {
+               if (course != null) {
                     courseList.add(course);
                     courseAdapter.notifyItemInserted(courseList.size() - 1);
                 }

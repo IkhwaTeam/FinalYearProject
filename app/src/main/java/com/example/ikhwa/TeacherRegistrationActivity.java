@@ -1,8 +1,6 @@
 package com.example.ikhwa;
 
 import android.os.Bundle;
-import android.util.Patterns;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -16,7 +14,8 @@ import java.util.HashMap;
 
 public class TeacherRegistrationActivity extends AppCompatActivity {
 
-    EditText nameEditText, emailEditText, phoneEditText, qualificationEditText, etAddress, etPass, etInt, etWhy, etFather;
+    EditText nameEditText, emailEditText, phoneEditText, qualificationEditText,
+            etAddress, etPass, etInt, etWhy, etFather;
     Button registerBtn;
     DatabaseReference reference;
 
@@ -25,7 +24,6 @@ public class TeacherRegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_registration);
 
-        // Initialize UI components
         nameEditText = findViewById(R.id.tea_name);
         emailEditText = findViewById(R.id.tea_email);
         phoneEditText = findViewById(R.id.tea_phone);
@@ -37,7 +35,6 @@ public class TeacherRegistrationActivity extends AppCompatActivity {
         etPass = findViewById(R.id.tea_password);
         registerBtn = findViewById(R.id.tea_btn_reg);
 
-        // Firebase reference
         reference = FirebaseDatabase.getInstance().getReference("PendingTeacherRequests");
 
         registerBtn.setOnClickListener(v -> saveTeacherData());
@@ -54,34 +51,9 @@ public class TeacherRegistrationActivity extends AppCompatActivity {
         String why = etWhy.getText().toString().trim();
         String fatherName = etFather.getText().toString().trim();
 
-        // Validate inputs
-        if (name.isEmpty() || email.isEmpty() || phone.isEmpty() || qualification.isEmpty()
-                || password.isEmpty() || address.isEmpty() || fatherName.isEmpty()
-                || interest.isEmpty() || why.isEmpty()) {
-            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
-            return;
-        }
+        String key = reference.push().getKey();
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            Toast.makeText(this, "Please enter a valid email", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (phone.length() < 10) {
-            Toast.makeText(this, "Enter a valid phone number", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (password.length() < 6) {
-            Toast.makeText(this, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // Generate unique ID
-        String id = reference.push().getKey();
-
-        // Data to save
-        HashMap<String, String> teacherMap = new HashMap<>();
+        HashMap<String, Object> teacherMap = new HashMap<>();
         teacherMap.put("name", name);
         teacherMap.put("email", email);
         teacherMap.put("phone", phone);
@@ -91,15 +63,16 @@ public class TeacherRegistrationActivity extends AppCompatActivity {
         teacherMap.put("why", why);
         teacherMap.put("address", address);
         teacherMap.put("father_name", fatherName);
+        teacherMap.put("status", "pending");
 
-        // Save to Firebase
-        reference.child(id).setValue(teacherMap)
+        reference.child(key).setValue(teacherMap)
                 .addOnSuccessListener(unused -> {
-                    Toast.makeText(this, "Registration Request Sent!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Request sent to Admin!", Toast.LENGTH_SHORT).show();
                     clearFields();
+                    finish();
                 })
                 .addOnFailureListener(e ->
-                        Toast.makeText(this, "Failed to register: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                        Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show());
     }
 
     private void clearFields() {

@@ -18,6 +18,12 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".ViewTeacherDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TeacherRegistrationRequestActivity"
+            android:exported="false" />
+        <activity
             android:name=".TeacherNotificationActivity"
             android:exported="false" />
         <activity

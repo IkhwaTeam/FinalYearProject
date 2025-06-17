@@ -9,8 +9,11 @@ import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -18,11 +21,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class AdminHomeActivity extends AppCompatActivity {
 
     private ImageButton courseBtn, teacherBtn, studentBtn, notificationBtn, menuBtn;
     private static final String TAG = "AdminHomeActivity";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +44,27 @@ public class AdminHomeActivity extends AppCompatActivity {
         notificationBtn = findViewById(R.id.notification_btn);
         menuBtn = findViewById(R.id.menuButton);
 
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("PendingTeacherRequests");
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot snap : snapshot.getChildren()) {
+                    String status = snap.child("status").getValue(String.class);
+                    if ("pending".equals(status)) {
+                        String name = snap.child("name").getValue(String.class);
+                        String key = snap.getKey();
+                        showNotificationCard(name, key);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(AdminHomeActivity.this, "Failed: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
         courseBtn.setOnClickListener(view -> {
             Intent intent = new Intent(AdminHomeActivity.this, CourseActivity.class);
             startActivity(intent);
@@ -44,6 +74,8 @@ public class AdminHomeActivity extends AppCompatActivity {
             Intent intent = new Intent(AdminHomeActivity.this, TeacherListActivity.class);
             startActivity(intent);
         });
+
+
 
         studentBtn.setOnClickListener(view -> {
             Intent intent = new Intent(AdminHomeActivity.this, TeacherListActivity.class);
@@ -55,19 +87,17 @@ public class AdminHomeActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        // Handle menu button click
-        menuBtn.setOnClickListener(view -> showPopupMenu(view));
+        menuBtn.setOnClickListener(this::showPopupMenu);
     }
 
-    private void showPopupMenu(android.view.View view) {
+    private void showPopupMenu(View view) {
         PopupMenu popupMenu = new PopupMenu(this, view, 0, 0, R.style.PopupMenuStyle);
         popupMenu.getMenuInflater().inflate(R.menu.logout, popupMenu.getMenu());
 
-        // Change the text color of all items
         for (int i = 0; i < popupMenu.getMenu().size(); i++) {
             MenuItem menuItem = popupMenu.getMenu().getItem(i);
             SpannableString spanString = new SpannableString(menuItem.getTitle());
-            spanString.setSpan(new ForegroundColorSpan(Color.parseColor("#242E67")), 0, spanString.length(), 0); // Your desired color
+            spanString.setSpan(new ForegroundColorSpan(Color.parseColor("#242E67")), 0, spanString.length(), 0);
             menuItem.setTitle(spanString);
         }
 
@@ -85,20 +115,17 @@ public class AdminHomeActivity extends AppCompatActivity {
     private void logoutUser() {
         Log.d(TAG, "Logging out user");
 
-        // Clear the saved role from SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences(SplashActivity.PREF_NAME, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.remove(SplashActivity.ROLE_KEY);  // Remove the role stored
+        editor.remove(SplashActivity.ROLE_KEY);
         editor.apply();
 
-        // Log the user out from Firebase Authentication
         FirebaseAuth.getInstance().signOut();
 
-        // Redirect to login screen after logout
         Intent intent = new Intent(AdminHomeActivity.this, SelectionActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-        finish(); // Ensure that the AdminHomeActivity is closed
+        finish();
     }
 
     @Override
@@ -116,21 +143,20 @@ public class AdminHomeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // Override the back button behavior
     @SuppressLint("MissingSuperCall")
     @Override
     public void onBackPressed() {
-        // Remove super.onBackPressed() to stop navigating back
         new AlertDialog.Builder(this)
                 .setTitle("Exit Application")
                 .setMessage("Are you sure you want to exit?")
-                .setPositiveButton("Yes", (dialog, which) -> {
-                    // Close all activities
-                    finishAffinity();
-                })
+                .setPositiveButton("Yes", (dialog, which) -> finishAffinity())
                 .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
                 .create()
                 .show();
     }
 
+    private void showNotificationCard(String name, String key) {
+        // You can implement this method according to your UI design.
+        Log.d(TAG, "New Pending Request: " + name + " (" + key + ")");
+    }
 }
