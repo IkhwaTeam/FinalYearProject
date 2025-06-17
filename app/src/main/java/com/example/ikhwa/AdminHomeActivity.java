@@ -71,14 +71,14 @@ public class AdminHomeActivity extends AppCompatActivity {
         });
 
         teacherBtn.setOnClickListener(view -> {
-            Intent intent = new Intent(AdminHomeActivity.this, TeacherListActivity.class);
+            Intent intent = new Intent(AdminHomeActivity.this, PendingTeachersActivity.class);
             startActivity(intent);
         });
 
 
 
         studentBtn.setOnClickListener(view -> {
-            Intent intent = new Intent(AdminHomeActivity.this, TeacherListActivity.class);
+            Intent intent = new Intent(AdminHomeActivity.this, ApprovedRejectedTeachersActivity.class);
             startActivity(intent);
         });
 

@@ -73,7 +73,7 @@ public class Teacher_home extends AppCompatActivity {
         // ✅ Initialize RecyclerView and Adapter
 
 
-        teacherAdapter = new TeacherAdapter(teacherList);
+
 
         // ✅ Load Teacher Data (Optional)
         loadTeacherData();

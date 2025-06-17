@@ -142,6 +142,31 @@
             android:layout_marginBottom="8dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/form_btn3"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text_sign_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Don't have an account?"
+                android:textSize="16sp"
+                android:textColor="#3F51B5"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center" />
+            <Button
+                android:id="@+id/thr_sign_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sign up"
+                android:textColor="#3F51B5"
+                android:textSize="16sp"
+                android:background="@drawable/signup_btn"
+                android:layout_marginTop="18dp"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>
