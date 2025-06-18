@@ -9,7 +9,7 @@ public class Course {
     private String endDate;
     private String type;
     private boolean isEnrolled;
-
+    private String groupId;
 
     public Course() {
         // Default constructor required for calls to DataSnapshot.getValue(Course.class)
@@ -83,7 +83,13 @@ public class Course {
         this.type = type;
     }
 
+    public String getGroupId() {
+        return groupId;
+    }
 
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
+    }
     public boolean isEnrolled() {
         return isEnrolled;
     }

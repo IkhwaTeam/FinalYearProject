@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -221,21 +222,91 @@ public class CourseActivity extends AppCompatActivity {
 
         frame.addView(innerLayout);
 
-        frame.setOnClickListener(v -> {
-            Intent intent;
-            if ("Quiz Based".equals(model.getType())) {
-                intent = new Intent(CourseActivity.this, CourseContentActivity.class); // ← Your quiz screen activity
-            } else {
-                intent = new Intent(CourseActivity.this, std_crs_att.class); // ← Default activity
-            }
-            intent.putExtra("courseId", model.getId());
-            startActivity(intent);
-        });
-
-
+        frame.setOnClickListener(v -> showCourseDetailsDialog(model));
+        
         if (isCurrent)
             currentCourseContainer.addView(frame);
         else
             previousCourseContainer.addView(frame);
     }
+
+    private void showCourseDetailsDialog(Course course) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            View view = getLayoutInflater().inflate(R.layout.course_details_dialog, null);
+            builder.setView(view);
+
+            // Dialog views from XML
+            TextView titleText = view.findViewById(R.id.course_title);
+            TextView descriptionText = view.findViewById(R.id.course_description);
+            TextView durationText = view.findViewById(R.id.duration_value);
+            TextView studentCountText = view.findViewById(R.id.students_value);
+            TextView testInfoText = view.findViewById(R.id.test_value);
+
+            Button btnViewGroups = view.findViewById(R.id.crs_reg);
+            ImageView closeBtn = view.findViewById(R.id.close_btn);
+
+            // Set course data
+            if (titleText != null)
+                titleText.setText(course.getTitle());
+
+            if (descriptionText != null)
+                descriptionText.setText(course.getDescription());
+
+            if (durationText != null)
+                durationText.setText(course.getDuration());
+
+        if (studentCountText != null) {
+            DatabaseReference enrolledRef = FirebaseDatabase.getInstance()
+                    .getReference("Courses")
+                    .child("currentCourse")
+                    .child(course.getId())
+                    .child("enrolledStudents");
+
+            enrolledRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    Long count = snapshot.getValue(Long.class);
+                    if (count != null) {
+                        studentCountText.setText(String.valueOf(count));
+                    } else {
+                        studentCountText.setText("0");
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    studentCountText.setText("N/A");
+                }
+            });
+        }
+
+
+        if (testInfoText != null)
+                testInfoText.setText(course.getType()); // Assuming this refers to type/test type
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
+            // Close button
+            closeBtn.setOnClickListener(v -> dialog.dismiss());
+
+            // View Groups button
+        btnViewGroups.setOnClickListener(v -> {
+            if ("Attendance Based".equals(course.getType())) {
+                Intent intent = new Intent(CourseActivity.this, CreateGroupForCourseActivity.class);
+                intent.putExtra("courseId", course.getId());
+                intent.putExtra("courseTitle", course.getTitle());
+                startActivity(intent);
+                dialog.dismiss();
+            } else {
+                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(CourseActivity.this);
+                alertBuilder.setTitle("Action Not Allowed");
+                alertBuilder.setMessage("Groups can only be created for Attendance Based courses.");
+                alertBuilder.setPositiveButton("OK", null);
+                alertBuilder.show();
+            }
+        });
+
+    }
+
 }

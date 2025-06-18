@@ -24,6 +24,12 @@ public class Student {
         this.father_name = father_name;
     }
 
+    public Student(String uid, String name, String email) {
+        this.studentId = uid;
+        this.student_name = name;
+        this.email = email;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -87,5 +93,7 @@ public class Student {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
 }
 
