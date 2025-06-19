@@ -1,6 +1,7 @@
 package com.example.ikhwa;
 
 import android.os.Bundle;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +15,9 @@ public class HelpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
-
+        Button back = findViewById(R.id.back);
+        back.setOnClickListener(v -> {
+            finish();
+        });
     }
 }
