@@ -1,6 +1,7 @@
 package com.example.ikhwa;
 
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,6 +30,9 @@ public class Student_List extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_list);
+
+        Button backButton = findViewById(R.id.back);
+        backButton.setOnClickListener(v -> finish());
 
         recyclerView = findViewById(R.id.recyclerViewStudents);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

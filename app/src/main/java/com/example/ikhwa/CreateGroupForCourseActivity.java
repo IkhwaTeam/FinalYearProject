@@ -1,6 +1,7 @@
 package com.example.ikhwa;
 
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -37,7 +38,8 @@ public class CreateGroupForCourseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_group_for_course); // create this layout
 
-
+        Button backButton = findViewById(R.id.back);
+        backButton.setOnClickListener(v -> finish());
 
         // Get the courseId dynamically (via intent or Firebase)
         courseId = getIntent().getStringExtra("courseId");

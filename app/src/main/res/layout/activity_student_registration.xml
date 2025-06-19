@@ -14,26 +14,34 @@
         android:gravity="center"
         android:padding="12dp">
 
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="80dp"
+            android:layout_height="82dp"
+            android:src="@drawable/logo"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="16dp"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Create Account"
-            android:textSize="30sp"
+            android:textSize="24sp"
             android:textColor="#3F51B5"
             android:textStyle="bold"
             android:gravity="center"
             android:fontFamily="sans-serif"
-            android:background="@color/white"/>
+            android:background="@color/white" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Please fill in the details below"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textColor="#3F51B5"
             android:gravity="center"
             android:fontFamily="sans-serif"
-            android:layout_marginBottom="26dp"
+            android:layout_marginBottom="16dp"
             android:background="@color/white"/>
 
         <EditText
@@ -43,7 +51,7 @@
             android:hint="Student Name"
             android:textColor="@color/black"
             android:textColorHint="#70262A43"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:inputType="textEmailAddress"
             android:padding="10dp"
             android:layout_marginBottom="16dp"
@@ -59,7 +67,7 @@
             android:hint="Father's Name"
             android:textColor="@color/black"
             android:textColorHint="#70262A43"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:inputType="textEmailAddress"
             android:padding="10dp"
             android:layout_marginBottom="16dp"
@@ -90,7 +98,7 @@
             android:hint="Age"
             android:textColor="@color/black"
             android:textColorHint="#70262A43"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:inputType="textEmailAddress"
             android:padding="10dp"
             android:layout_marginBottom="16dp"
@@ -105,7 +113,7 @@
             android:hint="Phone Number"
             android:textColor="@color/black"
             android:textColorHint="#70262A43"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:inputType="textEmailAddress"
             android:padding="10dp"
             android:layout_marginBottom="16dp"
@@ -120,7 +128,7 @@
             android:hint="Address"
             android:textColor="@color/black"
             android:textColorHint="#70262A43"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:inputType="textEmailAddress"
             android:padding="10dp"
             android:layout_marginBottom="16dp"
@@ -148,7 +156,7 @@
                 android:inputType="textPassword"
                 android:textColor="@color/black"
                 android:padding="10dp"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:fontFamily="sans-serif"
                 android:textColorHint="#70262A43"
                 android:background="@android:color/transparent"/>
@@ -168,8 +176,7 @@
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
             android:background="@drawable/shape5"
-            android:gravity="center_vertical"
-            android:layout_marginBottom="16dp">
+            android:gravity="center_vertical">
 
             <EditText
                 android:id="@+id/st_cnfrm_password"
@@ -180,7 +187,7 @@
                 android:inputType="textPassword"
                 android:textColor="@color/black"
                 android:padding="10dp"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:fontFamily="sans-serif"
                 android:textColorHint="#70262A43"
                 android:background="@android:color/transparent"/>
@@ -212,15 +219,16 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="Sign Up"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textColor="@color/white"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/form_btn1"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
 
             <TextView
                 android:id="@+id/text_sign_up"
@@ -229,7 +237,6 @@
                 android:text="Have an account?"
                 android:textSize="16sp"
                 android:textColor="#3F51B5"
-                android:layout_marginTop="4dp"
                 android:layout_gravity="center" />
             <Button
                 android:id="@+id/st_login"
@@ -238,8 +245,7 @@
                 android:text="Login"
                 android:textColor="#3F51B5"
                 android:textSize="16sp"
-                android:background="@drawable/signup_btn"
-                android:layout_marginTop="8dp"/>
+                android:background="@drawable/signup_btn" />
 
         </LinearLayout>
 

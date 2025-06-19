@@ -1,24 +1,36 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/courseStatusText"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Groups in this Course"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:gravity="center"
-        android:paddingBottom="12dp"
-        android:layout_marginTop="20dp"/>
-
+        android:layout_height="80dp"
+        android:layout_marginTop="-20dp"
+        android:background="@drawable/shape"
+        android:layout_marginBottom="8dp">
+        <Button
+            android:id="@+id/back"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/back"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="30dp"
+            android:text="Groups "
+            android:textColor="@color/white"
+            android:textSize="26sp"
+            android:textStyle="bold"/>
+    </RelativeLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/groupRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        android:layout_margin="16dp"/>
 </LinearLayout>
