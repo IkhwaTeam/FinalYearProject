@@ -41,15 +41,31 @@ public class Student_List extends AppCompatActivity {
         adapter = new StudentListAdapter(studentList);
         recyclerView.setAdapter(adapter);
 
+        // ✅ Get both groupName and courseId from Intent
         String groupName = getIntent().getStringExtra("groupName");
-        loadGroupStudents(groupName);
+        String courseId = getIntent().getStringExtra("courseId");
+
+        // ✅ Now call the new version of the loader
+        if (groupName != null && courseId != null) {
+            loadGroupStudents(courseId, groupName);
+        } else {
+            Toast.makeText(this, "Error: Missing groupName or courseId!", Toast.LENGTH_SHORT).show();
+        }
     }
 
-    private void loadGroupStudents(String groupName) {
-        courseRef = FirebaseDatabase.getInstance().getReference()
-                .child("Courses").child("currentCourse").child("groups").child(groupName).child("students");
+    /**
+     * Load students directly for the specific course and group
+     */
+    private void loadGroupStudents(String courseId, String groupName) {
+        DatabaseReference studentsRef = FirebaseDatabase.getInstance().getReference()
+                .child("Courses")
+                .child("currentCourse")
+                .child(courseId)
+                .child("groups")
+                .child(groupName)
+                .child("students");
 
-        courseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        studentsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 studentList.clear();
@@ -64,7 +80,7 @@ public class Student_List extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(Student_List.this, "Failed to fetch students", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Student_List.this, "Error loading students: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -3,17 +3,35 @@
     android:padding="12dp"
     android:background="@drawable/tr_list_bg"
     android:layout_width="match_parent"
-    android:layout_height="76dp"
+    android:layout_height="wrap_content"
     android:layout_marginBottom="8dp"
     android:elevation="2dp">
 
-    <TextView
-        android:id="@+id/txtGroupName"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:textColor="@android:color/black"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txtGroupName"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="@android:color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/btnAssignTeacher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:background="@drawable/form_btn1"
+            android:padding="5dp"
+            android:text="Assign Teacher"
+            android:textAllCaps="false"
+            android:textSize="12sp"
+            android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/txtStudentList"
@@ -22,4 +40,12 @@
         android:textColor="@android:color/darker_gray"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/txtTeacherName"
+        android:textSize="16sp"
+        android:layout_marginTop="4dp"
+        android:textColor="@android:color/darker_gray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
 </LinearLayout>

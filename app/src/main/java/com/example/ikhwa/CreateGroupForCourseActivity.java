@@ -7,9 +7,6 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,9 +25,10 @@ import java.util.Map;
 public class CreateGroupForCourseActivity extends AppCompatActivity {
 
     private DatabaseReference courseRef;
-    private String courseId; // Passed from previous activity or selected course
+    private String courseId;
     RecyclerView groupRecyclerView;
     GroupAdapter groupAdapter;
+    private Map<String, String> teacherNames = new HashMap<>();
     Map<String, List<GroupStudent>> groupData = new HashMap<>();
 
     @Override
@@ -40,8 +38,9 @@ public class CreateGroupForCourseActivity extends AppCompatActivity {
 
         Button backButton = findViewById(R.id.back);
         backButton.setOnClickListener(v -> finish());
+        groupRecyclerView = findViewById(R.id.groupRecyclerView);
+        groupRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Get the courseId dynamically (via intent or Firebase)
         courseId = getIntent().getStringExtra("courseId");
 
         if (courseId != null) {
@@ -64,10 +63,18 @@ public class CreateGroupForCourseActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 groupData.clear();
+                teacherNames.clear(); // clear teacherNames too
+
                 for (DataSnapshot groupSnap : snapshot.getChildren()) {
                     String groupName = groupSnap.getKey();
-                    List<GroupStudent> students = new ArrayList<>();
 
+                    // Fetch teacher's name
+                    String assignedTeacherName = groupSnap.child("assignedTeacherName").getValue(String.class);
+                    if (assignedTeacherName != null) {
+                        teacherNames.put(groupName, assignedTeacherName);
+                    }
+
+                    List<GroupStudent> students = new ArrayList<>();
                     DataSnapshot studentsSnap = groupSnap.child("students");
                     for (DataSnapshot studentSnap : studentsSnap.getChildren()) {
                         GroupStudent student = studentSnap.getValue(GroupStudent.class);
@@ -79,7 +86,7 @@ public class CreateGroupForCourseActivity extends AppCompatActivity {
                 }
 
                 List<String> groupNames = new ArrayList<>(groupData.keySet());
-                groupAdapter = new GroupAdapter(groupNames, groupData);
+                groupAdapter = new GroupAdapter(CreateGroupForCourseActivity.this, groupNames, groupData, courseId, teacherNames);
                 groupRecyclerView.setAdapter(groupAdapter);
             }
 
@@ -89,17 +96,23 @@ public class CreateGroupForCourseActivity extends AppCompatActivity {
                 Toast.makeText(CreateGroupForCourseActivity.this, "Error checking group", Toast.LENGTH_SHORT).show();
             }
         });
-        groupRecyclerView = findViewById(R.id.groupRecyclerView);
-        groupRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         courseRef.child("groups").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 groupData.clear();
+                teacherNames.clear(); // also clear teacher names to avoid stale data
+
                 for (DataSnapshot groupSnap : snapshot.getChildren()) {
                     String groupName = groupSnap.getKey();
-                    List<GroupStudent> students = new ArrayList<>();
 
+                    // Fetch teacher's name
+                    String assignedTeacherName = groupSnap.child("assignedTeacherName").getValue(String.class);
+                    if (assignedTeacherName != null) {
+                        teacherNames.put(groupName, assignedTeacherName);
+                    }
+
+                    List<GroupStudent> students = new ArrayList<>();
                     DataSnapshot studentsSnap = groupSnap.child("students");
                     for (DataSnapshot studentSnap : studentsSnap.getChildren()) {
                         GroupStudent student = studentSnap.getValue(GroupStudent.class);
@@ -111,8 +124,7 @@ public class CreateGroupForCourseActivity extends AppCompatActivity {
                 }
 
                 List<String> groupNames = new ArrayList<>(groupData.keySet());
-                groupAdapter = new GroupAdapter(groupNames, groupData);
-
+                groupAdapter = new GroupAdapter(CreateGroupForCourseActivity.this, groupNames, groupData, courseId, teacherNames);
                 groupRecyclerView.setAdapter(groupAdapter);
             }
 
