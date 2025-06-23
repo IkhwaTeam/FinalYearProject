@@ -31,8 +31,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 public class Teacher_home extends AppCompatActivity {
 
     Button t_staff_see_more, t_course_see_more;
-    TextView tv_analytics;
-    ImageView bellIcon;
+    TextView tv_notification,tv_setting;
+
     // RecyclerView for notifications
     TeacherAdapter teacherAdapter;  // Adapter for RecyclerView
     List<TeacherDetails> teacherList = new ArrayList<>();  // List for teacher data
@@ -42,15 +42,9 @@ public class Teacher_home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.teacher_home);
 
-        ImageView bellIcon = findViewById(R.id.bell_icon);
 
-        bellIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Teacher_home.this, TeacherNotificationActivity.class);
-                startActivity(intent);
-            }
-        });
+
+
 
 
         // ✅ Firebase Notification Listener
@@ -81,8 +75,16 @@ public class Teacher_home extends AppCompatActivity {
         // ✅ Button Initialization
         t_staff_see_more = findViewById(R.id.tbtn_see_staff);
         t_course_see_more = findViewById(R.id.tbtn_see_course);
-        tv_analytics = findViewById(R.id.tvt_analytics);
+        tv_notification = findViewById(R.id.bell_icon_tea);
+tv_setting=findViewById(R.id.tea_setting);
+tv_setting.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        Intent intent = new Intent(Teacher_home.this, TeacherSettingActivity.class);
+        startActivity(intent);
+    }
 
+});
         // ✅ Button Clicks
         t_course_see_more.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,8 +102,8 @@ public class Teacher_home extends AppCompatActivity {
             }
         });
 
-        tv_analytics.setOnClickListener(v -> {
-            Intent intent = new Intent(Teacher_home.this, AnalyticsTeacherActivity.class);
+        tv_notification.setOnClickListener(v -> {
+            Intent intent = new Intent(Teacher_home.this, TeacherNotificationActivity.class);
             startActivity(intent);
         });
     }

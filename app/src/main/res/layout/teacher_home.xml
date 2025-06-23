@@ -29,14 +29,7 @@
                 android:src="@drawable/logo" />
 
 
-            <ImageView
-                android:id="@+id/bell_icon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/notifi_bell"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_margin="16dp"/>
+
         </RelativeLayout>
 
 
@@ -180,33 +173,67 @@
         <!-- Analytics Card -->
         <androidx.cardview.widget.CardView
             android:layout_width="350dp"
-            android:layout_height="150dp"
+            android:layout_height="100dp"
             android:layout_gravity="center"
             android:layout_marginTop="40dp"
-            app:cardCornerRadius="35dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="10dp"
+            app:cardBackgroundColor="#FDC25B">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+               android:layout_gravity="center_vertical"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/notification_tea"/>
+
+                <TextView
+                    android:id="@+id/bell_icon_tea"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Notifications"
+                    android:layout_marginTop="17dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="350dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            app:cardCornerRadius="20dp"
             app:cardElevation="10dp"
             app:cardBackgroundColor="#3F51B5">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
                 android:padding="16dp">
 
                 <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:src="@drawable/analyticstea"/>
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/setting" />
 
                 <TextView
-                    android:id="@+id/tvt_analytics"
+                    android:id="@+id/tea_setting"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Teacher Analytics"
+                    android:text="Settings"
                     android:textStyle="bold"
-                    android:textColor="@android:color/white"
-                    android:textSize="22sp"/>
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 

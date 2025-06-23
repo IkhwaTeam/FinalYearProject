@@ -18,6 +18,15 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".TeacherSettingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MarkAttendanceActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TeacherGroupListActivity"
+            android:exported="false" />
+        <activity
             android:name=".Student_List"
             android:exported="false" />
         <activity
