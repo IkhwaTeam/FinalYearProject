@@ -2,52 +2,78 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#F5F5F5"
     android:padding="16dp">
 
     <LinearLayout
         android:id="@+id/mainLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@drawable/layout_border"
+        android:padding="20dp"
 
+        android:elevation="4dp">
+
+        <!-- Video Title -->
         <TextView
             android:id="@+id/tvVideoTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Video Title"
-            android:textSize="18sp"
+            android:textSize="20sp"
+            android:layout_gravity="center"
             android:textStyle="bold"
-            android:paddingBottom="8dp"/>
+            android:textColor="#333333"
+            android:paddingBottom="4dp" />
 
+        <!-- Video Link -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Click the link to watch the lecture"
+            android:textColor="#1E88E5"
+            android:textSize="16sp"
+            android:autoLink="web"
+            android:paddingBottom="16dp" />
         <TextView
             android:id="@+id/tvVideoLink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Video Link"
-            android:textColor="#0000FF"
+            android:textColor="#1E88E5"
             android:textSize="16sp"
-            android:paddingBottom="16dp"/>
+            android:autoLink="web"
+            android:paddingBottom="16dp" />
 
+        <!-- Quiz Questions Container -->
         <LinearLayout
             android:id="@+id/quizContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />
 
-        <!-- Submit All Button -->
+        <!-- Submit Button -->
         <Button
             android:id="@+id/btnSubmitAll"
-            android:layout_width="match_parent"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="Submit All"
-            android:layout_marginTop="16dp"/>
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/form_btn1"
+            android:layout_marginTop="24dp"
+            android:padding="12dp" />
 
-        <!-- Circular ProgressBar -->
+        <!-- Circular ProgressBar with Percentage -->
         <FrameLayout
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_gravity="center"
-            android:layout_marginTop="24dp">
+            android:layout_marginTop="32dp">
 
             <ProgressBar
                 android:id="@+id/quizProgressBar"
@@ -65,9 +91,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="0%"
-                android:textSize="24sp"
+                android:textSize="26sp"
                 android:textStyle="bold"
-                android:gravity="center"/>
+                android:textColor="#333333"
+                android:gravity="center" />
         </FrameLayout>
 
     </LinearLayout>
