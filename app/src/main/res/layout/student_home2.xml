@@ -132,7 +132,7 @@
                 android:id="@+id/st_horizontal_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
+android:background="@color/white"
                 android:overScrollMode="never">
 
                 <LinearLayout
@@ -142,9 +142,6 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <include layout="@layout/your_course_card"/>
-                    <include layout="@layout/your_course_card2"/>
-                    <include layout="@layout/your_course_card3"/>
                 </LinearLayout>
             </HorizontalScrollView>
             <androidx.recyclerview.widget.RecyclerView

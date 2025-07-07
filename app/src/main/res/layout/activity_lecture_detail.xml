@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:id="@+id/mainLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvVideoTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Video Title"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/tvVideoLink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Video Link"
+            android:textColor="#0000FF"
+            android:textSize="16sp"
+            android:paddingBottom="16dp"/>
+
+        <LinearLayout
+            android:id="@+id/quizContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+        <!-- Submit All Button -->
+        <Button
+            android:id="@+id/btnSubmitAll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Submit All"
+            android:layout_marginTop="16dp"/>
+
+        <!-- Circular ProgressBar -->
+        <FrameLayout
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp">
+
+            <ProgressBar
+                android:id="@+id/quizProgressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:indeterminate="false"
+                android:max="100"
+                android:progress="0"
+                android:rotation="-90"
+                android:progressDrawable="@drawable/custom_progress_drawable" />
+
+            <TextView
+                android:id="@+id/percentageText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="0%"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:gravity="center"/>
+        </FrameLayout>
+
+    </LinearLayout>
+</ScrollView>

@@ -18,6 +18,12 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".LectureDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LectureListActivity"
+            android:exported="false" />
+        <activity
             android:name=".TeacherSettingActivity"
             android:exported="false" />
         <activity

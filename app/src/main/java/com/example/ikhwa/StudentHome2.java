@@ -5,32 +5,22 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-
+import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.ikhwa.modules.Course;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.example.ikhwa.modules.Course;
+import com.google.firebase.database.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +41,6 @@ public class StudentHome2 extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.student_home2);
@@ -65,20 +54,14 @@ public class StudentHome2 extends AppCompatActivity {
 
         courseRecycler = findViewById(R.id.recyclerCourseContainer);
         courseRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        courseList = new ArrayList<Course>();
+        courseList = new ArrayList<>();
         courseAdapter = new CourseAdapter(this, courseList);
         courseRecycler.setAdapter(courseAdapter);
 
         notifybtn = findViewById(R.id.notification_click_to_open);
-
-
-        notifybtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent intent = new Intent(StudentHome2.this, StudentNotificationActivity.class);
-                startActivity(intent);
-            }
+        notifybtn.setOnClickListener(view -> {
+            Intent intent = new Intent(StudentHome2.this, StudentNotificationActivity.class);
+            startActivity(intent);
         });
 
         if (currentUser != null) {
@@ -123,85 +106,86 @@ public class StudentHome2 extends AppCompatActivity {
     private void loadCurrentCourses() {
         DatabaseReference courseRef = FirebaseDatabase.getInstance().getReference("Courses/currentCourse");
 
-        courseRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                Course course = snapshot.getValue(Course.class);
-               if (course != null) {
-                    courseList.add(course);
-                    courseAdapter.notifyItemInserted(courseList.size() - 1);
+        courseRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                courseList.clear();
+                for (DataSnapshot snapshot : task.getResult().getChildren()) {
+                    Course course = snapshot.getValue(Course.class);
+                    if (course != null) {
+                        course.setId(snapshot.getKey()); // Set courseId
+                        courseList.add(course);
+                    }
                 }
+                courseAdapter.notifyDataSetChanged();
             }
-
-            @Override public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
-            @Override public void onChildRemoved(@NonNull DataSnapshot snapshot) {}
-            @Override public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
-            @Override public void onCancelled(@NonNull DatabaseError error) {}
         });
     }
 
     private void showEnrolledCourses(String uid) {
-        DatabaseReference enrolledRef = FirebaseDatabase.getInstance().getReference("EnrolledCourses").child(uid);
+        DatabaseReference enrolledRef = FirebaseDatabase.getInstance().getReference("Enrollments").child(uid);
+        DatabaseReference courseRef = FirebaseDatabase.getInstance().getReference("Courses").child("currentCourse");
+
         layout.removeAllViews();
 
         enrolledRef.get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                DataSnapshot snapshot = task.getResult();
-                List<String> courseTitles = new ArrayList<>();
-                List<String> chapterCount = new ArrayList<>();
+            if (task.isSuccessful() && task.getResult().exists()) {
+                for (DataSnapshot courseSnap : task.getResult().getChildren()) {
+                    String courseId = courseSnap.getKey();
 
-
-                for (DataSnapshot courseSnap : snapshot.getChildren()) {
-                    String courseTitle = courseSnap.getKey();
-                    courseTitles.add(courseTitle);
-                }
-
-                for (int i = 0; i < courseTitles.size(); i++) {
-                    String title = courseTitles.get(i);
-                    View courseView = getLayoutInflater().inflate(R.layout.your_course_card, null);
-
-                    TextView tvCourseTitle = courseView.findViewById(R.id.tv_course_title);
-                    TextView tvChapterCount = courseView.findViewById(R.id.tv_chapter_count);
-                    TextView tvProgress = courseView.findViewById(R.id.tv_progress);
-                    RelativeLayout cardLayout = courseView.findViewById(R.id.card_background_layout);
-
-                    tvCourseTitle.setText(title);
-                    tvChapterCount.setText("40 Days");
-                    tvProgress.setText("0/40 Completed");
-
-                    int colorResId = backgroundColors[i % backgroundColors.length];
-                    cardLayout.setBackgroundResource(colorResId);
-
-                    // 👇 Click listener to show dialog on tap
-                    courseView.setOnClickListener(view -> show_dialog2());
-
-                    layout.addView(courseView);
+                    courseRef.child(courseId).get().addOnCompleteListener(courseTask -> {
+                        if (courseTask.isSuccessful() && courseTask.getResult().exists()) {
+                            Course course = courseTask.getResult().getValue(Course.class);
+                            if (course != null) {
+                                course.setId(courseId); // set course ID manually
+                                addCourseCard(course);
+                            }
+                        }
+                    });
                 }
             }
         });
     }
 
-    public void show_dialog() {
-        myDialog.setContentView(R.layout.course_dialog_show);
-        if (myDialog.getWindow() != null) {
-            myDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-            myDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-        }
+    private void addCourseCard(Course course) {
+        View courseView = getLayoutInflater().inflate(R.layout.your_course_card, null);
 
-        ImageView close_btn = myDialog.findViewById(R.id.close_btn);
-        if (close_btn != null) {
-            close_btn.setOnClickListener(view -> myDialog.dismiss());
-        }
+        // Add margin between cards
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        layoutParams.setMargins(16, 0, 16, 0);
+        courseView.setLayoutParams(layoutParams);
 
-        TextView intent_btn = myDialog.findViewById(R.id.crs_reg);
-        if (intent_btn != null) {
-            intent_btn.setOnClickListener(view -> {
-                Intent intent = new Intent(StudentHome2.this, StudentHome2.class);
+        TextView tvCourseTitle = courseView.findViewById(R.id.tv_course_title);
+        TextView tvChapterCount = courseView.findViewById(R.id.tv_chapter_count);
+        TextView tvType = courseView.findViewById(R.id.course_type);
+        TextView tvProgress = courseView.findViewById(R.id.tv_progress);
+        RelativeLayout cardLayout = courseView.findViewById(R.id.card_background_layout);
+
+        tvCourseTitle.setText(course.getTitle());
+        tvChapterCount.setText(course.getDuration());
+        tvType.setText(course.getType());
+        tvProgress.setText("0/" + course.getDuration() + " Completed");
+
+        int index = layout.getChildCount();
+        int colorResId = backgroundColors[index % backgroundColors.length];
+        cardLayout.setBackgroundResource(colorResId);
+
+        // Course click action based on type
+        courseView.setOnClickListener(view -> {
+            if (course.getType().equalsIgnoreCase("Quiz Based")) {
+                Intent intent = new Intent(StudentHome2.this, LectureListActivity.class);
+                intent.putExtra("courseId", course.getId());
                 startActivity(intent);
-            });
-        }
+            } else if (course.getType().equalsIgnoreCase("Attendance Based")) {
+                show_dialog2();
+            } else {
+                Toast.makeText(StudentHome2.this, "Unknown course type", Toast.LENGTH_SHORT).show();
+            }
+        });
 
-        myDialog.show();
+        layout.addView(courseView);
     }
 
     public void show_dialog2() {
@@ -239,5 +223,3 @@ public class StudentHome2 extends AppCompatActivity {
                 .show();
     }
 }
-
-
