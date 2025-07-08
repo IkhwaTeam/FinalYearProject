@@ -8,15 +8,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.TextView;
+import android.widget.*;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -24,12 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ikhwa.modules.Course;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -50,20 +37,6 @@ public class CourseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_course);
 
         courseRef = FirebaseDatabase.getInstance().getReference("Courses");
-
-        courseRef.addChildEventListener(new ChildEventListener() {
-            @Override public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
-                String title = "New Course Uploaded";
-                String description = snapshot.child("title").exists()
-                        ? snapshot.child("title").getValue(String.class) + " course has been added." : "";
-
-            }
-
-            @Override public void onChildChanged(DataSnapshot snapshot, String previousChildName) {}
-            @Override public void onChildRemoved(DataSnapshot snapshot) {}
-            @Override public void onChildMoved(DataSnapshot snapshot, String previousChildName) {}
-            @Override public void onCancelled(DatabaseError error) {}
-        });
 
         backButton = findViewById(R.id.back);
         backButton.setOnClickListener(v -> {
@@ -177,7 +150,8 @@ public class CourseActivity extends AppCompatActivity {
                 }
             }
 
-            @Override public void onCancelled(@NonNull DatabaseError error) {}
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
         });
     }
 
@@ -222,8 +196,17 @@ public class CourseActivity extends AppCompatActivity {
 
         frame.addView(innerLayout);
 
-        frame.setOnClickListener(v -> showCourseDetailsDialog(model));
-        
+        // ✅ ACTION on click (Quiz vs Attendance Based)
+        frame.setOnClickListener(v -> {
+            if ("Quiz Based".equalsIgnoreCase(model.getType())) {
+                Intent intent = new Intent(CourseActivity.this, CourseContentActivity.class);
+                intent.putExtra("courseId", model.getId());
+                startActivity(intent);
+            } else {
+                showCourseDetailsDialog(model);
+            }
+        });
+
         if (isCurrent)
             currentCourseContainer.addView(frame);
         else
@@ -231,29 +214,23 @@ public class CourseActivity extends AppCompatActivity {
     }
 
     private void showCourseDetailsDialog(Course course) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            View view = getLayoutInflater().inflate(R.layout.course_details_dialog, null);
-            builder.setView(view);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = getLayoutInflater().inflate(R.layout.course_details_dialog, null);
+        builder.setView(view);
 
-            // Dialog views from XML
-            TextView titleText = view.findViewById(R.id.course_title);
-            TextView descriptionText = view.findViewById(R.id.course_description);
-            TextView durationText = view.findViewById(R.id.duration_value);
-            TextView studentCountText = view.findViewById(R.id.students_value);
-            TextView testInfoText = view.findViewById(R.id.test_value);
+        TextView titleText = view.findViewById(R.id.course_title);
+        TextView descriptionText = view.findViewById(R.id.course_description);
+        TextView durationText = view.findViewById(R.id.duration_value);
+        TextView studentCountText = view.findViewById(R.id.students_value);
+        TextView testInfoText = view.findViewById(R.id.test_value);
 
-            Button btnViewGroups = view.findViewById(R.id.crs_reg);
-            ImageView closeBtn = view.findViewById(R.id.close_btn);
+        Button btnViewGroups = view.findViewById(R.id.crs_reg);
+        ImageView closeBtn = view.findViewById(R.id.close_btn);
 
-            // Set course data
-            if (titleText != null)
-                titleText.setText(course.getTitle());
-
-            if (descriptionText != null)
-                descriptionText.setText(course.getDescription());
-
-            if (durationText != null)
-                durationText.setText(course.getDuration());
+        if (titleText != null) titleText.setText(course.getTitle());
+        if (descriptionText != null) descriptionText.setText(course.getDescription());
+        if (durationText != null) durationText.setText(course.getDuration());
+        if (testInfoText != null) testInfoText.setText(course.getType());
 
         if (studentCountText != null) {
             DatabaseReference enrolledRef = FirebaseDatabase.getInstance()
@@ -266,11 +243,7 @@ public class CourseActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     Long count = snapshot.getValue(Long.class);
-                    if (count != null) {
-                        studentCountText.setText(String.valueOf(count));
-                    } else {
-                        studentCountText.setText("0");
-                    }
+                    studentCountText.setText(count != null ? String.valueOf(count) : "0");
                 }
 
                 @Override
@@ -280,17 +253,11 @@ public class CourseActivity extends AppCompatActivity {
             });
         }
 
+        AlertDialog dialog = builder.create();
+        dialog.show();
 
-        if (testInfoText != null)
-                testInfoText.setText(course.getType()); // Assuming this refers to type/test type
+        closeBtn.setOnClickListener(v -> dialog.dismiss());
 
-            AlertDialog dialog = builder.create();
-            dialog.show();
-
-            // Close button
-            closeBtn.setOnClickListener(v -> dialog.dismiss());
-
-            // View Groups button
         btnViewGroups.setOnClickListener(v -> {
             if ("Attendance Based".equals(course.getType())) {
                 Intent intent = new Intent(CourseActivity.this, CreateGroupForCourseActivity.class);
@@ -306,7 +273,5 @@ public class CourseActivity extends AppCompatActivity {
                 alertBuilder.show();
             }
         });
-
     }
-
 }

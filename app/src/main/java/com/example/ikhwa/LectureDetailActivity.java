@@ -5,11 +5,11 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
 import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 
 import java.util.ArrayList;
@@ -24,15 +24,17 @@ public class LectureDetailActivity extends AppCompatActivity {
     private Button btnSubmitAll;
 
     private final List<QuizItem> quizItemList = new ArrayList<>();
+    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lecture_detail);
 
-        // Get IDs
+        // Get data
         courseId = getIntent().getStringExtra("courseId");
         lectureId = getIntent().getStringExtra("lectureId");
+        userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         // Initialize views
         tvVideoTitle = findViewById(R.id.tvVideoTitle);
@@ -45,7 +47,7 @@ public class LectureDetailActivity extends AppCompatActivity {
         // Submit action
         btnSubmitAll.setOnClickListener(v -> evaluateQuiz());
 
-        // Load lecture & quiz
+        // Load lecture content
         loadLectureDetails();
     }
 
@@ -59,10 +61,8 @@ public class LectureDetailActivity extends AppCompatActivity {
                 String title = snapshot.child("title").getValue(String.class);
                 String videoUrl = snapshot.child("videoUrl").getValue(String.class);
 
-                // Set video title
                 tvVideoTitle.setText(title);
 
-                // ✅ Show actual clickable video URL
                 if (videoUrl != null && !videoUrl.isEmpty()) {
                     tvVideoLink.setText(Html.fromHtml("<u>" + videoUrl + "</u>"));
                     tvVideoLink.setTextColor(Color.BLUE);
@@ -75,7 +75,7 @@ public class LectureDetailActivity extends AppCompatActivity {
                     tvVideoLink.setTextColor(Color.RED);
                 }
 
-                // Load quiz
+                // Load quiz questions
                 DataSnapshot quizzesSnap = snapshot.child("quizzes");
                 int questionNumber = 1;
 
@@ -87,7 +87,7 @@ public class LectureDetailActivity extends AppCompatActivity {
                     }
                     String correctAnswer = quizSnap.child("correctAnswer").getValue(String.class);
 
-                    // Add Question Text
+                    // Add Question TextView
                     TextView qView = new TextView(LectureDetailActivity.this);
                     qView.setText(questionNumber + ") " + question);
                     qView.setTextSize(18);
@@ -95,7 +95,7 @@ public class LectureDetailActivity extends AppCompatActivity {
                     qView.setPadding(0, 24, 0, 8);
                     quizContainer.addView(qView);
 
-                    // Add Options
+                    // Add options as RadioGroup
                     RadioGroup rg = new RadioGroup(LectureDetailActivity.this);
                     rg.setPadding(0, 0, 0, 16);
                     for (String opt : options) {
@@ -103,19 +103,19 @@ public class LectureDetailActivity extends AppCompatActivity {
                         rb.setText(opt);
                         rb.setTextColor(Color.BLACK);
                         rb.setTextSize(16);
-                        rb.setButtonDrawable(R.drawable.radio_dark_selector); // ← custom selector
+                        rb.setButtonDrawable(R.drawable.radio_dark_selector); // Optional: Custom selector
                         rg.addView(rb);
                     }
                     quizContainer.addView(rg);
 
-                    // Result Text
+                    // Add result text below each question
                     TextView resultView = new TextView(LectureDetailActivity.this);
                     resultView.setPadding(10, 8, 10, 20);
                     resultView.setTextColor(Color.GRAY);
                     resultView.setTextSize(15);
                     quizContainer.addView(resultView);
 
-                    // Store for evaluation
+                    // Store question for evaluation
                     quizItemList.add(new QuizItem(rg, correctAnswer, resultView));
                     questionNumber++;
                 }
@@ -148,23 +148,35 @@ public class LectureDetailActivity extends AppCompatActivity {
                     item.resultView.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
                 }
             } else {
-                item.resultView.setText("❌ Not Answered. Correct: " + item.correctAnswer);
+                item.resultView.setText("❌ Not Answered. Correct Answer: " + item.correctAnswer);
                 item.resultView.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
             }
 
-            // Disable all options
+            // Disable options
             for (int i = 0; i < item.radioGroup.getChildCount(); i++) {
                 item.radioGroup.getChildAt(i).setEnabled(false);
             }
         }
 
-        // Set percentage
+        // Calculate percentage
         int percentage = (int) ((correct * 100.0f) / total);
         tvFinalResult.setText(percentage + "%");
         quizProgressBar.setProgress(percentage);
+
+        // ✅ Save attempt status in Firebase
+        DatabaseReference attemptRef = FirebaseDatabase.getInstance()
+                .getReference("Users")
+                .child(userId)
+                .child("attemptedLectures")
+                .child(courseId)
+                .child(lectureId);
+
+        attemptRef.setValue(true)
+                .addOnSuccessListener(aVoid -> Toast.makeText(this, "✅ Quiz marked as attempted!", Toast.LENGTH_SHORT).show())
+                .addOnFailureListener(e -> Toast.makeText(this, "⚠ Failed to mark as attempted", Toast.LENGTH_SHORT).show());
     }
 
-    // Data holder
+    // Helper class for storing each question's view
     private static class QuizItem {
         RadioGroup radioGroup;
         String correctAnswer;

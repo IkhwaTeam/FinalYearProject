@@ -123,7 +123,7 @@ public class StudentHome2 extends AppCompatActivity {
 
     private void showEnrolledCourses(String uid) {
         DatabaseReference enrolledRef = FirebaseDatabase.getInstance().getReference("Enrollments").child(uid);
-        DatabaseReference courseRef = FirebaseDatabase.getInstance().getReference("Courses").child("currentCourse");
+        DatabaseReference courseRef = FirebaseDatabase.getInstance().getReference("Courses/currentCourse");
 
         layout.removeAllViews();
 
@@ -137,7 +137,7 @@ public class StudentHome2 extends AppCompatActivity {
                             Course course = courseTask.getResult().getValue(Course.class);
                             if (course != null) {
                                 course.setId(courseId); // set course ID manually
-                                addCourseCard(course);
+                                addCourseCard(course, uid);
                             }
                         }
                     });
@@ -146,10 +146,9 @@ public class StudentHome2 extends AppCompatActivity {
         });
     }
 
-    private void addCourseCard(Course course) {
+    private void addCourseCard(Course course, String uid) {
         View courseView = getLayoutInflater().inflate(R.layout.your_course_card, null);
 
-        // Add margin between cards
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -161,29 +160,60 @@ public class StudentHome2 extends AppCompatActivity {
         TextView tvChapterCount = courseView.findViewById(R.id.tv_chapter_count);
         TextView tvType = courseView.findViewById(R.id.course_type);
         TextView tvProgress = courseView.findViewById(R.id.tv_progress);
+        ProgressBar progressBar = courseView.findViewById(R.id.progress_bar);
         RelativeLayout cardLayout = courseView.findViewById(R.id.card_background_layout);
 
         tvCourseTitle.setText(course.getTitle());
         tvChapterCount.setText(course.getDuration());
         tvType.setText(course.getType());
-        tvProgress.setText("0/" + course.getDuration() + " Completed");
 
         int index = layout.getChildCount();
         int colorResId = backgroundColors[index % backgroundColors.length];
         cardLayout.setBackgroundResource(colorResId);
 
-        // Course click action based on type
-        courseView.setOnClickListener(view -> {
+        // ✅ Show progress for both types
+        DatabaseReference lecturesRef = FirebaseDatabase.getInstance().getReference("Courses")
+                .child(course.getId()).child("lectures");
+
+        DatabaseReference attemptRef = FirebaseDatabase.getInstance().getReference("Users")
+                .child(uid).child("attemptedLectures").child(course.getId());
+
+        lecturesRef.get().addOnCompleteListener(lectureTask -> {
+            if (lectureTask.isSuccessful()) {
+                long totalLectures = lectureTask.getResult().getChildrenCount();
+
+                attemptRef.get().addOnCompleteListener(attemptTask -> {
+                    if (attemptTask.isSuccessful()) {
+                        long attempted = attemptTask.getResult().getChildrenCount();
+                        tvProgress.setText(attempted + "/" + totalLectures + " Completed");
+
+                        if (totalLectures > 0) {
+                            int percentage = (int) ((attempted * 100.0f) / totalLectures);
+                            progressBar.setProgress(percentage);
+                        } else {
+                            progressBar.setProgress(0);
+                        }
+                    }
+                });
+            } else {
+                tvProgress.setText("0/" + course.getDuration() + " Completed");
+                progressBar.setProgress(0);
+            }
+        });
+        Button btnView = courseView.findViewById(R.id.btn_view_lecture);
+
+        btnView.setOnClickListener(view -> {
             if (course.getType().equalsIgnoreCase("Quiz Based")) {
                 Intent intent = new Intent(StudentHome2.this, LectureListActivity.class);
                 intent.putExtra("courseId", course.getId());
                 startActivity(intent);
             } else if (course.getType().equalsIgnoreCase("Attendance Based")) {
-                show_dialog2();
+                show_dialog2(); // Static attendance course
             } else {
                 Toast.makeText(StudentHome2.this, "Unknown course type", Toast.LENGTH_SHORT).show();
             }
         });
+
 
         layout.addView(courseView);
     }

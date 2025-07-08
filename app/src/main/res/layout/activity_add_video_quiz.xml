@@ -103,7 +103,8 @@
                         android:layout_height="wrap_content"
                         android:hint="Enter Quiz Question"
                         android:inputType="text"
-
+                        android:textColor="@color/black"
+                        android:textColorHint="#AFAAAA"
                         android:backgroundTint="@color/black"/>
 
                     <EditText
@@ -111,7 +112,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Enter Option 1"
+                        android:textColor="@color/black"
                         android:inputType="text"
+                        android:textColorHint="#AFAAAA"
                         android:layout_marginTop="8dp"
                         android:backgroundTint="@color/black"/>
 
@@ -120,6 +123,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Enter Option 2"
+                        android:textColor="@color/black"
+                        android:textColorHint="#AFAAAA"
                         android:inputType="text"
                         android:layout_marginTop="8dp"
                         android:backgroundTint="@color/black"/>
@@ -128,7 +133,9 @@
                         android:id="@+id/et_quiz_option_3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textColorHint="#AFAAAA"
                         android:hint="Enter Option 3"
+                        android:textColor="@color/black"
                         android:inputType="text"
                         android:layout_marginTop="8dp"
                         android:backgroundTint="@color/black"/>
@@ -138,6 +145,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Enter Option 4"
+                        android:textColorHint="#AFAAAA"
+                        android:textColor="@color/black"
                         android:inputType="text"
                         android:layout_marginTop="8dp"
                         android:backgroundTint="@color/black"/>
@@ -147,18 +156,22 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Enter Correct Answer"
+                        android:textColor="@color/black"
+                        android:textColorHint="#AFAAAA"
                         android:inputType="text"
                         android:layout_marginTop="8dp"
                         android:backgroundTint="@color/black"/>
 
                     <Button
                         android:id="@+id/btn_add_quiz"
-                        android:layout_width="match_parent"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:text="Add Quiz"
                         android:textAllCaps="false"
+                        android:layout_gravity="center"
                         android:layout_marginTop="16dp"
                         android:backgroundTint="#1DB384"
+                        android:background="@drawable/form_btn1"/>
                         android:textColor="@color/black"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
