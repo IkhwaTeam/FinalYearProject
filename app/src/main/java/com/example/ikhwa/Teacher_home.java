@@ -30,7 +30,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 public class Teacher_home extends AppCompatActivity {
 
-    Button t_staff_see_more, t_course_see_more;
+    Button t_staff_see_more, t_course_see_more,btn_see_more_pro;
     TextView tv_notification,tv_setting;
 
     // RecyclerView for notifications
@@ -76,6 +76,7 @@ public class Teacher_home extends AppCompatActivity {
         t_staff_see_more = findViewById(R.id.tbtn_see_staff);
         t_course_see_more = findViewById(R.id.tbtn_see_course);
         tv_notification = findViewById(R.id.bell_icon_tea);
+        btn_see_more_pro=findViewById(R.id.btn_see_moretea);
 tv_setting=findViewById(R.id.tea_setting);
 tv_setting.setOnClickListener(new View.OnClickListener() {
     @Override
@@ -84,6 +85,14 @@ tv_setting.setOnClickListener(new View.OnClickListener() {
         startActivity(intent);
     }
 
+});
+btn_see_more_pro.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        Intent intent = new Intent(Teacher_home.this, TeacherProfileActivity.class);
+        startActivity(intent);
+
+    }
 });
         // ✅ Button Clicks
         t_course_see_more.setOnClickListener(new View.OnClickListener() {
