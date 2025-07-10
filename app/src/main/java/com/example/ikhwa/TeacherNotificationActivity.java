@@ -9,11 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ikhwa.modules.NotificationModel;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +18,11 @@ import java.util.List;
 public class TeacherNotificationActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    List<NotificationModel> notificationList = new ArrayList<>();
+    List<NotificationModel> notificationList;
     NotificationAdapter adapter;
-    DatabaseReference notifRef;
+
+    DatabaseReference notifRef, readRef;
+    String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,19 +32,30 @@ public class TeacherNotificationActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerNotifications);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new NotificationAdapter(this, notificationList,false);
+        notificationList = new ArrayList<>();
+        adapter = new NotificationAdapter(this, notificationList, false); // false: no edit/delete
         recyclerView.setAdapter(adapter);
 
-        notifRef = FirebaseDatabase.getInstance().getReference("Notifications");
+        uid = FirebaseAuth.getInstance().getUid();
+        if (uid == null) {
+            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
 
-        loadNotifications();
+        notifRef = FirebaseDatabase.getInstance().getReference("Notifications");
+        readRef = FirebaseDatabase.getInstance().getReference("NotificationReads")
+                .child("Teacher").child(uid);
+
+        loadAndMarkNotifications();
     }
 
-    private void loadNotifications() {
-        notifRef.addValueEventListener(new ValueEventListener() {
+    private void loadAndMarkNotifications() {
+        notifRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 notificationList.clear();
+
                 for (DataSnapshot snap : snapshot.getChildren()) {
                     String id = snap.getKey();
                     String title = snap.child("title").getValue(String.class);
@@ -53,17 +63,22 @@ public class TeacherNotificationActivity extends AppCompatActivity {
                     String time = snap.child("timestamp").getValue(String.class);
                     String target = snap.child("target").getValue(String.class);
 
-                    // Show only if target is "students" or "all"
-                    if (target != null && (target.equals("Teacher") || target.equals("all"))) {
+                    if (target != null &&
+                            (target.equalsIgnoreCase("Teacher") || target.equalsIgnoreCase("All"))) {
                         notificationList.add(new NotificationModel(id, title, desc, time, target));
+
+                        // ✅ Mark this notification as read
+                        readRef.child(id).setValue(true);
                     }
                 }
+
                 adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(TeacherNotificationActivity.this, "Failed to load notifications", Toast.LENGTH_SHORT).show();
+                Toast.makeText(TeacherNotificationActivity.this,
+                        "Failed to load notifications", Toast.LENGTH_SHORT).show();
             }
         });
     }

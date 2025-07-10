@@ -21,6 +21,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,12 +29,11 @@ import java.util.List;
 public class StudentHome2 extends AppCompatActivity {
 
     Dialog myDialog, myDialog2;
-    TextView studentNameText, studentEmailText;
+    TextView studentNameText, studentEmailText, notificationBadge;
     DatabaseReference databaseReference;
     int[] backgroundColors = { R.drawable.bg_green, R.drawable.bg_blue, R.drawable.bg_red };
     LinearLayout layout;
     FirebaseAuth mAuth;
-
     RecyclerView courseRecycler;
     List<Course> courseList;
     CourseAdapter courseAdapter;
@@ -51,6 +51,8 @@ public class StudentHome2 extends AppCompatActivity {
         studentNameText = findViewById(R.id.st_name);
         studentEmailText = findViewById(R.id.st_email);
         layout = findViewById(R.id.st_add_your);
+        notificationBadge = findViewById(R.id.notification_badge);
+        notifybtn = findViewById(R.id.notification_click_to_open);
 
         courseRecycler = findViewById(R.id.recyclerCourseContainer);
         courseRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -58,11 +60,25 @@ public class StudentHome2 extends AppCompatActivity {
         courseAdapter = new CourseAdapter(this, courseList);
         courseRecycler.setAdapter(courseAdapter);
 
-        notifybtn = findViewById(R.id.notification_click_to_open);
+        // Open notifications & mark all as read
         notifybtn.setOnClickListener(view -> {
-            Intent intent = new Intent(StudentHome2.this, StudentNotificationActivity.class);
-            startActivity(intent);
+            String uid = FirebaseAuth.getInstance().getUid();
+            DatabaseReference notifRef = FirebaseDatabase.getInstance().getReference("Notifications");
+            DatabaseReference readRef = FirebaseDatabase.getInstance().getReference("NotificationReads")
+                    .child("Student").child(uid);
+
+            notifRef.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    for (DataSnapshot snap : task.getResult().getChildren()) {
+                        readRef.child(snap.getKey()).setValue(true);
+                    }
+                    notificationBadge.setVisibility(View.GONE); // hide badge now
+                    startActivity(new Intent(StudentHome2.this, StudentNotificationActivity.class));
+                }
+            });
         });
+
+
 
         if (currentUser != null) {
             String uid = currentUser.getUid();
@@ -76,7 +92,7 @@ public class StudentHome2 extends AppCompatActivity {
                     studentEmailText.setText(email);
                     showEnrolledCourses(uid);
                 } else {
-                    Toast.makeText(StudentHome2.this, "Failed to load student data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Failed to load student data", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -88,19 +104,58 @@ public class StudentHome2 extends AppCompatActivity {
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.nav_profile) {
-                startActivity(new Intent(StudentHome2.this, stdprofile.class));
+                startActivity(new Intent(this, stdprofile.class));
                 return true;
             } else if (itemId == R.id.nav_home) {
-                startActivity(new Intent(StudentHome2.this, StudentNotificationActivity.class));
+                startActivity(new Intent(this, StudentNotificationActivity.class));
                 return true;
             } else if (itemId == R.id.nav_setting) {
-                startActivity(new Intent(StudentHome2.this, SettingActivity.class));
+                startActivity(new Intent(this, SettingActivity.class));
                 return true;
             }
             return false;
         });
 
         loadCurrentCourses();
+        checkUnreadNotifications();
+    }
+
+    private void checkUnreadNotifications() {
+        String uid = FirebaseAuth.getInstance().getUid();
+        DatabaseReference notifRef = FirebaseDatabase.getInstance().getReference("Notifications");
+        DatabaseReference readRef = FirebaseDatabase.getInstance().getReference("NotificationReads")
+                .child("Student").child(uid);
+
+        notifRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot allNotifsSnapshot) {
+                readRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot readSnapshot) {
+                        int unreadCount = 0;
+                        for (DataSnapshot notif : allNotifsSnapshot.getChildren()) {
+                            String target = notif.child("target").getValue(String.class);
+                            if (target != null && (target.equals("Student") || target.equals("all"))) {
+                                if (!readSnapshot.hasChild(notif.getKey())) {
+                                    unreadCount++;
+                                }
+                            }
+                        }
+
+                        if (unreadCount > 0) {
+                            notificationBadge.setVisibility(View.VISIBLE);
+                            notificationBadge.setText(String.valueOf(unreadCount));
+                        } else {
+                            notificationBadge.setVisibility(View.GONE);
+                        }
+                    }
+
+                    @Override public void onCancelled(@NonNull DatabaseError error) {}
+                });
+            }
+
+            @Override public void onCancelled(@NonNull DatabaseError error) {}
+        });
     }
 
     private void loadCurrentCourses() {
@@ -112,7 +167,7 @@ public class StudentHome2 extends AppCompatActivity {
                 for (DataSnapshot snapshot : task.getResult().getChildren()) {
                     Course course = snapshot.getValue(Course.class);
                     if (course != null) {
-                        course.setId(snapshot.getKey()); // Set courseId
+                        course.setId(snapshot.getKey());
                         courseList.add(course);
                     }
                 }
@@ -136,7 +191,7 @@ public class StudentHome2 extends AppCompatActivity {
                         if (courseTask.isSuccessful() && courseTask.getResult().exists()) {
                             Course course = courseTask.getResult().getValue(Course.class);
                             if (course != null) {
-                                course.setId(courseId); // set course ID manually
+                                course.setId(courseId);
                                 addCourseCard(course, uid);
                             }
                         }
@@ -171,7 +226,6 @@ public class StudentHome2 extends AppCompatActivity {
         int colorResId = backgroundColors[index % backgroundColors.length];
         cardLayout.setBackgroundResource(colorResId);
 
-        // ✅ Show progress for both types
         DatabaseReference lecturesRef = FirebaseDatabase.getInstance().getReference("Courses")
                 .child(course.getId()).child("lectures");
 
@@ -200,20 +254,19 @@ public class StudentHome2 extends AppCompatActivity {
                 progressBar.setProgress(0);
             }
         });
-        Button btnView = courseView.findViewById(R.id.btn_view_lecture);
 
+        Button btnView = courseView.findViewById(R.id.btn_view_lecture);
         btnView.setOnClickListener(view -> {
             if (course.getType().equalsIgnoreCase("Quiz Based")) {
                 Intent intent = new Intent(StudentHome2.this, LectureListActivity.class);
                 intent.putExtra("courseId", course.getId());
                 startActivity(intent);
             } else if (course.getType().equalsIgnoreCase("Attendance Based")) {
-                show_dialog2(); // Static attendance course
+                show_dialog2();
             } else {
                 Toast.makeText(StudentHome2.this, "Unknown course type", Toast.LENGTH_SHORT).show();
             }
         });
-
 
         layout.addView(courseView);
     }

@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
@@ -17,139 +18,60 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:targetApi="31">
-        <activity
-            android:name=".EditTeacherProfileActivity"
-            android:exported="false" />
-        <activity
-            android:name=".TeacherProfileActivity"
-            android:exported="false" />
-        <activity
-            android:name=".LectureDetailActivity"
-            android:exported="false" />
-        <activity
-            android:name=".LectureListActivity"
-            android:exported="false" />
-        <activity
-            android:name=".TeacherSettingActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MarkAttendanceActivity"
-            android:exported="false" />
-        <activity
-            android:name=".TeacherGroupListActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Student_List"
-            android:exported="false" />
-        <activity
-            android:name=".CreateGroupForCourseActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ApprovedRejectedTeachersActivity"
-            android:exported="false" />
-        <activity
-            android:name=".PendingTeachersActivity"
-            android:exported="false" />
-        <activity
-            android:name=".TeacherNotificationActivity"
-            android:exported="false" />
-        <activity
-            android:name=".StudentNotificationActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AdminNotificationActivity"
-            android:exported="false" />
-        <activity
-            android:name=".QuizCourseActivity"
-            android:exported="false" />
-        <activity
-            android:name=".YourCoursesActivity"
-            android:exported="false" />
-        <activity
-            android:name=".TeacherRegistrationActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AddVideoQuizActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CourseContentActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ResetPasswordActivity"
-            android:exported="false" />
-        <activity
-            android:name=".OnboardActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SettingActivity"
-            android:exported="false" />
-        <activity
-            android:name=".TermsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".PrivacyPolicyActivity4"
-            android:exported="false" />
-        <activity
-            android:name=".AboutUsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".HelpActivity"
-            android:exported="false" />
-        <activity
-            android:name=".StdEditProfileActivity"
-            android:exported="false" />
-        <activity
-            android:name=".stdprofile"
-            android:exported="false" />
-        <activity
-            android:name=".TeacherCourseActivity"
-            android:exported="false" />
-        <activity
-            android:name=".StudentHome2"
-            android:exported="false" /> <!-- ✅ Splash Activity (Launcher) -->
-        <activity
-            android:name=".SplashActivity"
-            android:exported="true">
+
+        <!-- ✅ Firebase Messaging Service -->
+
+
+        <!-- All Activities -->
+        <activity android:name=".EditTeacherProfileActivity" android:exported="false" />
+        <activity android:name=".TeacherProfileActivity" android:exported="false" />
+        <activity android:name=".LectureDetailActivity" android:exported="false" />
+        <activity android:name=".LectureListActivity" android:exported="false" />
+        <activity android:name=".TeacherSettingActivity" android:exported="false" />
+        <activity android:name=".MarkAttendanceActivity" android:exported="false" />
+        <activity android:name=".TeacherGroupListActivity" android:exported="false" />
+        <activity android:name=".Student_List" android:exported="false" />
+        <activity android:name=".CreateGroupForCourseActivity" android:exported="false" />
+        <activity android:name=".ApprovedRejectedTeachersActivity" android:exported="false" />
+        <activity android:name=".PendingTeachersActivity" android:exported="false" />
+        <activity android:name=".TeacherNotificationActivity" android:exported="false" />
+        <activity android:name=".StudentNotificationActivity" android:exported="false" />
+        <activity android:name=".AdminNotificationActivity" android:exported="false" />
+        <activity android:name=".QuizCourseActivity" android:exported="false" />
+        <activity android:name=".YourCoursesActivity" android:exported="false" />
+        <activity android:name=".TeacherRegistrationActivity" android:exported="false" />
+        <activity android:name=".AddVideoQuizActivity" android:exported="false" />
+        <activity android:name=".CourseContentActivity" android:exported="false" />
+        <activity android:name=".ResetPasswordActivity" android:exported="false" />
+        <activity android:name=".OnboardActivity" android:exported="false" />
+        <activity android:name=".SettingActivity" android:exported="false" />
+        <activity android:name=".TermsActivity" android:exported="false" />
+        <activity android:name=".PrivacyPolicyActivity4" android:exported="false" />
+        <activity android:name=".AboutUsActivity" android:exported="false" />
+        <activity android:name=".HelpActivity" android:exported="false" />
+        <activity android:name=".StdEditProfileActivity" android:exported="false" />
+        <activity android:name=".stdprofile" android:exported="false" />
+        <activity android:name=".TeacherCourseActivity" android:exported="false" />
+        <activity android:name=".StudentHome2" android:exported="false" />
+        <activity android:name=".SplashActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- ✅ Ensure other activities are properly defined -->
-        <activity
-            android:name=".AdminHomeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SelectionActivity"
-            android:exported="false" />
-        <activity
-            android:name=".StudentLoginActivity"
-            android:exported="false" />
-        <activity
-            android:name=".StudentRegistrationActivity"
-            android:exported="false" />
-        <activity
-            android:name=".TeacherLoginActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CourseActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CourseFormDialog"
-            android:exported="false" />
-        <activity
-            android:name=".Teacher_home"
-            android:exported="false" />
-        <activity
-            android:name=".StafftActivity"
-            android:exported="false" />
-        <activity
-            android:name=".TeacherAttendanceActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AnalyticsTeacherActivity"
-            android:exported="false" />
-        <activity android:name=".std_crs_att" />
+        </activity>
+        <activity android:name=".AdminHomeActivity" android:exported="false" />
+        <activity android:name=".SelectionActivity" android:exported="false" />
+        <activity android:name=".StudentLoginActivity" android:exported="false" />
+        <activity android:name=".StudentRegistrationActivity" android:exported="false" />
+        <activity android:name=".TeacherLoginActivity" android:exported="false" />
+        <activity android:name=".CourseActivity" android:exported="false" />
+        <activity android:name=".CourseFormDialog" android:exported="false" />
+        <activity android:name=".Teacher_home" android:exported="false" />
+        <activity android:name=".StafftActivity" android:exported="false" />
+        <activity android:name=".TeacherAttendanceActivity" android:exported="false" />
+        <activity android:name=".AnalyticsTeacherActivity" android:exported="false" />
+        <activity android:name=".std_crs_att" android:exported="false" />
+
     </application>
 
 </manifest>

@@ -1,143 +1,130 @@
 package com.example.ikhwa;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
+import android.app.AlertDialog;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ikhwa.modules.TeacherDetails;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import java.util.List;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.*;
+
 import java.util.ArrayList;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
-
+import java.util.List;
 
 public class Teacher_home extends AppCompatActivity {
 
-    Button t_staff_see_more, t_course_see_more,btn_see_more_pro;
-    TextView tv_notification,tv_setting;
+    Button t_staff_see_more, t_course_see_more, btn_see_more_pro;
+    TextView tv_notification, tv_setting, badgeTextView;
 
-    // RecyclerView for notifications
-    TeacherAdapter teacherAdapter;  // Adapter for RecyclerView
-    List<TeacherDetails> teacherList = new ArrayList<>();  // List for teacher data
+    List<TeacherDetails> teacherList = new ArrayList<>();
+    int unseenCount = 0;
+
+    DatabaseReference notifRef, readRef;
+    String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.teacher_home);
 
+        // Firebase UID
+        uid = FirebaseAuth.getInstance().getUid();
+        if (uid == null) {
+            finish(); // not logged in
+            return;
+        }
 
-
-
-
-
-        // ✅ Firebase Notification Listener
-        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Notifications");
-
-        dbRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                String title = snapshot.child("title").getValue(String.class);
-                String description = snapshot.child("description").getValue(String.class);
-
-            }
-
-            @Override public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
-            @Override public void onChildRemoved(@NonNull DataSnapshot snapshot) {}
-            @Override public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
-            @Override public void onCancelled(@NonNull DatabaseError error) {}
-        });
-
-        // ✅ Initialize RecyclerView and Adapter
-
-
-
-
-        // ✅ Load Teacher Data (Optional)
-        loadTeacherData();
-
-        // ✅ Button Initialization
+        // UI Bindings
         t_staff_see_more = findViewById(R.id.tbtn_see_staff);
         t_course_see_more = findViewById(R.id.tbtn_see_course);
         tv_notification = findViewById(R.id.bell_icon_tea);
-        btn_see_more_pro=findViewById(R.id.btn_see_moretea);
-tv_setting=findViewById(R.id.tea_setting);
-tv_setting.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-        Intent intent = new Intent(Teacher_home.this, TeacherSettingActivity.class);
-        startActivity(intent);
-    }
+        btn_see_more_pro = findViewById(R.id.btn_see_moretea);
+        tv_setting = findViewById(R.id.tea_setting);
+        badgeTextView = findViewById(R.id.notification_badge);
 
-});
-btn_see_more_pro.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-        Intent intent = new Intent(Teacher_home.this, TeacherProfileActivity.class);
-        startActivity(intent);
+        // Navigation Buttons
+        tv_setting.setOnClickListener(v -> startActivity(new Intent(this, TeacherSettingActivity.class)));
+        btn_see_more_pro.setOnClickListener(v -> startActivity(new Intent(this, TeacherProfileActivity.class)));
+        t_course_see_more.setOnClickListener(v -> startActivity(new Intent(this, TeacherCourseActivity.class)));
+        t_staff_see_more.setOnClickListener(v -> startActivity(new Intent(this, StafftActivity.class)));
 
-    }
-});
-        // ✅ Button Clicks
-        t_course_see_more.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Teacher_home.this, TeacherCourseActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        t_staff_see_more.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Teacher_home.this, StafftActivity.class);
-                startActivity(intent);
-            }
-        });
-
+        // Notification Click
         tv_notification.setOnClickListener(v -> {
-            Intent intent = new Intent(Teacher_home.this, TeacherNotificationActivity.class);
-            startActivity(intent);
+            startActivity(new Intent(Teacher_home.this, TeacherNotificationActivity.class));
+            badgeTextView.setVisibility(View.GONE); // Hide badge on open
         });
+
+        // Load Notification Count
+        checkUnreadNotifications();
+
+        // Optional: load other data
+        loadTeacherData();
+    }
+
+    private void checkUnreadNotifications() {
+        notifRef = FirebaseDatabase.getInstance().getReference("Notifications");
+        readRef = FirebaseDatabase.getInstance().getReference("NotificationReads")
+                .child("Teacher").child(uid);
+
+        notifRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot allNotifsSnapshot) {
+                readRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot readSnapshot) {
+                        unseenCount = 0;
+
+                        for (DataSnapshot notif : allNotifsSnapshot.getChildren()) {
+                            String notifKey = notif.getKey();
+                            String target = notif.child("target").getValue(String.class);
+
+                            if (target != null &&
+                                    (target.equalsIgnoreCase("Teacher") || target.equalsIgnoreCase("All")) &&
+                                    !readSnapshot.hasChild(notifKey)) {
+                                unseenCount++;
+                            }
+                        }
+
+                        updateBadge();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {}
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        });
+    }
+
+    private void updateBadge() {
+        if (badgeTextView != null) {
+            if (unseenCount > 0) {
+                badgeTextView.setText(String.valueOf(unseenCount));
+                badgeTextView.setVisibility(View.VISIBLE);
+            } else {
+                badgeTextView.setVisibility(View.GONE);
+            }
+        }
     }
 
     private void loadTeacherData() {
-        // Here you can load teacher data for RecyclerView if needed
+        // Optional: teacher-specific data load
     }
 
-    // Override the back button behavior to exit the app instead of going back to selection screen
     @Override
     public void onBackPressed() {
-        // Show a confirmation dialog when back button is pressed
-        super.onBackPressed();
         new AlertDialog.Builder(this)
                 .setTitle("Exit Application")
                 .setMessage("Are you sure you want to exit?")
-                .setPositiveButton("Yes", (dialog, which) -> {
-                    // If user confirms, exit the app completely
-                    finishAffinity();
-                    // Alternative approach if finishAffinity() doesn't work as expected
-                    // Intent intent = new Intent(Intent.ACTION_MAIN);
-                    // intent.addCategory(Intent.CATEGORY_HOME);
-                    // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    // startActivity(intent);
-                })
+                .setPositiveButton("Yes", (dialog, which) -> finishAffinity())
                 .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
                 .create()
                 .show();

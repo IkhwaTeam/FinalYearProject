@@ -144,6 +144,8 @@ android:background="@color/white"
 
                 </LinearLayout>
             </HorizontalScrollView>
+
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/your_courses_horizontal_recycler"
                 android:layout_width="match_parent"
@@ -151,11 +153,10 @@ android:background="@color/white"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="16dp"
                 android:clipToPadding="false"
+                android:orientation="horizontal"
                 android:overScrollMode="never"
                 android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:orientation="horizontal"/>
-
+                android:paddingRight="8dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -193,17 +194,24 @@ android:background="@color/white"
                         android:textStyle="bold"/>
 
 
-                    <Button
-                        android:id="@+id/notification_click_to_open"
-                        android:layout_width="140dp"
-                        android:layout_height="40dp"
-                        android:layout_marginTop="4dp"
-                        android:text="Click to Open"
-                        android:textColor="@color/black"
-                        android:backgroundTint="@color/white"
-                        android:background="@drawable/shape5"
-                        android:textAllCaps="false"
-                        android:textSize="12dp"/>
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp">
+
+                        <Button
+                            android:id="@+id/notification_click_to_open"
+                            android:layout_width="100dp"
+                            android:layout_height="40dp"
+                            android:text="Click to Open"
+                            android:textColor="@color/black"
+                            android:background="@drawable/shape5"
+                            android:textAllCaps="false"
+                            android:textSize="12sp" />
+
+
+                    </FrameLayout>
+
 
 
                 </LinearLayout>
@@ -216,7 +224,19 @@ android:background="@color/white"
                     android:layout_gravity="end"
                     android:paddingRight="5dp"/>
 
-
+                <TextView
+                    android:id="@+id/notification_badge"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="end|top"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginTop="2dp"
+                    android:gravity="center"
+                    android:background="@drawable/badge_background"
+                    android:textColor="@android:color/white"
+                    android:textSize="10sp"
+                    android:visibility="gone"
+                    android:text="0" />
             </FrameLayout>
 
             <View

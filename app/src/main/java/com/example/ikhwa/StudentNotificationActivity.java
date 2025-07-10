@@ -7,13 +7,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.ikhwa.modules.NotificationModel;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.example.ikhwa.modules.NotificationModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,11 +20,7 @@ public class StudentNotificationActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     List<NotificationModel> notificationList;
     NotificationAdapter adapter;
-    DatabaseReference notifRef;
-
-    public StudentNotificationActivity() {
-        notificationList = new ArrayList<>();
-    }
+    DatabaseReference notifRef, readRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,19 +30,29 @@ public class StudentNotificationActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerNotifications);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new NotificationAdapter(this, notificationList,false);
+        notificationList = new ArrayList<>();
+        adapter = new NotificationAdapter(this, notificationList, false); // false = student view
         recyclerView.setAdapter(adapter);
 
-        notifRef = FirebaseDatabase.getInstance().getReference("Notifications");
+        String uid = FirebaseAuth.getInstance().getUid();
+        if (uid == null) {
+            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        loadNotifications();
+        notifRef = FirebaseDatabase.getInstance().getReference("Notifications");
+        readRef = FirebaseDatabase.getInstance().getReference("NotificationReads")
+                .child("Student").child(uid);
+
+        loadAndMarkNotifications();
     }
 
-    private void loadNotifications() {
-        notifRef.addValueEventListener(new ValueEventListener() {
+    private void loadAndMarkNotifications() {
+        notifRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 notificationList.clear();
+
                 for (DataSnapshot snap : snapshot.getChildren()) {
                     String id = snap.getKey();
                     String title = snap.child("title").getValue(String.class);
@@ -57,11 +60,15 @@ public class StudentNotificationActivity extends AppCompatActivity {
                     String time = snap.child("timestamp").getValue(String.class);
                     String target = snap.child("target").getValue(String.class);
 
-                    // Show only if target is "students" or "all"
-                    if (target != null && (target.equals("Student") || target.equals("all"))) {
-                        notificationList.add(new NotificationModel(id, title, desc, time, target));
+                    // ✅ Show only if target is "Students" or "all"
+                    if (target != null && (target.equalsIgnoreCase("Student") || target.equalsIgnoreCase("all"))) {
+                        notificationList.add(new NotificationModel(id, title, desc, time != null ? time : "", target));
+
+                        // ✅ Mark this notification as read
+                        readRef.child(id).setValue(true);
                     }
                 }
+
                 adapter.notifyDataSetChanged();
             }
 
