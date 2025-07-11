@@ -18,9 +18,11 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:targetApi="31">
         <activity
-            android:name=".TeacherGroupsActivity"
+            android:name=".StudentAttendanceViewActivity"
             android:exported="false" />
-        <!-- ✅ Firebase Messaging Service -->
+        <activity
+            android:name=".TeacherGroupsActivity"
+            android:exported="false" /> <!-- ✅ Firebase Messaging Service -->
         <!-- All Activities -->
         <activity
             android:name=".EditTeacherProfileActivity"

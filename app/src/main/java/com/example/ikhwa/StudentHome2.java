@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.*;
 
 import androidx.activity.EdgeToEdge;
@@ -21,7 +20,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
-import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +58,6 @@ public class StudentHome2 extends AppCompatActivity {
         courseAdapter = new CourseAdapter(this, courseList);
         courseRecycler.setAdapter(courseAdapter);
 
-        // Open notifications & mark all as read
         notifybtn.setOnClickListener(view -> {
             String uid = FirebaseAuth.getInstance().getUid();
             DatabaseReference notifRef = FirebaseDatabase.getInstance().getReference("Notifications");
@@ -72,13 +69,11 @@ public class StudentHome2 extends AppCompatActivity {
                     for (DataSnapshot snap : task.getResult().getChildren()) {
                         readRef.child(snap.getKey()).setValue(true);
                     }
-                    notificationBadge.setVisibility(View.GONE); // hide badge now
+                    notificationBadge.setVisibility(View.GONE);
                     startActivity(new Intent(StudentHome2.this, StudentNotificationActivity.class));
                 }
             });
         });
-
-
 
         if (currentUser != null) {
             String uid = currentUser.getUid();
@@ -192,6 +187,17 @@ public class StudentHome2 extends AppCompatActivity {
                             Course course = courseTask.getResult().getValue(Course.class);
                             if (course != null) {
                                 course.setId(courseId);
+
+                                // ✅ Get first groupId from groups
+                                if (courseTask.getResult().hasChild("groups")) {
+                                    DataSnapshot groupsSnap = courseTask.getResult().child("groups");
+                                    for (DataSnapshot group : groupsSnap.getChildren()) {
+                                        String groupId = group.getKey();
+                                        course.setGroupId(groupId);
+                                        break;
+                                    }
+                                }
+
                                 addCourseCard(course, uid);
                             }
                         }
@@ -262,36 +268,17 @@ public class StudentHome2 extends AppCompatActivity {
                 intent.putExtra("courseId", course.getId());
                 startActivity(intent);
             } else if (course.getType().equalsIgnoreCase("Attendance Based")) {
-                show_dialog2();
+                Intent intent = new Intent(StudentHome2.this, StudentAttendanceViewActivity.class);
+                intent.putExtra("courseId", course.getId());
+                intent.putExtra("groupId", course.getGroupId()); // ✅
+                intent.putExtra("courseTitle", course.getTitle());
+                startActivity(intent);
             } else {
                 Toast.makeText(StudentHome2.this, "Unknown course type", Toast.LENGTH_SHORT).show();
             }
         });
 
         layout.addView(courseView);
-    }
-
-    public void show_dialog2() {
-        myDialog2.setContentView(R.layout.your_course_dialog);
-        if (myDialog2.getWindow() != null) {
-            myDialog2.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-            myDialog2.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-        }
-
-        ImageView close_btn2 = myDialog2.findViewById(R.id.close_btn1);
-        if (close_btn2 != null) {
-            close_btn2.setOnClickListener(view -> myDialog2.dismiss());
-        }
-
-        TextView intent_btn = myDialog2.findViewById(R.id.view_att);
-        if (intent_btn != null) {
-            intent_btn.setOnClickListener(view -> {
-                Intent intent = new Intent(StudentHome2.this, std_crs_att.class);
-                startActivity(intent);
-            });
-        }
-
-        myDialog2.show();
     }
 
     @SuppressLint("MissingSuperCall")
