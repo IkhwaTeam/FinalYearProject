@@ -1,45 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F9F9F9">
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    android:padding="16dp">
 
+    <!-- Date Section -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:background="@drawable/date_box"
+        android:layout_marginBottom="10dp">
 
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/selectedDateText"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Attendance Table"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="#3F51B5"
-            android:gravity="center"
-            android:layout_marginTop="10dp"
-            android:padding="8dp" />
-        <TextView
-            android:id="@+id/attendance_date"
+            android:layout_weight="1"
+            android:text="Selected Date"
+            android:textSize="16sp"
+            android:textColor="#000000" />
+
+        <Button
+            android:id="@+id/selectDateBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select Date"
-            android:textSize="18sp"
-            android:textColor="#3F51B5"
-            android:padding="10dp"
-            android:gravity="center"
-            android:layout_marginBottom="10dp"
-            android:layout_gravity="center_horizontal"/>
+            android:text="Pick Date"
+            android:textAllCaps="false"
+            android:backgroundTint="@color/blue_205cdc"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
 
-        <TableLayout
-            android:id="@+id/table_layout"
+    <!-- Header Row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#eeeeee"
+        android:padding="10dp"
+        android:layout_marginBottom="6dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Student"
+            android:textStyle="bold"
+            android:textColor="#000000" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="   P           A           L"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:gravity="center"/>
+    </LinearLayout>
+
+    <!-- Scrollable Attendance List -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:id="@+id/studentAttendanceContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:stretchColumns="1"
-            android:layout_marginTop="5dp"
-            android:backgroundTint="@color/white"
-            android:background="#FF6200EE">
-        </TableLayout>
-    </LinearLayout>
-</ScrollView>
+            android:orientation="vertical"/>
+    </ScrollView>
+
+    <!-- Save Button -->
+    <Button
+        android:id="@+id/saveAttendanceBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save Attendance"
+        android:textAllCaps="false"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/blue_205cdc"
+        android:textColor="@android:color/white"/>
+</LinearLayout>
