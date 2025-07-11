@@ -190,11 +190,23 @@
                 android:layout_height="match_parent"
                 android:padding="16dp">
 
+                <TextView
+                    android:id="@+id/notification_badge"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+
+                    android:layout_marginStart="55dp"
+                    android:background="@drawable/badge_background"
+                    android:gravity="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="10sp"
+                    android:visibility="gone"
+                    android:text="0" />
                 <ImageView
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_alignParentStart="true"
-                    android:src="@drawable/notification_tea" />
+                    android:src="@drawable/notifi_bell" />
 
                 <TextView
                     android:id="@+id/bell_icon_tea"
@@ -207,19 +219,7 @@
                     android:textColor="@color/black"
                     android:textSize="22sp" />
 
-                <TextView
-                    android:id="@+id/notification_badge"
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:layout_alignTop="@id/bell_icon_tea"
-                    android:layout_toEndOf="@id/bell_icon_tea"
-                    android:layout_marginStart="6dp"
-                    android:background="@drawable/badge_background"
-                    android:gravity="center"
-                    android:textColor="@android:color/white"
-                    android:textSize="10sp"
-                    android:visibility="gone"
-                    android:text="0" />
+
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
 

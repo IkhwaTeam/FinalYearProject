@@ -1,96 +1,94 @@
 package com.example.ikhwa;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-
+import android.widget.*;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.text.SimpleDateFormat;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.*;
 
 public class TeacherCourseActivity extends AppCompatActivity {
 
-    private LinearLayout currentCourseContainer;
-    private LinearLayout previousCourseContainer;
-    Button backButton;
+    private LinearLayout allCourseContainer;
+    private LinearLayout yourCourseContainer;
+    private Button backButton;
+    private String teacherUid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_course);
 
-        currentCourseContainer = findViewById(R.id.current_course_container);
-        previousCourseContainer = findViewById(R.id.previous_course_container);
-
-        fetchCurrentCourses();
-        fetchPreviousCourses();
-
+        allCourseContainer = findViewById(R.id.current_course_container);
+        yourCourseContainer = findViewById(R.id.previous_course_container);
         backButton = findViewById(R.id.back);
-        backButton.setOnClickListener(v -> {
-            startActivity(new Intent(TeacherCourseActivity.this, Teacher_home.class));
-        });
+        teacherUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        loadAllCourses();
+        loadAssignedCourses();
+
+        backButton.setOnClickListener(v ->
+                startActivity(new Intent(TeacherCourseActivity.this, Teacher_home.class))
+        );
     }
 
-    private void fetchCurrentCourses() {
+    private void loadAllCourses() {
         FirebaseDatabase.getInstance().getReference("Courses/currentCourse")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    public void onDataChange(DataSnapshot snapshot) {
-                        currentCourseContainer.removeAllViews();
-
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        allCourseContainer.removeAllViews();
                         for (DataSnapshot courseSnap : snapshot.getChildren()) {
-                            addCourseToLayout(courseSnap, true);
+                            addCourseToLayout(courseSnap, allCourseContainer, false);
                         }
                     }
 
                     @Override
-                    public void onCancelled(DatabaseError error) {
-                    }
+                    public void onCancelled(@NonNull DatabaseError error) { }
                 });
     }
 
-    private void fetchPreviousCourses() {
-        FirebaseDatabase.getInstance().getReference("Courses/previousCourse")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot snapshot) {
-                        previousCourseContainer.removeAllViews();
+    private void loadAssignedCourses() {
+        yourCourseContainer.removeAllViews();
 
-                        for (DataSnapshot courseSnap : snapshot.getChildren()) {
-                            addCourseToLayout(courseSnap, false);
+        String[] types = {"currentCourse", "previousCourse"};
+
+        for (String type : types) {
+            FirebaseDatabase.getInstance().getReference("Courses").child(type)
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot courseSnap : snapshot.getChildren()) {
+                                if (courseSnap.hasChild("groups")) {
+                                    for (DataSnapshot groupSnap : courseSnap.child("groups").getChildren()) {
+                                        String assignedTeacherId = groupSnap.child("assignedTeacherId").getValue(String.class);
+                                        if (teacherUid.equals(assignedTeacherId)) {
+                                            addCourseToLayout(courseSnap, yourCourseContainer, true);
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onCancelled(DatabaseError error) {
-                    }
-                });
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) { }
+                    });
+        }
     }
 
-    private void addCourseToLayout(DataSnapshot courseSnap, boolean isCurrent) {
+    private void addCourseToLayout(DataSnapshot courseSnap, LinearLayout container, boolean isAssigned) {
+        String courseId = courseSnap.getKey();
         String title = courseSnap.child("title").getValue(String.class);
-        String description = courseSnap.child("description").getValue(String.class);
         String duration = courseSnap.child("duration").getValue(String.class);
-        String startDate = courseSnap.child("startDate").getValue(String.class);
-        String endDate = courseSnap.child("endDate").getValue(String.class);
 
-        if (title == null || duration == null || startDate == null || endDate == null) return;
+        if (title == null || duration == null || courseId == null) return;
 
-        View courseView = LayoutInflater.from(this).inflate(R.layout.activity_course_item,
-                isCurrent ? currentCourseContainer : previousCourseContainer, false);
+        View courseView = LayoutInflater.from(this).inflate(R.layout.activity_course_item, container, false);
 
         TextView titleView = courseView.findViewById(R.id.courseTitle);
         TextView durationView = courseView.findViewById(R.id.courseDuration);
@@ -101,56 +99,19 @@ public class TeacherCourseActivity extends AppCompatActivity {
         titleView.setText(title);
         durationView.setText(duration);
         progressBar.setProgress(0);
-        statusView.setText("Not enrolled");
+        statusView.setText(isAssigned ? "Assigned" : "Not Assigned");
 
         viewBtn.setOnClickListener(v -> {
-            if (isCurrent) {
-                showCurrentCourseDialogTea();
+            if (isAssigned) {
+                Intent intent = new Intent(TeacherCourseActivity.this, TeacherGroupsActivity.class);
+                intent.putExtra("courseId", courseId);
+                intent.putExtra("courseTitle", title);
+                startActivity(intent);
             } else {
-                showPreviousCourseDialogTea();
+                Toast.makeText(this, "You are not assigned to this course", Toast.LENGTH_SHORT).show();
             }
         });
 
-        if (isCurrent) {
-            currentCourseContainer.addView(courseView);
-        } else {
-            previousCourseContainer.addView(courseView);
-        }
-    }
-
-    private void showCurrentCourseDialogTea() {
-        Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.currentcoursedialogtea);
-        dialog.setCancelable(true);
-
-        ImageView closeBtn = dialog.findViewById(R.id.close_btn1);
-        if (closeBtn != null) closeBtn.setOnClickListener(v -> dialog.dismiss());
-
-        Button btnMarkAtt = dialog.findViewById(R.id.mark_att);
-        if (btnMarkAtt != null) {
-            btnMarkAtt.setOnClickListener(view -> {
-                dialog.dismiss();
-                startActivity(new Intent(TeacherCourseActivity.this, TeacherAttendanceActivity.class));
-            });
-        }
-
-        dialog.show();
-    }
-
-    private void showPreviousCourseDialogTea() {
-        Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.previouscoursedialogtea);
-        dialog.setCancelable(true);
-        CircularProgressView progressView = dialog.findViewById(R.id.custom_progress5);
-
-        // ✅ Set Progress and Color
-        progressView.setProgress(70); // Set your desired progress here
-        progressView.setProgressColor(0xFFFFFFFF);
-        ImageView closeBtn = dialog.findViewById(R.id.teacher_close_btn_pre);
-        if (closeBtn != null) closeBtn.setOnClickListener(v -> dialog.dismiss());
-
-        dialog.show();
+        container.addView(courseView);
     }
 }
