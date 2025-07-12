@@ -18,6 +18,9 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".StudentAttendanceStatusActivity"
+            android:exported="false" />
+        <activity
             android:name=".StudentAttendanceViewActivity"
             android:exported="false" />
         <activity

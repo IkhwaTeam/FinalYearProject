@@ -268,7 +268,7 @@ public class StudentHome2 extends AppCompatActivity {
                 intent.putExtra("courseId", course.getId());
                 startActivity(intent);
             } else if (course.getType().equalsIgnoreCase("Attendance Based")) {
-                Intent intent = new Intent(StudentHome2.this, StudentAttendanceViewActivity.class);
+                Intent intent = new Intent(StudentHome2.this, std_crs_att.class);
                 intent.putExtra("courseId", course.getId());
                 intent.putExtra("groupId", course.getGroupId()); // ✅
                 intent.putExtra("courseTitle", course.getTitle());
