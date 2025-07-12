@@ -18,6 +18,8 @@ public class std_crs_att extends AppCompatActivity {
 
     private MaterialCalendarView calendarView;
     private TextView tvPresent, tvAbsent, tvLeave, tvHeader, tvSummary, tvStudentName, tvCourseName;
+    private TextView tvPercentValue;
+    private ProgressBar progressCircle;
     private DatabaseReference attendanceRef, studentRef, courseRef;
     private String uid, selectedDate, courseId, groupId;
 
@@ -36,6 +38,16 @@ public class std_crs_att extends AppCompatActivity {
         tvSummary = findViewById(R.id.tvSummary);
         tvStudentName = findViewById(R.id.tvStudentName);
         tvCourseName = findViewById(R.id.tvCourseName);
+        progressCircle = findViewById(R.id.progressCircle);
+        tvPercentValue = findViewById(R.id.tvPercentValue);
+
+        // ✅ Show Month-Year on Topbar
+        calendarView.setTopbarVisible(true);
+        calendarView.setTitleFormatter(day -> {
+            SimpleDateFormat sdf = new SimpleDateFormat("MMMM yyyy", Locale.getDefault());
+            return sdf.format(day.getDate());
+        });
+        calendarView.setHeaderTextAppearance(R.style.CalendarHeaderStyle);
 
         uid = FirebaseAuth.getInstance().getUid();
         courseId = getIntent().getStringExtra("courseId");
@@ -56,6 +68,10 @@ public class std_crs_att extends AppCompatActivity {
             selectedDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(date.getDate());
             loadAttendance(selectedDate);
         });
+
+        calendarView.setOnMonthChangedListener((widget, date) -> {
+            decorateCalendarAndCount(); // ✅ Month change -> update %
+        });
     }
 
     private void loadStudentName() {
@@ -69,7 +85,7 @@ public class std_crs_att extends AppCompatActivity {
     }
 
     private void loadCourseName() {
-        courseRef.child("course_name").addListenerForSingleValueEvent(new ValueEventListener() {
+        courseRef.child("title").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String name = snapshot.getValue(String.class);
                 if (name != null) tvCourseName.setText(name);
@@ -120,6 +136,13 @@ public class std_crs_att extends AppCompatActivity {
                 totalAbsent = 0;
                 totalLeave = 0;
 
+                Calendar currentCal = calendarView.getCurrentDate().getCalendar();
+                int currentMonth = currentCal.get(Calendar.MONTH);
+                int currentYear = currentCal.get(Calendar.YEAR);
+
+                int monthPresent = 0;
+                int monthTotal = 0;
+
                 for (DataSnapshot dateSnap : snapshot.getChildren()) {
                     String dateStr = dateSnap.getKey();
                     String status = dateSnap.child(uid).getValue(String.class);
@@ -132,18 +155,31 @@ public class std_crs_att extends AppCompatActivity {
                         cal.setTime(date);
                         CalendarDay day = CalendarDay.from(cal);
 
+                        int snapMonth = cal.get(Calendar.MONTH);
+                        int snapYear = cal.get(Calendar.YEAR);
+
                         switch (status) {
                             case "P":
                                 presentDates.add(day);
                                 totalPresent++;
+                                if (snapMonth == currentMonth && snapYear == currentYear) {
+                                    monthPresent++;
+                                    monthTotal++;
+                                }
                                 break;
                             case "A":
                                 absentDates.add(day);
                                 totalAbsent++;
+                                if (snapMonth == currentMonth && snapYear == currentYear) {
+                                    monthTotal++;
+                                }
                                 break;
                             case "L":
                                 leaveDates.add(day);
                                 totalLeave++;
+                                if (snapMonth == currentMonth && snapYear == currentYear) {
+                                    monthTotal++;
+                                }
                                 break;
                         }
 
@@ -164,12 +200,14 @@ public class std_crs_att extends AppCompatActivity {
                 tvAbsent.setText("Absent: " + totalAbsent);
                 tvLeave.setText("Leave: " + totalLeave);
 
-                int total = totalPresent + totalAbsent + totalLeave;
-                if (total > 0) {
-                    double percentage = (totalPresent * 100.0) / total;
-                    tvHeader.setText("Attendance\n(" + String.format(Locale.getDefault(), "%.1f", percentage) + "% Present)");
+                // ✅ Set percentage in progress circle
+                if (monthTotal > 0) {
+                    int percentage = (int) Math.round((monthPresent * 100.0) / monthTotal);
+                    progressCircle.setProgress(percentage);
+                    tvPercentValue.setText(percentage + "%");
                 } else {
-                    tvHeader.setText("Attendance");
+                    progressCircle.setProgress(0);
+                    tvPercentValue.setText("0%");
                 }
             }
 
@@ -177,7 +215,6 @@ public class std_crs_att extends AppCompatActivity {
         });
     }
 
-    // ✅ CircleDecorator class
     public static class CircleDecorator implements DayViewDecorator {
         private final HashSet<CalendarDay> dates;
         private final Drawable drawable;

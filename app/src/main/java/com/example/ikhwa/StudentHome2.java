@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,7 +39,6 @@ public class StudentHome2 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.student_home2);
 
         mAuth = FirebaseAuth.getInstance();
@@ -96,13 +94,14 @@ public class StudentHome2 extends AppCompatActivity {
         myDialog2 = new Dialog(this);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
+        bottomNavigationView.setSelectedItemId(R.id.nav_home);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.nav_profile) {
                 startActivity(new Intent(this, stdprofile.class));
                 return true;
             } else if (itemId == R.id.nav_home) {
-                startActivity(new Intent(this, StudentNotificationActivity.class));
+                startActivity(new Intent(this, StudentHome2.class));
                 return true;
             } else if (itemId == R.id.nav_setting) {
                 startActivity(new Intent(this, SettingActivity.class));
@@ -188,7 +187,6 @@ public class StudentHome2 extends AppCompatActivity {
                             if (course != null) {
                                 course.setId(courseId);
 
-                                // ✅ Get first groupId from groups
                                 if (courseTask.getResult().hasChild("groups")) {
                                     DataSnapshot groupsSnap = courseTask.getResult().child("groups");
                                     for (DataSnapshot group : groupsSnap.getChildren()) {
@@ -232,51 +230,82 @@ public class StudentHome2 extends AppCompatActivity {
         int colorResId = backgroundColors[index % backgroundColors.length];
         cardLayout.setBackgroundResource(colorResId);
 
-        DatabaseReference lecturesRef = FirebaseDatabase.getInstance().getReference("Courses")
-                .child(course.getId()).child("lectures");
-
-        DatabaseReference attemptRef = FirebaseDatabase.getInstance().getReference("Users")
-                .child(uid).child("attemptedLectures").child(course.getId());
-
-        lecturesRef.get().addOnCompleteListener(lectureTask -> {
-            if (lectureTask.isSuccessful()) {
-                long totalLectures = lectureTask.getResult().getChildrenCount();
-
-                attemptRef.get().addOnCompleteListener(attemptTask -> {
-                    if (attemptTask.isSuccessful()) {
-                        long attempted = attemptTask.getResult().getChildrenCount();
-                        tvProgress.setText(attempted + "/" + totalLectures + " Completed");
-
-                        if (totalLectures > 0) {
-                            int percentage = (int) ((attempted * 100.0f) / totalLectures);
-                            progressBar.setProgress(percentage);
-                        } else {
-                            progressBar.setProgress(0);
-                        }
-                    }
-                });
-            } else {
-                tvProgress.setText("0/" + course.getDuration() + " Completed");
-                progressBar.setProgress(0);
-            }
-        });
-
         Button btnView = courseView.findViewById(R.id.btn_view_lecture);
-        btnView.setOnClickListener(view -> {
-            if (course.getType().equalsIgnoreCase("Quiz Based")) {
+
+        if (course.getType().equalsIgnoreCase("Quiz Based")) {
+            DatabaseReference lecturesRef = FirebaseDatabase.getInstance().getReference("Courses")
+                    .child(course.getId()).child("lectures");
+
+            DatabaseReference attemptRef = FirebaseDatabase.getInstance().getReference("Users")
+                    .child(uid).child("attemptedLectures").child(course.getId());
+
+            lecturesRef.get().addOnCompleteListener(lectureTask -> {
+                if (lectureTask.isSuccessful()) {
+                    long totalLectures = lectureTask.getResult().getChildrenCount();
+
+                    attemptRef.get().addOnCompleteListener(attemptTask -> {
+                        if (attemptTask.isSuccessful()) {
+                            long attempted = attemptTask.getResult().getChildrenCount();
+                            tvProgress.setText(attempted + "/" + totalLectures + " Completed");
+
+                            if (totalLectures > 0) {
+                                int percentage = (int) ((attempted * 100.0f) / totalLectures);
+                                progressBar.setProgress(percentage);
+                            } else {
+                                progressBar.setProgress(0);
+                            }
+                        }
+                    });
+                } else {
+                    tvProgress.setText("0/" + course.getDuration() + " Completed");
+                    progressBar.setProgress(0);
+                }
+            });
+
+            btnView.setOnClickListener(view -> {
                 Intent intent = new Intent(StudentHome2.this, LectureListActivity.class);
                 intent.putExtra("courseId", course.getId());
                 startActivity(intent);
-            } else if (course.getType().equalsIgnoreCase("Attendance Based")) {
+            });
+
+        } else if (course.getType().equalsIgnoreCase("Attendance Based")) {
+            DatabaseReference attendanceRef = FirebaseDatabase.getInstance().getReference("Attendance")
+                    .child(course.getId()).child(course.getGroupId());
+
+            attendanceRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    int present = 0;
+                    int total = 0;
+
+                    for (DataSnapshot dateSnap : snapshot.getChildren()) {
+                        String status = dateSnap.child(uid).getValue(String.class);
+                        if (status != null) {
+                            total++;
+                            if (status.equals("P")) present++;
+                        }
+                    }
+
+                    tvProgress.setText(present + "/" + total + " Present");
+                    if (total > 0) {
+                        int percent = (int) ((present * 100.0f) / total);
+                        progressBar.setProgress(percent);
+                    } else {
+                        progressBar.setProgress(0);
+                    }
+                }
+
+                @Override public void onCancelled(@NonNull DatabaseError error) {}
+            });
+
+            btnView.setOnClickListener(view -> {
                 Intent intent = new Intent(StudentHome2.this, std_crs_att.class);
                 intent.putExtra("courseId", course.getId());
-                intent.putExtra("groupId", course.getGroupId()); // ✅
+                intent.putExtra("groupId", course.getGroupId());
                 intent.putExtra("courseTitle", course.getTitle());
                 startActivity(intent);
-            } else {
-                Toast.makeText(StudentHome2.this, "Unknown course type", Toast.LENGTH_SHORT).show();
-            }
-        });
+            });
+        }
 
         layout.addView(courseView);
     }

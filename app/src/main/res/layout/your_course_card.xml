@@ -62,7 +62,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Course Type"
-            android:textColor="#000"
+            android:textColor="@color/black"
+            android:textStyle="bold"
             android:layout_below="@id/tv_progress"
             android:textSize="14sp"
             android:layout_marginTop="8dp" />
