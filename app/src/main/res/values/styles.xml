@@ -24,7 +24,7 @@
     <!-- Weekday Style -->
     <style name="CalendarWeekStyle" parent="TextAppearance.AppCompat">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">#3A4EB6</item> <!-- Green Color -->
+        <item name="android:textColor">#3F51B5</item> <!-- Green Color -->
         <item name="android:textStyle">bold</item>
     </style>
     <style name="DividerStyle">

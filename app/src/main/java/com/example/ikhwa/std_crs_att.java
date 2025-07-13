@@ -1,6 +1,7 @@
 package com.example.ikhwa;
 
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.InsetDrawable;
 import android.os.Bundle;
 import android.widget.*;
 import androidx.annotation.NonNull;
@@ -221,7 +222,9 @@ public class std_crs_att extends AppCompatActivity {
 
         public CircleDecorator(Drawable drawable, Collection<CalendarDay> dates) {
             this.dates = new HashSet<>(dates);
-            this.drawable = drawable;
+            // Wrap your circle drawable in an InsetDrawable to add margin
+            int inset = 3; // adjust this value as needed
+            this.drawable = new InsetDrawable(drawable, inset, inset, inset, inset);
         }
 
         @Override

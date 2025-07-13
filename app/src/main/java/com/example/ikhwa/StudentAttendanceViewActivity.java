@@ -72,13 +72,13 @@ public class StudentAttendanceViewActivity extends AppCompatActivity {
 
                         switch (status.toUpperCase()) {
                             case "P":
-                                statusView.setTextColor(Color.parseColor("#2196F3")); // Blue
+                                statusView.setTextColor(Color.parseColor("#1DB586")); // Blue
                                 break;
                             case "A":
-                                statusView.setTextColor(Color.parseColor("#F44336")); // Red
+                                statusView.setTextColor(Color.parseColor("#FD6A63")); // Red
                                 break;
                             case "L":
-                                statusView.setTextColor(Color.parseColor("#FF9800")); // Orange
+                                statusView.setTextColor(Color.parseColor("#FDC25B")); // yellow
                                 break;
                             default:
                                 statusView.setTextColor(Color.GRAY);
