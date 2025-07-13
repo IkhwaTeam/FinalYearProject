@@ -22,7 +22,7 @@
 
             <ImageView
                 android:id="@+id/logo"
-                android:layout_width="60dp"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:src="@drawable/logo" />
@@ -30,24 +30,26 @@
 
         <!-- Profile Card -->
         <androidx.cardview.widget.CardView
-            android:layout_width="350dp"
-            android:layout_height="150dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="-30dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             app:cardCornerRadius="35dp"
             app:cardElevation="10dp"
             app:cardBackgroundColor="@color/app_logo_background">
 
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="10dp">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="6dp">
 
                 <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     android:layout_alignParentRight="true"
-                    android:layout_margin="15dp"
+                    android:layout_margin="24dp"
                     android:src="@drawable/teacherdashboradicon" />
 
                 <TextView
@@ -85,15 +87,15 @@
 
         <!-- Quick Options -->
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_gravity="center"
-            android:layout_marginTop="50dp">
+            android:gravity="center"
+            android:layout_marginTop="10dp">
 
             <androidx.cardview.widget.CardView
-                android:layout_width="165dp"
-                android:layout_height="160dp"
+                android:layout_width="155dp"
+                android:layout_height="150dp"
                 android:layout_margin="8dp"
                 app:cardCornerRadius="15dp"
                 android:elevation="5dp"
@@ -134,9 +136,9 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:layout_width="165dp"
-                android:layout_height="160dp"
-                android:layout_margin="8dp"
+                android:layout_width="155dp"
+                android:layout_height="150dp"
+                android:layout_margin="10dp"
                 app:cardCornerRadius="15dp"
                 app:cardBackgroundColor="#FD6A63">
 
@@ -177,10 +179,10 @@
         <!-- Notification Card -->
         <androidx.cardview.widget.CardView
             android:id="@+id/notification_card_clickable"
-            android:layout_width="350dp"
+            android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_gravity="center"
-            android:layout_marginTop="40dp"
+            android:layout_margin="16dp"
             app:cardCornerRadius="20dp"
             app:cardElevation="10dp"
             app:cardBackgroundColor="#FDC25B">
@@ -214,9 +216,10 @@
                     android:layout_height="wrap_content"
                     android:text="Notifications"
                     android:layout_marginStart="80dp"
+                    android:layout_marginEnd="80dp"
                     android:layout_centerVertical="true"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="22sp" />
 
 
@@ -225,10 +228,13 @@
 
         <!-- Settings -->
         <androidx.cardview.widget.CardView
-            android:layout_width="350dp"
+            android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="30dp"
             app:cardCornerRadius="20dp"
             app:cardElevation="10dp"
             app:cardBackgroundColor="#3F51B5">
@@ -244,7 +250,7 @@
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginEnd="16dp"
-                    android:src="@drawable/setting" />
+                    android:src="@drawable/settings" />
 
                 <TextView
                     android:id="@+id/tea_setting"
@@ -252,8 +258,8 @@
                     android:layout_height="wrap_content"
                     android:text="Settings"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:textSize="20sp" />
+                    android:textColor="@color/white"
+                    android:textSize="22sp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 

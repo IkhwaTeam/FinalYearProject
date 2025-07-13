@@ -75,7 +75,6 @@
                 android:id="@+id/calendarView"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                style="@style/MyCalendarView"
                 app:mcv_showOtherDates="none"
                 app:mcv_selectionColor="#852196F3"
                 app:mcv_dateTextAppearance="@style/CalendarDateStyle"
