@@ -9,7 +9,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="230dp"
+            android:layout_height="250dp"
             android:orientation="vertical"
             android:background="@drawable/shape"
             android:gravity="center"
@@ -35,13 +35,13 @@
 
         </LinearLayout>
         <androidx.cardview.widget.CardView
-            android:layout_width="350dp"
-            android:layout_height="500dp"
+            android:layout_width="300dp"
+            android:layout_height="400dp"
             android:layout_gravity="center_horizontal|top"
             android:layout_marginTop="180dp"
-            app:cardCornerRadius="15dp"
+            app:cardCornerRadius="18dp"
             app:cardElevation="8dp"
-            app:cardBackgroundColor="#DCD5D5">
+            app:cardBackgroundColor="#FBF8F8">
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -64,13 +64,16 @@
                         android:textStyle="bold"
                         android:layout_marginTop="2dp"
                         android:layout_alignParentStart="true"/>
+
                     <TextView
                         android:id="@+id/tvName"
                         android:layout_width="wrap_content"
+
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="110dp"
                         android:text="Name"
-                        android:layout_marginLeft="180dp"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/black"
+                        />
                 </RelativeLayout>
                 <View
                     android:layout_width="match_parent"
@@ -95,7 +98,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Email"
-                        android:layout_marginLeft="180dp"
+                        android:layout_marginLeft="110dp"
                         android:textColor="@color/black"/>
                 </RelativeLayout>
                 <View
@@ -121,7 +124,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Phone"
-                        android:layout_marginLeft="180dp"
+                        android:layout_marginLeft="110dp"
                         android:textColor="@color/black"/>
                 </RelativeLayout>
                 <View
@@ -148,7 +151,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Qualification"
-                        android:layout_marginLeft="180dp"
+                        android:layout_marginLeft="110dp"
                         android:textColor="@color/black"/>
                 </RelativeLayout>
                 <View
@@ -174,7 +177,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Interest"
-                        android:layout_marginLeft="180dp"
+                        android:layout_marginLeft="110dp"
                         android:textColor="@color/black"/>
                 </RelativeLayout>
                 <View
@@ -200,7 +203,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Why Interested"
-                        android:layout_marginLeft="180dp"
+                        android:layout_marginLeft="110dp"
                         android:textColor="@color/black"/>
                 </RelativeLayout>
                 <View
@@ -221,11 +224,12 @@
                         android:textStyle="bold"
                         android:layout_marginTop="2dp"
                         android:layout_alignParentStart="true"/>
-                    <TextView android:id="@+id/tvAddress"
+                    <TextView
+                        android:id="@+id/tvAddress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Address"
-                        android:layout_marginLeft="180dp"
+                        android:layout_marginLeft="110dp"
                         android:textColor="@color/black"/>
                 </RelativeLayout>
                 <View
@@ -251,7 +255,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Father Name"
-                        android:layout_marginLeft="180dp"
+                        android:layout_marginLeft="110dp"
                         android:textColor="@color/black"/>
                 </RelativeLayout>
                 <View
@@ -259,17 +263,16 @@
                     android:layout_height="1dp"
                     android:layout_marginTop="10dp"
                     android:background="#DCDCDC"/>
-                <Button
-                    android:id="@+id/btn_change_profile_tea"
-                    android:layout_width="wrap_content"
-                    android:layout_gravity="center"
-                    android:backgroundTint="@color/yellow"
-                    android:layout_height="wrap_content"
-                    android:text="change profile"/>
-
-
             </LinearLayout>
             </ScrollView>
         </androidx.cardview.widget.CardView>
+        <Button
+            android:id="@+id/btn_change_profile_tea"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="600dp"
+            android:text="change profile"
+            android:layout_marginLeft="110dp"
+            android:backgroundTint="#3F51B4" />
     </FrameLayout>
 
