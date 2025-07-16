@@ -20,7 +20,7 @@ import java.util.List;
 public class Teacher_home extends AppCompatActivity {
 
     Button t_staff_see_more, t_course_see_more, btn_see_more_pro;
-    TextView tv_notification, tv_setting, badgeTextView;
+    TextView tv_notification, tv_setting, badgeTextView, tvEmailTea, tvNameTea;
 
     List<TeacherDetails> teacherList = new ArrayList<>();
     int unseenCount = 0;
@@ -33,7 +33,6 @@ public class Teacher_home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.teacher_home);
 
-        // Firebase UID
         uid = FirebaseAuth.getInstance().getUid();
         if (uid == null) {
             finish(); // not logged in
@@ -47,24 +46,30 @@ public class Teacher_home extends AppCompatActivity {
         btn_see_more_pro = findViewById(R.id.btn_see_moretea);
         tv_setting = findViewById(R.id.tea_setting);
         badgeTextView = findViewById(R.id.notification_badge);
+        tvEmailTea = findViewById(R.id.tv_email_tea);
+        tvNameTea = findViewById(R.id.tv_name_tea); // <- Add this line
 
-        // Navigation Buttons
+        // Set email
+        String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        if (email != null) {
+            tvEmailTea.setText(email);
+        }
+
+        // Navigation
         tv_setting.setOnClickListener(v -> startActivity(new Intent(this, TeacherSettingActivity.class)));
         btn_see_more_pro.setOnClickListener(v -> startActivity(new Intent(this, TeacherProfileActivity.class)));
         t_course_see_more.setOnClickListener(v -> startActivity(new Intent(this, TeacherCourseActivity.class)));
         t_staff_see_more.setOnClickListener(v -> startActivity(new Intent(this, StafftActivity.class)));
 
-        // Notification Click
+        // Notification
         tv_notification.setOnClickListener(v -> {
             startActivity(new Intent(Teacher_home.this, TeacherNotificationActivity.class));
-            badgeTextView.setVisibility(View.GONE); // Hide badge on open
+            badgeTextView.setVisibility(View.GONE);
         });
 
-        // Load Notification Count
+        // Notifications and Data
         checkUnreadNotifications();
-
-        // Optional: load other data
-        loadTeacherData();
+        loadTeacherData(); // <- Load name from TeacherRequests
     }
 
     private void checkUnreadNotifications() {
@@ -116,7 +121,23 @@ public class Teacher_home extends AppCompatActivity {
     }
 
     private void loadTeacherData() {
-        // Optional: teacher-specific data load
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("TeacherRequests");
+
+        ref.orderByChild("email").equalTo(FirebaseAuth.getInstance().getCurrentUser().getEmail())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot snap : snapshot.getChildren()) {
+                            TeacherDetails details = snap.getValue(TeacherDetails.class);
+                            if (details != null && details.getName() != null) {
+                                tvNameTea.setText(details.getName());
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {}
+                });
     }
 
     @Override

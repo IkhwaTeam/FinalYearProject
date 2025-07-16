@@ -53,6 +53,7 @@
                     android:src="@drawable/teacherdashboradicon" />
 
                 <TextView
+                    android:id="@+id/tv_name_tea"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Iqra Kanwal"
@@ -62,6 +63,7 @@
                     android:textSize="26sp" />
 
                 <TextView
+                    android:id="@+id/tv_email_tea"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="IQII789"
