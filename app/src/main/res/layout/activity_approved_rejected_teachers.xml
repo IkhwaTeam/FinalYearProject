@@ -4,7 +4,8 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/ic_launcher_background">
 
     <ProgressBar
         android:id="@+id/progress_bar"
@@ -16,6 +17,7 @@
         android:text="Approved Teachers"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:textColor="#1DB586"
         android:layout_marginTop="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
@@ -25,20 +27,32 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_marginBottom="16dp"/>
+        android:layout_margin="16dp"
+        android:padding="8dp"
+        android:background="@drawable/approved_recycler_background"
+        android:clipToPadding="false"
+        android:scrollbars="vertical"/>
 
     <TextView
         android:text="Rejected Teachers"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:textColor="#FD6A63"
         android:layout_marginTop="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rejected_recycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:layout_margin="16dp"
+        android:padding="8dp"
+        android:background="@drawable/rejected_recycler_background"
+        android:clipToPadding="false"
+        android:scrollbars="vertical"/>
+
+
+
 
 </LinearLayout>
