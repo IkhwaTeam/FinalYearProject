@@ -4,15 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#3F51B5"
+    android:background="@color/app_logo_background"
     tools:context=".stdprofile">
 
     <!-- Header Background -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="250dp"
         android:orientation="vertical"
+        android:background="@drawable/shape"
         android:gravity="center"
+        android:layout_marginTop="-18dp"
         android:padding="10dp">
 
         <ImageView
@@ -25,12 +27,13 @@
 
     <!-- Card overlapping header -->
     <androidx.cardview.widget.CardView
-        android:layout_width="350dp"
+        android:layout_width="300dp"
         android:layout_height="500dp"
         android:layout_gravity="center_horizontal|top"
         android:layout_marginTop="150dp"
         app:cardCornerRadius="20dp"
         app:cardElevation="12dp"
+
         app:cardBackgroundColor="@color/white">
 
         <LinearLayout
@@ -202,7 +205,7 @@
                 <Button
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/form_btn1"
+                    android:background="#3F51B4"
                     android:text="Save Changes"
                     android:id="@+id/btnSave"
                     android:layout_marginTop="20dp"

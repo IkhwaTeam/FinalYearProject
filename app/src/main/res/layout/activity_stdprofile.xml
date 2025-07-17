@@ -7,217 +7,245 @@
     android:background="#FDFDFD"
     tools:context=".stdprofile">
 
-    <!-- Header Background -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="230dp"
-        android:orientation="vertical"
-        android:background="@drawable/shape"
-        android:gravity="center"
-        android:layout_marginTop="-18dp"
-        android:padding="10dp">
 
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/logo"
-            android:layout_marginBottom="10dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:orientation="vertical"
+            android:background="@drawable/shape"
+            android:gravity="center"
+            android:layout_marginTop="-18dp"
+            android:padding="10dp">
 
-        <TextView
-            android:id="@+id/tvStudentName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Iqra Kanwal"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:textSize="25sp"
-            android:layout_marginBottom="20dp"/>
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/logo"
+                android:layout_marginBottom="10dp" />
+
+            <TextView
+                android:id="@+id/tvStudentName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Iqra Kanwal"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                android:layout_marginBottom="20dp"/>
 
 
-    </LinearLayout>
-
-    <!-- Card overlapping header -->
+        </LinearLayout>
+    <!-- CardView overlapping header -->
     <androidx.cardview.widget.CardView
-        android:layout_width="350dp"
-        android:layout_height="500dp"
+        android:layout_width="300dp"
+        android:layout_height="400dp"
         android:layout_gravity="center_horizontal|top"
         android:layout_marginTop="180dp"
         app:cardCornerRadius="20dp"
         app:cardElevation="8dp"
         app:cardBackgroundColor="#F5F5F5">
-
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="20dp">
-
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:elevation="2dp"
-                android:padding="16dp">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="50dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Father's Name:"
-                        android:textSize="16dp"
-                        android:textColor="#3F51B5"
-                        android:textStyle="bold"
-                        android:layout_marginTop="2dp"
-                        android:layout_alignParentStart="true"/>
-                    <EditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/etFatherName"
-                        android:text="Irfan"
-                        android:textColor="#565454"
-                        android:background="@android:color/transparent"
-                        android:layout_alignParentEnd="true"/>
-                </RelativeLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="10dp"
-                    android:background="#DCDCDC"/>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Number:"
-                        android:textSize="16dp"
-                        android:textColor="#3F51B5"
-                        android:textStyle="bold"
-                        android:layout_marginTop="2dp"
-                        android:layout_alignParentStart="true"/>
-                    <EditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/etNumber"
-                        android:text="1234567891011"
-                        android:textColor="#565454"
-                        android:background="@android:color/transparent"
-                        android:layout_alignParentEnd="true"/>
-                </RelativeLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="10dp"
-                    android:background="#DCDCDC"/>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Age:"
-                        android:textSize="16sp"
-                        android:textColor="#3F51B5"
-                        android:textStyle="bold"
-                        android:layout_marginTop="2dp"
-                        android:layout_alignParentStart="true"/>
-                    <EditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/etAge"
-                        android:text="25"
-                        android:textSize="18sp"
-                        android:textColor="#565454"
-                        android:background="@android:color/transparent"
-                        android:layout_alignParentEnd="true"/>
-                </RelativeLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="10dp"
-                    android:background="#DCDCDC"/>
+                android:padding="20dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="10dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Address:"
-                        android:textSize="16sp"
-                        android:textColor="#3F51B5"
-                        android:layout_marginTop="2dp"
-                        android:textStyle="bold"/>
+                    android:orientation="vertical"
+                    android:elevation="2dp"
+                    android:padding="16dp">
 
-                    <EditText
-                        android:id="@+id/etAddress"
-                        android:layout_width="wrap_content"
+
+                    <!-- Father's Name -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:ellipsize="end"
-                        android:gravity="end|right"
-                        android:inputType="textMultiLine"
-                        android:maxLines="3"
-                        android:minLines="2"
-                        android:scrollHorizontally="false"
-                        android:text="House 2 Satellite town Gujranwala"
-                        android:textColor="#565454" />
+                        android:layout_marginTop="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Father's Name:"
+                            android:textSize="16dp"
+                            android:textColor="#3F51B5"
+                            android:textStyle="bold"
+                            android:layout_marginTop="2dp"
+                            android:layout_alignParentStart="true" />
+
+                        <EditText
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/etFatherName"
+                            android:text="Irfan"
+                            android:textColor="#565454"
+                            android:background="@android:color/transparent"
+                            android:layout_alignParentEnd="true" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dp"
+                        android:background="#DCDCDC" />
+
+                    <!-- Number -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Number:"
+                            android:textSize="16dp"
+                            android:textColor="#3F51B5"
+                            android:textStyle="bold"
+                            android:layout_marginTop="2dp"
+                            android:layout_alignParentStart="true" />
+
+                        <EditText
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/etNumber"
+                            android:text="1234567891011"
+                            android:textColor="#565454"
+                            android:background="@android:color/transparent"
+                            android:layout_alignParentEnd="true" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dp"
+                        android:background="#DCDCDC" />
+
+                    <!-- Age -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Age:"
+                            android:textSize="16sp"
+                            android:textColor="#3F51B5"
+                            android:textStyle="bold"
+                            android:layout_marginTop="2dp"
+                            android:layout_alignParentStart="true" />
+
+                        <EditText
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/etAge"
+                            android:text="25"
+                            android:textSize="18sp"
+                            android:textColor="#565454"
+                            android:background="@android:color/transparent"
+                            android:layout_alignParentEnd="true" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dp"
+                        android:background="#DCDCDC" />
+
+                    <!-- Address -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Address:"
+                            android:textSize="16sp"
+                            android:textColor="#3F51B5"
+                            android:layout_marginTop="2dp"
+                            android:textStyle="bold" />
+
+                        <EditText
+                            android:id="@+id/etAddress"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:ellipsize="end"
+                            android:gravity="end|right"
+                            android:inputType="textMultiLine"
+                            android:maxLines="3"
+                            android:minLines="2"
+                            android:scrollHorizontally="false"
+                            android:text="House 2 Satellite town Gujranwala"
+                            android:textColor="#565454" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dp"
+                        android:background="#DCDCDC" />
+
+                    <!-- Email -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Email:"
+                            android:textSize="16sp"
+                            android:textColor="#3F51B5"
+                            android:textStyle="bold"
+                            android:layout_marginTop="2dp"
+                            android:layout_alignParentStart="true" />
+
+                        <EditText
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="12345@gmail.com"
+                            android:id="@+id/etEmail"
+                            android:textColor="#565454"
+                            android:background="@android:color/transparent"
+                            android:layout_alignParentEnd="true" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dp"
+                        android:background="#DCDCDC" />
+
+                    <!-- Edit Profile Button -->
+
+
                 </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="10dp"
-                    android:background="#DCDCDC"/>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Email:"
-                        android:textSize="16sp"
-                        android:textColor="#3F51B5"
-                        android:textStyle="bold"
-                        android:layout_marginTop="2dp"
-                        android:layout_alignParentStart="true"/>
-                    <EditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="12345@gmail.com"
-                        android:id="@+id/etEmail"
-                        android:textColor="#565454"
-                        android:background="@android:color/transparent"
-                        android:layout_alignParentEnd="true"/>
-                </RelativeLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="10dp"
-                    android:background="#DCDCDC"/>
-
-                <Button
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/form_btn3"
-                    android:text="Edit Profile"
-                    android:id="@+id/btnEditprofile"
-                    android:layout_marginTop="20dp"
-                    android:layout_gravity="center"/>
-
             </LinearLayout>
-
-        </LinearLayout>
+        </ScrollView>
     </androidx.cardview.widget.CardView>
+    <!-- Edit Profile Button -->
+    <Button
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/form_btn3"
+        android:text="Edit Profile"
+        android:id="@+id/btnEditprofile"
+        android:layout_marginTop="270dp"
+        android:layout_gravity="center" />
+    </FrameLayout>
 
-</FrameLayout>
+
+
+
