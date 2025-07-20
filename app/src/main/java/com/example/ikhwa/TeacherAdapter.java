@@ -18,10 +18,10 @@ import java.util.List;
 
 public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.TeacherViewHolder> {
 
-    private List<com.example.ikhwa.TeacherModel> teacherList;
+    private List<TeacherModel> teacherList;
     private Context context;
 
-    public TeacherAdapter(List<com.example.ikhwa.TeacherModel> teacherList, Context context) {
+    public TeacherAdapter(List<TeacherModel> teacherList, Context context) {
         this.teacherList = teacherList;
         this.context = context;
     }
@@ -35,7 +35,7 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.TeacherV
 
     @Override
     public void onBindViewHolder(@NonNull TeacherViewHolder holder, int position) {
-        com.example.ikhwa.TeacherModel teacher = teacherList.get(position);
+        TeacherModel teacher = teacherList.get(position);
 
         holder.name.setText(teacher.getName());
         holder.email.setText(teacher.getEmail());
@@ -44,8 +44,6 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.TeacherV
 
         holder.btnApprove.setOnClickListener(v -> updateTeacherStatus(teacher.getTeacherId(), "approved"));
         holder.btnReject.setOnClickListener(v -> updateTeacherStatus(teacher.getTeacherId(), "rejected"));
-
-        // View button click
         holder.btnView.setOnClickListener(v -> showTeacherDetailsDialog(teacher));
     }
 
@@ -58,29 +56,43 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.TeacherV
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Teachers").child(teacherId);
         ref.child("status").setValue(newStatus);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setMessage("Teacher has been " + newStatus)
+        new AlertDialog.Builder(context)
+                .setMessage("Teacher has been " + newStatus)
                 .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
                 .show();
     }
 
     private void showTeacherDetailsDialog(com.example.ikhwa.TeacherModel teacher) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Teacher Details");
+        View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_teacher_details, null);
 
-        String message = "Name: " + teacher.getName() + "\n"
-                + "Father Name: " + teacher.getFatherName() + "\n"
-                + "Email: " + teacher.getEmail() + "\n"
-                + "Phone: " + teacher.getPhone() + "\n"
-                + "Qualification: " + teacher.getQualification() + "\n"
-                + "Address: " + teacher.getAddress() + "\n"
-                + "Services: " + teacher.getServices() + "\n"
-                + "Interested: " + teacher.getWhyInterested() + "\n"
-                + "Status: " + teacher.getStatus();
+        TextView tvName = dialogView.findViewById(R.id.dialog_teacher_name);
+        TextView tvEmail = dialogView.findViewById(R.id.dialog_teacher_email);
+        TextView tvPhone = dialogView.findViewById(R.id.dialog_teacher_phone);
+        TextView tvQualification = dialogView.findViewById(R.id.dialog_teacher_qualification);
+        TextView tvAddress = dialogView.findViewById(R.id.dialog_teacher_address);
+        TextView tvFatherName = dialogView.findViewById(R.id.dialog_teacher_father_name);
+        TextView tvServices = dialogView.findViewById(R.id.dialog_teacher_services);
+        TextView tvInterested = dialogView.findViewById(R.id.dialog_teacher_interested);
+        TextView tvStatus = dialogView.findViewById(R.id.dialog_teacher_status);
+        Button   btnClose       = dialogView.findViewById(R.id.btn_close_dialog);
 
-        builder.setMessage(message);
-        builder.setPositiveButton("Close", null);
-        builder.show();
+
+        tvName.setText(teacher.getName());
+        tvFatherName.setText(teacher.getFatherName());
+        tvEmail.setText(teacher.getEmail());
+        tvPhone.setText(teacher.getPhone());
+        tvQualification.setText(teacher.getQualification());
+        tvAddress.setText(teacher.getAddress());
+        tvServices.setText(teacher.getServices());
+        tvInterested.setText(teacher.getWhyInterested());
+        tvStatus.setText(teacher.getStatus());
+
+        AlertDialog dialog = new AlertDialog.Builder(context)
+                .setView(dialogView)
+                .create();
+
+        btnClose.setOnClickListener(v -> dialog.dismiss());
+        dialog.show();
     }
 
     public static class TeacherViewHolder extends RecyclerView.ViewHolder {
@@ -89,14 +101,13 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.TeacherV
 
         public TeacherViewHolder(@NonNull View itemView) {
             super(itemView);
-
             name = itemView.findViewById(R.id.tv_teacher_name);
             email = itemView.findViewById(R.id.tv_teacher_email);
             phone = itemView.findViewById(R.id.tv_teacher_phone);
             qualification = itemView.findViewById(R.id.tv_teacher_qualification);
             btnApprove = itemView.findViewById(R.id.btn_approve);
             btnReject = itemView.findViewById(R.id.btn_reject);
-            btnView = itemView.findViewById(R.id.btn_view); // Added view button
+            btnView = itemView.findViewById(R.id.btn_view);
         }
     }
 }

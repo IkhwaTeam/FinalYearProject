@@ -9,41 +9,131 @@ import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.PopupMenu;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.*;
 
 public class AdminHomeActivity extends AppCompatActivity {
 
-    private ImageButton courseBtn, teacherBtn, studentBtn, notificationBtn, menuBtn;
     private static final String TAG = "AdminHomeActivity";
 
+    private ImageButton courseBtn, teacherBtn, studentBtn, notificationBtn, menuBtn;
+    private TextView courseCount, teacherCount, studentCount, notificationCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_home);
 
+        // Buttons
         courseBtn = findViewById(R.id.course_btn);
         teacherBtn = findViewById(R.id.teacher_btn);
         studentBtn = findViewById(R.id.student_btn);
         notificationBtn = findViewById(R.id.notification_btn);
         menuBtn = findViewById(R.id.menuButton);
 
+        // Count TextViews
+        courseCount = findViewById(R.id.no_of_courses);
+        teacherCount = findViewById(R.id.no_of_teachers);
+        studentCount = findViewById(R.id.no_of_students);
+        notificationCount = findViewById(R.id.no_of_items);
+
+        loadCountsFromFirebase();
+        setupListeners();
+        listenForPendingTeacherRequests();
+    }
+
+    private void loadCountsFromFirebase() {
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+
+        // Courses Count (from multiple sources)
+        db.child("Courses").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int totalCourses = 0;
+
+                for (DataSnapshot child : snapshot.getChildren()) {
+                    String key = child.getKey();
+                    if (key != null && key.equals("currentCourse")) {
+                        totalCourses += (int) child.getChildrenCount();
+                    } else if (key != null && key.equals("previousCourse")) {
+                        totalCourses += (int) child.getChildrenCount();
+                    } else {
+                        totalCourses++;
+                    }
+                }
+
+                courseCount.setText(totalCourses + " Courses");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                courseCount.setText("0 Courses");
+            }
+        });
+
+        // Teachers Count
+        db.child("Teachers").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                long count = snapshot.getChildrenCount();
+                teacherCount.setText(count + " Teachers");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                teacherCount.setText("0 Teachers");
+            }
+        });
+
+        // Students Count
+        db.child("Student").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                long count = snapshot.getChildrenCount();
+                studentCount.setText(count + " Students");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                studentCount.setText("0 Students");
+            }
+        });
+
+        // Notifications Count
+        db.child("Notifications").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                long count = snapshot.getChildrenCount();
+                notificationCount.setText(count + " Notifications");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                notificationCount.setText("0 Notifications");
+            }
+        });
+    }
+
+    private void setupListeners() {
+        courseBtn.setOnClickListener(view -> startActivity(new Intent(this, CourseActivity.class)));
+        teacherBtn.setOnClickListener(view -> startActivity(new Intent(this, PendingTeachersActivity.class)));
+        studentBtn.setOnClickListener(view -> startActivity(new Intent(this, ApprovedRejectedTeachersActivity.class)));
+        notificationBtn.setOnClickListener(view -> startActivity(new Intent(this, AdminNotificationActivity.class)));
+        menuBtn.setOnClickListener(this::showPopupMenu);
+    }
+
+    private void listenForPendingTeacherRequests() {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("PendingTeacherRequests");
 
         ref.addValueEventListener(new ValueEventListener() {
@@ -64,30 +154,6 @@ public class AdminHomeActivity extends AppCompatActivity {
                 Toast.makeText(AdminHomeActivity.this, "Failed: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
-        courseBtn.setOnClickListener(view -> {
-            Intent intent = new Intent(AdminHomeActivity.this, CourseActivity.class);
-            startActivity(intent);
-        });
-
-        teacherBtn.setOnClickListener(view -> {
-            Intent intent = new Intent(AdminHomeActivity.this, PendingTeachersActivity.class);
-            startActivity(intent);
-        });
-
-
-
-        studentBtn.setOnClickListener(view -> {
-            Intent intent = new Intent(AdminHomeActivity.this, ApprovedRejectedTeachersActivity.class);
-            startActivity(intent);
-        });
-
-        notificationBtn.setOnClickListener(view -> {
-            Intent intent = new Intent(AdminHomeActivity.this, AdminNotificationActivity.class);
-            startActivity(intent);
-        });
-
-        menuBtn.setOnClickListener(this::showPopupMenu);
     }
 
     private void showPopupMenu(View view) {
@@ -156,7 +222,6 @@ public class AdminHomeActivity extends AppCompatActivity {
     }
 
     private void showNotificationCard(String name, String key) {
-        // You can implement this method according to your UI design.
         Log.d(TAG, "New Pending Request: " + name + " (" + key + ")");
     }
 }

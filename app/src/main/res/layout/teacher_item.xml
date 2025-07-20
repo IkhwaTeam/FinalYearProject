@@ -54,7 +54,8 @@
             android:layout_height="wrap_content"
             android:text="View"
             android:textColor="@android:color/white"
-            android:background="@color/blue" />
+            android:background="@drawable/shape5"
+            android:backgroundTint="#03A9F4"/>
 
         <Button
             android:id="@+id/btn_approve"
@@ -62,7 +63,8 @@
             android:layout_height="wrap_content"
             android:text="Approve"
             android:textColor="@android:color/white"
-            android:background="@color/teal_700"
+            android:backgroundTint="#1DB586"
+            android:background="@drawable/shape5"
             android:layout_marginStart="12dp" />
 
         <Button
@@ -71,7 +73,8 @@
             android:layout_height="wrap_content"
             android:text="Reject"
             android:textColor="@android:color/white"
-            android:background="@android:color/holo_red_dark"
+            android:background="@drawable/shape5"
+            android:backgroundTint="#FD6A63"
             android:layout_marginStart="12dp" />
     </LinearLayout>
 

@@ -9,7 +9,7 @@
 
 
     app:cardElevation="4dp"
-    app:cardBackgroundColor="#FFFFFF"
+    app:cardBackgroundColor="#00FFFFFF"
     >
 
     <LinearLayout

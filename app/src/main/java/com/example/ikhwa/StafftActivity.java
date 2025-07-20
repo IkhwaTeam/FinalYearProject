@@ -70,8 +70,8 @@ public class StafftActivity extends AppCompatActivity {
         View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_teacher_details, null);
 
         // Find and set data in views
-        TextView tvName = dialogView.findViewById(R.id.tv_dialog_name);
-        TextView tvQualification = dialogView.findViewById(R.id.tv_dialog_qualification);
+        TextView tvName = dialogView.findViewById(R.id.dialog_teacher_name);
+        TextView tvQualification = dialogView.findViewById(R.id.dialog_teacher_qualification);
         Button btnClose = dialogView.findViewById(R.id.btn_close_dialog);
 
         tvName.setText("Name: " + staff.getName());

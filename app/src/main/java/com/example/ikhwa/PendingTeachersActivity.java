@@ -46,7 +46,7 @@ public class PendingTeachersActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         teacherList.clear();
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                            TeacherModel teacher = dataSnapshot.getValue(TeacherModel.class);
+                            com.example.ikhwa.TeacherModel teacher = dataSnapshot.getValue(TeacherModel.class);
                             teacher.setTeacherId(dataSnapshot.getKey());
                             teacherList.add(teacher);
                         }
