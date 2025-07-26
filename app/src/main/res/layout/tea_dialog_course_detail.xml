@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/tdialog_background"
+    android:padding="24dp"
+    android:orientation="vertical"
+    android:backgroundTint="@android:color/white">
+
+    <TextView
+        android:id="@+id/dialogCourseTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Course Title"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="#3F51B5"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Divider Line -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#CCCCCC"
+        android:layout_marginBottom="12dp" />
+
+    <TextView
+        android:id="@+id/dialogCourseDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Duration: 2 weeks"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:layout_marginBottom="6dp" />
+
+    <TextView
+        android:id="@+id/dialogCourseStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Date: --"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:layout_marginBottom="4dp" />
+
+    <TextView
+        android:id="@+id/dialogCourseEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="End Date: --"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:layout_marginBottom="10dp" />
+
+    <TextView
+        android:id="@+id/dialogAssignmentStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Assignment Status"
+        android:textStyle="italic"
+        android:layout_gravity="center"
+        android:textColor="#666666"
+        android:textSize="15sp"
+        android:layout_marginBottom="20dp" />
+
+    <Button
+        android:id="@+id/btnCloseDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Close"
+        android:textAllCaps="false"
+        android:background="@drawable/shape5"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#3F51B5"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:layout_gravity="center" />
+
+</LinearLayout>
