@@ -136,7 +136,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Interest"
+            android:text="Experience"
             android:textStyle="bold"
             android:textColor="#555555"/>
         <TextView

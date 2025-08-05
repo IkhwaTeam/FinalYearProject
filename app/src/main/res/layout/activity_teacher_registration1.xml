@@ -1,0 +1,320 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".Teacher_Registration_Activity1"
+    android:background="#FFFFFF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="12dp">
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="80dp"
+            android:layout_height="82dp"
+            android:src="@drawable/logo"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Create Account"
+            android:textSize="24sp"
+            android:textColor="#3F51B5"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:fontFamily="sans-serif"
+            android:background="@color/white"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Please fill in the details below"
+            android:textSize="14sp"
+            android:textColor="#3F51B5"
+            android:gravity="center"
+            android:fontFamily="sans-serif"
+            android:layout_marginBottom="16dp"
+            android:background="@color/white"/>
+
+        <EditText
+            android:id="@+id/tea_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Teacher Name"
+            android:textColor="@color/black"
+            android:textColorHint="#70262A43"
+            android:textSize="18sp"
+            android:inputType="textEmailAddress"
+            android:padding="10dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:drawableEnd="@drawable/ic_id"
+            android:background="@drawable/shape5"/>
+
+        <EditText
+            android:id="@+id/tea_fathername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Father's Name"
+            android:textColor="@color/black"
+            android:textColorHint="#70262A43"
+            android:textSize="18sp"
+            android:inputType="textEmailAddress"
+            android:padding="10dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:drawableEnd="@drawable/ic_father_name"
+            android:background="@drawable/shape5"/>
+
+        <EditText
+            android:id="@+id/tea_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:textColorHint="#70262A43"
+            android:inputType="textEmailAddress"
+            android:padding="10dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:drawableEnd="@drawable/ic_email"
+            android:background="@drawable/shape5"/>
+        <EditText
+            android:id="@+id/tea_qualification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Qualification"
+            android:textColor="@color/black"
+            android:textColorHint="#70262A43"
+            android:textSize="18sp"
+            android:inputType="textEmailAddress"
+            android:padding="10dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:drawableEnd="@drawable/ic_age"
+            android:background="@drawable/shape5"/>
+        <EditText
+            android:id="@+id/tea_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Phone Number"
+            android:textColor="@color/black"
+            android:textColorHint="#70262A43"
+            android:textSize="18sp"
+            android:inputType="textEmailAddress"
+            android:padding="10dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:drawableEnd="@drawable/ic_phone"
+            android:background="@drawable/shape5"/>
+        <EditText
+            android:id="@+id/tea_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Address"
+            android:textColor="@color/black"
+            android:textColorHint="#70262A43"
+            android:textSize="18sp"
+            android:inputType="textEmailAddress"
+            android:padding="10dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:drawableEnd="@drawable/ic_location"
+            android:background="@drawable/shape5"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/shape5"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
+
+            <EditText
+                android:id="@+id/tea_password"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:textColor="@color/black"
+                android:padding="10dp"
+                android:textSize="18sp"
+                android:fontFamily="sans-serif"
+                android:textColorHint="#70262A43"
+                android:background="@android:color/transparent"/>
+
+            <ImageView
+                android:id="@+id/tea_password_toggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:src="@drawable/ic_visible_off"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/shape5"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
+
+            <EditText
+                android:id="@+id/tea_cnfrm_password"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Confirm Password"
+                android:inputType="textPassword"
+                android:textColor="@color/black"
+                android:padding="10dp"
+                android:textSize="18sp"
+                android:fontFamily="sans-serif"
+                android:textColorHint="#70262A43"
+                android:background="@android:color/transparent"/>
+
+
+            <ImageView
+                android:id="@+id/tea_cnfrm_password_toggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:src="@drawable/ic_visible_off"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/shape5"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
+
+            <EditText
+                android:id="@+id/tea_services"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="What services you can provide"
+                android:inputType="textPassword"
+                android:textColor="@color/black"
+                android:padding="10dp"
+                android:textSize="18sp"
+                android:fontFamily="sans-serif"
+                android:textColorHint="#70262A43"
+                android:background="@android:color/transparent"/>
+
+
+            <ImageView
+                android:id="@+id/tea_services_toggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:src="@drawable/service"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/shape5"
+            android:gravity="center_vertical">
+
+            <EditText
+                android:id="@+id/tea_experience"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Your experience"
+                android:inputType="textPassword"
+                android:textColor="@color/black"
+                android:padding="10dp"
+                android:textSize="18sp"
+                android:fontFamily="sans-serif"
+                android:textColorHint="#70262A43"
+                android:background="@android:color/transparent"/>
+
+
+            <ImageView
+                android:id="@+id/tea_toggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:src="@drawable/experience"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tea_error_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/holo_red_dark"
+            android:visibility="gone" />
+
+        <ProgressBar
+            android:id="@+id/tr_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_gravity="center"/>
+
+        <Button
+            android:id="@+id/tea_btn_reg"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Sign Up"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/form_btn1"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:id="@+id/tea_sign_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Have an account?"
+                android:textSize="16sp"
+                android:textColor="#3F51B5"
+                android:layout_gravity="center" />
+            <Button
+                android:id="@+id/tea_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Login"
+                android:textColor="#3F51B5"
+                android:textSize="16sp"
+                android:background="@drawable/signup_btn" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

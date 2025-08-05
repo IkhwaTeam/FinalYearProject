@@ -28,7 +28,7 @@ public class AdminHomeActivity extends AppCompatActivity {
     private static final String TAG = "AdminHomeActivity";
 
     private ImageButton courseBtn, teacherBtn, studentBtn, notificationBtn, menuBtn;
-    private TextView courseCount, teacherCount, studentCount, notificationCount;
+    private TextView courseCount, teacherCount, studentCount, notificationCount,studedils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +41,13 @@ public class AdminHomeActivity extends AppCompatActivity {
         studentBtn = findViewById(R.id.student_btn);
         notificationBtn = findViewById(R.id.notification_btn);
         menuBtn = findViewById(R.id.menuButton);
-
+studedils=findViewById(R.id.student_details);
         // Count TextViews
         courseCount = findViewById(R.id.no_of_courses);
         teacherCount = findViewById(R.id.no_of_teachers);
         studentCount = findViewById(R.id.no_of_students);
         notificationCount = findViewById(R.id.no_of_items);
+
 
         loadCountsFromFirebase();
         setupListeners();
@@ -130,6 +131,7 @@ public class AdminHomeActivity extends AppCompatActivity {
         teacherBtn.setOnClickListener(view -> startActivity(new Intent(this, PendingTeachersActivity.class)));
         studentBtn.setOnClickListener(view -> startActivity(new Intent(this, ApprovedRejectedTeachersActivity.class)));
         notificationBtn.setOnClickListener(view -> startActivity(new Intent(this, AdminNotificationActivity.class)));
+        studedils.setOnClickListener(view -> startActivity(new Intent(this, Students_Details_Activity.class)));
         menuBtn.setOnClickListener(this::showPopupMenu);
     }
 

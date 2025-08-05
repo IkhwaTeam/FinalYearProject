@@ -95,7 +95,7 @@ public class TeacherLoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(v -> validateTeacherLogin());
         // Sign up button intent
         thrSignupBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(TeacherLoginActivity.this, TeacherRegistrationActivity.class);
+            Intent intent = new Intent(TeacherLoginActivity.this, Teacher_Registration_Activity1.class);
             startActivity(intent);
             finish();
         });
@@ -157,7 +157,7 @@ public class TeacherLoginActivity extends AppCompatActivity {
             Log.d(TAG, "Saved role 'admin' in SharedPreferences");
 
             Toast.makeText(TeacherLoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(TeacherLoginActivity.this, AdminHomeActivity.class));
+            startActivity(new Intent(TeacherLoginActivity.this, Admin_home_Activity1.class));
             finish();
             return;
         }
@@ -187,7 +187,7 @@ public class TeacherLoginActivity extends AppCompatActivity {
                             Log.d(TAG, "Saved role 'teacher' in SharedPreferences");
 
                             Toast.makeText(TeacherLoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(TeacherLoginActivity.this, Teacher_home.class));
+                            startActivity(new Intent(TeacherLoginActivity.this, TeacherHomeActivity1.class));
                             finish();
                             break;
                         }

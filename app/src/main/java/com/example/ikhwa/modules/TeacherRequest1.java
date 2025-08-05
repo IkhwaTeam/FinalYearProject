@@ -1,13 +1,13 @@
 package com.example.ikhwa.modules;
 
-public class TeacherRequest {
+public class TeacherRequest1 {
     private String id, name, email, phone, qualification, password, experience, services, address, fatherName;
 
-    public TeacherRequest() {
+    public TeacherRequest1() {
         // Firebase requires empty constructor
     }
 
-    public TeacherRequest(String id, String name, String email, String phone, String qualification,
+    public TeacherRequest1(String id, String name, String email, String phone, String qualification,
                           String password, String experience, String services, String address, String fatherName) {
         this.id = id;
         this.name = name;

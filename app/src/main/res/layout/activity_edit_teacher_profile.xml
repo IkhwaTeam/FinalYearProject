@@ -24,7 +24,7 @@
             android:id="@+id/tvStudentName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Iqra Kanwal"
+            android:text="Update Profile"
             android:textStyle="bold"
             android:textColor="@color/white"
             android:textSize="25sp"
@@ -219,16 +219,16 @@
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:text="Interest:"
+                        android:text="Experience:"
                         android:textColor="#3F51B5"
                         android:textStyle="bold"/>
 
                     <EditText
-                        android:id="@+id/etInterest"
+                        android:id="@+id/etExperience"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:hint="Enter interest"
+                        android:hint="Enter expreience"
                         android:backgroundTint="#CCCCCC"
                         android:textColor="#000000"
                         android:textColorHint="#888888"/>
@@ -245,16 +245,16 @@
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:text="Why:"
+                        android:text="Services:"
                         android:textColor="#3F51B5"
                         android:textStyle="bold"/>
 
                     <EditText
-                        android:id="@+id/etWhy"
+                        android:id="@+id/etServices"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:hint="Why interested"
+                        android:hint="Services"
                         android:backgroundTint="#CCCCCC"
                         android:textColor="#000000"
                         android:textColorHint="#888888"/>

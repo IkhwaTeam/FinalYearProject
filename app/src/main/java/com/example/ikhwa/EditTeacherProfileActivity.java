@@ -30,8 +30,8 @@ public class EditTeacherProfileActivity extends AppCompatActivity {
         etQualification = findViewById(R.id.etQualification);
         etFatherName = findViewById(R.id.etFatherName);
         etAddress = findViewById(R.id.etAddress);
-        etInterest = findViewById(R.id.etInterest);
-        etWhy = findViewById(R.id.etWhy);
+        etInterest = findViewById(R.id.etExperience);
+        etWhy = findViewById(R.id.etServices);
         btnUpdate = findViewById(R.id.btnUpdate);
 
         // Firebase references
@@ -56,8 +56,8 @@ public class EditTeacherProfileActivity extends AppCompatActivity {
                     etQualification.setText(teacher.getQualification());
                     etFatherName.setText(teacher.getFatherName());
                     etAddress.setText(teacher.getAddress());
-                    etInterest.setText(teacher.getInterest());
-                    etWhy.setText(teacher.getWhy());
+                    etInterest.setText(teacher.getExperience());
+                    etWhy.setText(teacher.getServices());
                 }
             }
 
