@@ -24,7 +24,7 @@ import com.google.firebase.database.*;
 
 public class TeacherLoginActivity extends AppCompatActivity {
 
-    private EditText emailInput, passwordInput, teacherIdInput;
+    private EditText emailInput, passwordInput;
     private Button loginButton,thrSignupBtn;
     private TextView errorText, forgetPasswordText;
     private ProgressBar progressBar;
@@ -59,7 +59,6 @@ public class TeacherLoginActivity extends AppCompatActivity {
 
         emailInput = findViewById(R.id.teacher_email);
         passwordInput = findViewById(R.id.teacher_password);
-        teacherIdInput = findViewById(R.id.teacher_id);
         loginButton = findViewById(R.id.teacher_btn_login);
         thrSignupBtn = findViewById(R.id.thr_sign_up);
         errorText = findViewById(R.id.error_message);
@@ -106,14 +105,13 @@ public class TeacherLoginActivity extends AppCompatActivity {
     private void validateTeacherLogin() {
         String email = emailInput.getText().toString().trim();
         String password = passwordInput.getText().toString().trim();
-        String teacherId = teacherIdInput.getText().toString().trim();
 
-        if (email.isEmpty() || password.isEmpty() || teacherId.isEmpty()) {
+        if (email.isEmpty() || password.isEmpty() ) {
             Toast.makeText(this, "All fields are required!", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (email.contains(" ") || password.contains(" ") || teacherId.contains(" ")) {
+        if (email.contains(" ") || password.contains(" ") ) {
             Toast.makeText(this, "Fields should not contain spaces.", Toast.LENGTH_SHORT).show();
             return;
         }

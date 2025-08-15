@@ -61,22 +61,7 @@
             android:drawableEnd="@drawable/ic_email"
             android:background="@drawable/shape5"/>
 
-        <EditText
-            android:id="@+id/teacher_id"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Teacher ID"
-            android:textColor="@color/black"
-            android:textColorHint="#70262A43"
-            android:textSize="18sp"
-            android:fontFamily="sans-serif"
-            android:inputType="textEmailAddress"
-            android:padding="10dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:drawableEnd="@drawable/ic_id"
-            android:background="@drawable/shape5"/>
+
 
         <LinearLayout
             android:layout_width="match_parent"
