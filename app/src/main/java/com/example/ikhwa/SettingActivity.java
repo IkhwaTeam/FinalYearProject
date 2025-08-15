@@ -36,9 +36,8 @@ public class SettingActivity extends AppCompatActivity {
         layoutTerms = findViewById(R.id.layout_terms);
         layoutShare = findViewById(R.id.layout_share);
         layoutAbout = findViewById(R.id.layout_about);
-        layoutHelp = findViewById(R.id.layout_help);
         layoutRate = findViewById(R.id.layout_rate);
-        fabLogout = findViewById(R.id.fab_logout);
+
 
         setupListeners();
         loadNotificationPreference();
