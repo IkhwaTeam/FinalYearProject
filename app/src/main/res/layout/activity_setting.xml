@@ -29,33 +29,36 @@
         android:gravity="center"
         android:layout_centerHorizontal="true"/>
 
-    <!-- Main Card -->
-    <androidx.cardview.widget.CardView
+    <ScrollView
+        android:id="@+id/options"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textView_settings_header"
-        android:layout_marginTop="20dp"
-        app:cardBackgroundColor="#FFFFFF"
-        app:cardCornerRadius="30dp"
-        app:cardElevation="0dp">
+        android:overScrollMode="never"
+        android:layout_marginTop="130dp">
 
-        <ScrollView
+        <!-- Main Card -->
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:overScrollMode="never">
+            android:layout_below="@id/textView_settings_header"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="0dp">
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="20dp">
+                android:padding="16dp">
 
                 <!-- Notifications -->
                 <RelativeLayout
                     android:id="@+id/layout_notifications"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="8dp">
 
                     <ImageView
                         android:id="@+id/icon_notifications"
@@ -122,7 +125,7 @@
                         android:layout_centerVertical="true"
                         android:src="@android:drawable/ic_media_play"
                         android:backgroundTint="#062BF7"
-                    />
+                        />
                 </RelativeLayout>
 
                 <View
@@ -163,7 +166,7 @@
                         android:layout_centerVertical="true"
                         android:backgroundTint="#072EF7"
                         android:src="@android:drawable/ic_media_play"
-                       />
+                        />
                 </RelativeLayout>
 
                 <View
@@ -203,7 +206,7 @@
                         android:layout_centerVertical="true"
                         android:src="@android:drawable/ic_media_play"
                         android:backgroundTint="#072CF7"
-                    />
+                        />
                 </RelativeLayout>
 
                 <View
@@ -225,7 +228,7 @@
                         android:src="@drawable/ic_contact_us"
 
                         android:backgroundTint="#673AB7"
-                         />
+                        />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -244,7 +247,7 @@
                         android:layout_centerVertical="true"
                         android:src="@android:drawable/ic_media_play"
                         android:backgroundTint="#072DF7"
-                      />
+                        />
                 </RelativeLayout>
 
                 <View
@@ -272,7 +275,7 @@
 
                         android:src="@drawable/rating"
 
-                         />
+                        />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -304,7 +307,8 @@
                 <RelativeLayout
                     android:id="@+id/layout_logout"
                     android:layout_width="match_parent"
-                    android:layout_height="56dp">
+                    android:layout_height="56dp"
+                    android:layout_marginBottom="8dp">
 
                     <ImageView
                         android:id="@+id/icon_logout"
@@ -329,9 +333,9 @@
                 </RelativeLayout>
 
             </LinearLayout>
-        </ScrollView>
-    </androidx.cardview.widget.CardView>
 
+        </androidx.cardview.widget.CardView>
 
+    </ScrollView>
 
 </RelativeLayout>

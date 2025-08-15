@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class TeacherSettingActivity extends AppCompatActivity {
 
     private SwitchCompat notificationsSwitch;
-    private View layoutPrivacyPolicy, layoutTerms, layoutShare, layoutAbout, layoutHelp, layoutRate;
+    private View layoutPrivacyPolicy, layoutTerms, layoutShare, layoutAbout, layoutRate, layoutLogout;
     private FloatingActionButton fabLogout;
     private FirebaseAuth authProfile;
 
@@ -31,14 +31,13 @@ public class TeacherSettingActivity extends AppCompatActivity {
         authProfile = FirebaseAuth.getInstance();
 
         // Initialize UI elements
-        notificationsSwitch = findViewById(R.id.switch_notifications_tea);
-        layoutPrivacyPolicy = findViewById(R.id.layout_privacy_policy_tea);
-        layoutTerms = findViewById(R.id.layout_terms_tea);
-        layoutShare = findViewById(R.id.layout_share_tea);
-        layoutAbout = findViewById(R.id.layout_about_tea);
-        layoutHelp = findViewById(R.id.layout_help);
-        layoutRate = findViewById(R.id.layout_rate_tea);
-        fabLogout = findViewById(R.id.fab_logout_tea);
+        notificationsSwitch = findViewById(R.id.switch_notifications);
+        layoutPrivacyPolicy = findViewById(R.id.layout_privacy_policy);
+        layoutTerms = findViewById(R.id.layout_terms);
+        layoutShare = findViewById(R.id.layout_share);
+        layoutAbout = findViewById(R.id.layout_about);
+        layoutRate = findViewById(R.id.layout_rate);
+       layoutLogout = findViewById(R.id.layout_logout);
 
         setupListeners();
         loadNotificationPreference();
@@ -57,10 +56,21 @@ public class TeacherSettingActivity extends AppCompatActivity {
         layoutTerms.setOnClickListener(v -> navigateToPage("terms_conditions"));
         layoutShare.setOnClickListener(v -> shareApp());
         layoutAbout.setOnClickListener(v -> navigateToPage("about_us"));
-        layoutHelp.setOnClickListener(v -> navigateToPage("help"));
         layoutRate.setOnClickListener(v -> rateApp());
-
-        fabLogout.setOnClickListener(v -> showLogoutDialog());
+        layoutLogout.setOnClickListener(v -> {
+            new AlertDialog.Builder(this)
+                    .setTitle("Logout")
+                    .setMessage("Are you sure you want to logout?")
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        FirebaseAuth.getInstance().signOut();
+                        Intent intent = new Intent(TeacherSettingActivity.this, SelectionActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        finish();
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
+        });
     }
 
     private void saveNotificationPreference(boolean enabled) {
@@ -90,10 +100,7 @@ public class TeacherSettingActivity extends AppCompatActivity {
                 showToast("Opening About Us");
                 startActivity(new Intent(this, AboutUsActivity.class));
                 break;
-            case "help":
-                showToast("Opening Help");
-                startActivity(new Intent(this, HelpActivity.class));
-                break;
+
         }
     }
 

@@ -27,14 +27,21 @@
 
     <!-- Card overlapping header -->
     <androidx.cardview.widget.CardView
-        android:layout_width="300dp"
-        android:layout_height="500dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|top"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="180dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         app:cardCornerRadius="20dp"
         app:cardElevation="12dp"
+        app:cardBackgroundColor="@color/white"
+        android:layout_marginBottom="30dp">
 
-        app:cardBackgroundColor="@color/white">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -47,13 +54,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:elevation="2dp"
-                android:padding="16dp">
+                android:elevation="2dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="50dp">
+                    android:layout_marginTop="20dp">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -68,7 +74,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/etFatherNameEdit"
-                        android:text="Irfan"
                         android:textColor="#565454"
                         android:background="@android:color/transparent"
                         android:layout_alignParentEnd="true"/>
@@ -97,7 +102,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/etNumberEdit"
-                        android:text="1234567891011"
                         android:textColor="#565454"
                         android:background="@android:color/transparent"
                         android:layout_alignParentEnd="true"/>
@@ -126,7 +130,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/etAgeEdit"
-                        android:text="25"
                         android:textSize="18sp"
                         android:textColor="#565454"
                         android:background="@android:color/transparent"
@@ -164,8 +167,7 @@
                         android:maxLines="3"
                         android:minLines="2"
                         android:scrollHorizontally="false"
-                        android:layout_marginStart="35dp"
-                        android:text="House 2 Satellite town Gujranwala"
+                        android:layout_marginStart="45dp"
                         android:textColor="#565454" />
                 </RelativeLayout>
                 <View
@@ -190,7 +192,6 @@
                     <EditText
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="12345@gmail.com"
                         android:id="@+id/etEmailEdit"
                         android:textColor="#565454"
                         android:background="@android:color/transparent"
@@ -205,16 +206,17 @@
                 <Button
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:background="#3F51B4"
+                    android:background="@drawable/form_btn3"
                     android:text="Save Changes"
                     android:id="@+id/btnSave"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="50dp"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+                    android:layout_margin="30dp"
+                    android:elevation="20dp"/>
 
             </LinearLayout>
 
         </LinearLayout>
+        </ScrollView>
     </androidx.cardview.widget.CardView>
 
 </FrameLayout>

@@ -35,10 +35,13 @@
 
         </LinearLayout>
         <androidx.cardview.widget.CardView
-            android:layout_width="300dp"
-            android:layout_height="400dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|top"
             android:layout_marginTop="180dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
             app:cardCornerRadius="18dp"
             app:cardElevation="8dp"
             app:cardBackgroundColor="#FBF8F8">
@@ -50,7 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="20dp">
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -75,11 +78,41 @@
                         android:textColor="@color/black"
                         />
                 </RelativeLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="10dp"
                     android:background="#DCDCDC"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="Father Name:"
+                        android:textColor="#3F51B5"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/tvFatherName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Father Name"
+                        android:layout_marginLeft="110dp"
+                        android:textColor="@color/black"/>
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#DCDCDC"/>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -237,42 +270,20 @@
                     android:layout_height="1dp"
                     android:layout_marginTop="10dp"
                     android:background="#DCDCDC"/>
-                <RelativeLayout
-                    android:layout_width="match_parent"
+
+                <Button
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Father Name:"
-                        android:textSize="16dp"
-                        android:textColor="#3F51B5"
-                        android:textStyle="bold"
-                        android:layout_marginTop="2dp"
-                        android:layout_alignParentStart="true"/>
-                    <TextView
-                        android:id="@+id/tvFatherName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Father Name"
-                        android:layout_marginLeft="110dp"
-                        android:textColor="@color/black"/>
-                </RelativeLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="10dp"
-                    android:background="#DCDCDC"/>
+                    android:background="@drawable/form_btn3"
+                    android:text="Edit Profile"
+                    android:id="@+id/btn_change_profile_tea"
+                    android:layout_gravity="center"
+                    android:layout_margin="30dp"
+                    android:elevation="10dp"/>
+
             </LinearLayout>
             </ScrollView>
         </androidx.cardview.widget.CardView>
-        <Button
-            android:id="@+id/btn_change_profile_tea"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="600dp"
-            android:text="change profile"
-            android:layout_marginLeft="110dp"
-            android:backgroundTint="#3F51B4" />
+
     </FrameLayout>
 

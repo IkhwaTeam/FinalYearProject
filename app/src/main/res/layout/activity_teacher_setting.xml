@@ -7,83 +7,86 @@
     android:background="@drawable/app_bg">
 
     <ImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="75dp"
+        android:layout_height="78dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="26dp"
         android:src="@drawable/logo" />
 
 
     <TextView
-        android:id="@+id/textView_settings_header_tea"
+        android:id="@+id/textView_settings_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="80dp"
         android:text="Settings"
         android:textColor="#FFFFFF"
-        android:textSize="32sp"
+        android:textSize="26sp"
         android:textStyle="bold"
         android:gravity="center"
         android:layout_centerHorizontal="true"/>
 
-    <!-- Main Card -->
-    <androidx.cardview.widget.CardView
+    <ScrollView
+        android:id="@+id/options"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/textView_settings_header_tea"
-        android:layout_marginTop="20dp"
-        app:cardBackgroundColor="#FFFFFF"
-        app:cardCornerRadius="30dp"
-        app:cardElevation="0dp">
+        android:layout_height="wrap_content"
+        android:overScrollMode="never"
+        android:layout_marginTop="130dp">
 
-        <ScrollView
+        <!-- Main Card -->
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:overScrollMode="never">
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView_settings_header"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="0dp">
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="20dp">
+                android:padding="16dp">
 
                 <!-- Notifications -->
                 <RelativeLayout
-                    android:id="@+id/layout_notifications_tea"
+                    android:id="@+id/layout_notifications"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="8dp">
 
                     <ImageView
-                        android:id="@+id/icon_notifications_tea"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/icon_notifications"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         android:layout_centerVertical="true"
-                        android:backgroundTint="#0D37EF"
-                        android:src="@drawable/ic_notification_settting" />
+                        android:src="@drawable/ic_notification_settting"
+                        android:backgroundTint="#0D37EF" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="16dp"
-                        android:layout_toEndOf="@id/icon_notifications_tea"
+                        android:layout_toEndOf="@id/icon_notifications"
                         android:text="Notifications"
                         android:textColor="#808080"
                         android:textSize="16sp" />
 
                     <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/switch_notifications_tea"
+                        android:id="@+id/switch_notifications"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:checked="true"
-                        app:thumbTint="#0D38F6"
-                        app:trackTint="#D1C4E9" />
+                        app:thumbTint="#3A56ED"
+                        app:trackTint="#C5CBED" />
                 </RelativeLayout>
 
                 <View
@@ -93,17 +96,16 @@
 
                 <!-- Privacy Policy -->
                 <RelativeLayout
-                    android:id="@+id/layout_privacy_policy_tea"
+                    android:id="@+id/layout_privacy_policy"
                     android:layout_width="match_parent"
                     android:layout_height="56dp">
 
                     <ImageView
-                        android:id="@+id/icon_privacy_tea"
+                        android:id="@+id/icon_privacy"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/lock_icon"
-                        android:backgroundTint="#062BF7"
+                        android:src="@drawable/ic_privacy"
                         />
 
                     <TextView
@@ -111,7 +113,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="16dp"
-                        android:layout_toEndOf="@id/icon_privacy_tea"
+                        android:layout_toEndOf="@id/icon_privacy"
                         android:text="Privacy Policy"
                         android:textColor="#808080"
                         android:textSize="16sp" />
@@ -133,17 +135,17 @@
 
                 <!-- Terms and Conditions -->
                 <RelativeLayout
-                    android:id="@+id/layout_terms_tea"
+                    android:id="@+id/layout_terms"
                     android:layout_width="match_parent"
                     android:layout_height="56dp">
 
                     <ImageView
-                        android:id="@+id/icon_terms_tea"
+                        android:id="@+id/icon_terms"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_centerVertical="true"
                         android:backgroundTint="#062CF7"
-                        android:src="@drawable/terms_condition"
+                        android:src="@drawable/ic_terms"
 
                         />
 
@@ -152,7 +154,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="16dp"
-                        android:layout_toEndOf="@id/icon_terms_tea"
+                        android:layout_toEndOf="@id/icon_terms"
                         android:text="Terms and Condition"
                         android:textColor="#808080"
                         android:textSize="16sp" />
@@ -174,16 +176,16 @@
 
                 <!-- Share with Friends -->
                 <RelativeLayout
-                    android:id="@+id/layout_share_tea"
+                    android:id="@+id/layout_share"
                     android:layout_width="match_parent"
                     android:layout_height="56dp">
 
                     <ImageView
-                        android:id="@+id/icon_share_tea"
+                        android:id="@+id/icon_share"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/share"
+                        android:src="@drawable/ic_share"
                         android:backgroundTint="#062AF7"
                         />
 
@@ -192,7 +194,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="16dp"
-                        android:layout_toEndOf="@id/icon_share_tea"
+                        android:layout_toEndOf="@id/icon_share"
                         android:text="Share with your Friends"
                         android:textColor="#808080"
                         android:textSize="16sp" />
@@ -214,7 +216,7 @@
 
                 <!-- About Us -->
                 <RelativeLayout
-                    android:id="@+id/layout_about_tea"
+                    android:id="@+id/layout_about"
                     android:layout_width="match_parent"
                     android:layout_height="56dp">
 
@@ -223,7 +225,7 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/aboutus"
+                        android:src="@drawable/ic_contact_us"
 
                         android:backgroundTint="#673AB7"
                         />
@@ -234,7 +236,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginStart="16dp"
                         android:layout_toEndOf="@id/icon_about"
-                        android:text="Contact us"
+                        android:text="About us"
                         android:textColor="#808080"
                         android:textSize="16sp" />
 
@@ -253,41 +255,6 @@
                     android:layout_height="1dp"
                     android:background="#F0F0F0" />
 
-                <!-- Help -->
-                <RelativeLayout
-                    android:id="@+id/layout_help"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp">
-
-                    <ImageView
-                        android:id="@+id/icon_help"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/help"
-
-                        android:backgroundTint="#062CF7"
-                        />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="16dp"
-                        android:layout_toEndOf="@id/icon_help"
-                        android:text="Help"
-                        android:textColor="#808080"
-                        android:textSize="16sp" />
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:src="@android:drawable/ic_media_play"
-                        android:backgroundTint="#062BF7"
-                        />
-                </RelativeLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -296,12 +263,12 @@
 
                 <!-- Rate this app -->
                 <RelativeLayout
-                    android:id="@+id/layout_rate_tea"
+                    android:id="@+id/layout_rate"
                     android:layout_width="match_parent"
                     android:layout_height="56dp">
 
                     <ImageView
-                        android:id="@+id/icon_rate_tea"
+                        android:id="@+id/icon_rate"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_centerVertical="true"
@@ -315,7 +282,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="16dp"
-                        android:layout_toEndOf="@id/icon_rate_tea"
+                        android:layout_toEndOf="@id/icon_rate"
                         android:text="Rate this app"
                         android:textColor="#7F7F7F"
                         android:textSize="16sp" />
@@ -337,28 +304,38 @@
                     android:layout_height="1dp"
                     android:background="#F0F0F0" />
 
-                <!-- Spacer for floating action button -->
-                <View
+                <RelativeLayout
+                    android:id="@+id/layout_logout"
                     android:layout_width="match_parent"
-                    android:layout_height="80dp" />
+                    android:layout_height="56dp"
+                    android:layout_marginBottom="8dp">
+
+                    <ImageView
+                        android:id="@+id/icon_logout"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_centerVertical="true"
+
+                        android:src="@drawable/ic_logout"
+
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="16dp"
+                        android:layout_toEndOf="@id/icon_logout"
+                        android:text="Logout"
+                        android:textColor="#7F7F7F"
+                        android:textSize="16sp" />
+
+                </RelativeLayout>
+
             </LinearLayout>
-        </ScrollView>
-    </androidx.cardview.widget.CardView>
 
-    <!-- Floating Action Button for Logout -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_logout_tea"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="145dp"
-        android:layout_marginBottom="30dp"
-        android:backgroundTint="#0B34F7"
-        android:src="@android:drawable/ic_lock_power_off"
-        android:tint="#FFFFFF"
-        app:borderWidth="0dp"
+        </androidx.cardview.widget.CardView>
 
-        app:elevation="6dp"
-        app:fabSize="normal" />
+    </ScrollView>
 
 </RelativeLayout>

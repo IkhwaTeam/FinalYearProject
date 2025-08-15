@@ -2,6 +2,7 @@ package com.example.ikhwa;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -19,7 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class SettingActivity extends AppCompatActivity {
 
     private SwitchCompat notificationsSwitch;
-    private View layoutPrivacyPolicy, layoutTerms, layoutShare, layoutAbout, layoutHelp, layoutRate;
+    private View layoutPrivacyPolicy, layoutTerms, layoutShare, layoutAbout, layoutRate, layoutLogout;
     private FloatingActionButton fabLogout;
     private FirebaseAuth authProfile;
 
@@ -37,7 +38,7 @@ public class SettingActivity extends AppCompatActivity {
         layoutShare = findViewById(R.id.layout_share);
         layoutAbout = findViewById(R.id.layout_about);
         layoutRate = findViewById(R.id.layout_rate);
-
+        layoutLogout = findViewById(R.id.layout_logout);
 
         setupListeners();
         loadNotificationPreference();
@@ -56,10 +57,24 @@ public class SettingActivity extends AppCompatActivity {
         layoutTerms.setOnClickListener(v -> navigateToPage("terms_conditions"));
         layoutShare.setOnClickListener(v -> shareApp());
         layoutAbout.setOnClickListener(v -> navigateToPage("about_us"));
-        layoutHelp.setOnClickListener(v -> navigateToPage("help"));
         layoutRate.setOnClickListener(v -> rateApp());
 
-        fabLogout.setOnClickListener(v -> showLogoutDialog());
+        layoutLogout.setOnClickListener(v -> {
+            new AlertDialog.Builder(this)
+                    .setTitle("Logout")
+                    .setMessage("Are you sure you want to logout?")
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        SharedPreferences prefs = getSharedPreferences(SplashActivity.PREF_NAME, MODE_PRIVATE);
+                        prefs.edit().remove(SplashActivity.ROLE_KEY).apply();
+                        FirebaseAuth.getInstance().signOut();
+                        Intent intent = new Intent(SettingActivity.this, SelectionActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        finish();
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
+        });
     }
 
     private void saveNotificationPreference(boolean enabled) {
