@@ -253,41 +253,6 @@
                     android:layout_height="1dp"
                     android:background="#F0F0F0" />
 
-                <!-- Help -->
-                <RelativeLayout
-                    android:id="@+id/layout_help"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp">
-
-                    <ImageView
-                        android:id="@+id/icon_help"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/help"
-
-                        android:backgroundTint="#062CF7"
-                        />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="16dp"
-                        android:layout_toEndOf="@id/icon_help"
-                        android:text="Help"
-                        android:textColor="#808080"
-                        android:textSize="16sp" />
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:src="@android:drawable/ic_media_play"
-                        android:backgroundTint="#062BF7"
-                       />
-                </RelativeLayout>
 
                 <View
                     android:layout_width="match_parent"

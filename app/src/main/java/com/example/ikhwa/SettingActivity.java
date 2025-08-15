@@ -90,10 +90,6 @@ public class SettingActivity extends AppCompatActivity {
                 showToast("Opening About Us");
                 startActivity(new Intent(this, AboutUsActivity.class));
                 break;
-            case "help":
-                showToast("Opening Help");
-                startActivity(new Intent(this, HelpActivity.class));
-                break;
         }
     }
 
