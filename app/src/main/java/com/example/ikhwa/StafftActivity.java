@@ -1,6 +1,7 @@
 package com.example.ikhwa;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,13 +23,22 @@ import androidx.appcompat.app.AppCompatActivity;
 public class StafftActivity extends AppCompatActivity {
 
     LinearLayout teachersContainer;
+    Button backbutton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stafft);
+        backbutton=findViewById(R.id.back_btn);
 
         teachersContainer = findViewById(R.id.teachers_container);
+        backbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(StafftActivity.this, Teacher_home.class);
+                startActivity(intent);
+            }
+        });
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Teachers");
 
@@ -92,4 +102,5 @@ public class StafftActivity extends AppCompatActivity {
 
         btnClose.setOnClickListener(v -> dialog.dismiss());
     }
+
 }

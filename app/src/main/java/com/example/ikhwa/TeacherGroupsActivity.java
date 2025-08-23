@@ -116,11 +116,38 @@ public class TeacherGroupsActivity extends AppCompatActivity {
                                 startActivity(intent);
                             });
 
+                            // Listen Lesson Button (Inside same card)
+                            Button listenLessonBtn = new Button(TeacherGroupsActivity.this);
+                            listenLessonBtn.setText("Listen Lesson");
+                            listenLessonBtn.setBackgroundColor(getResources().getColor(android.R.color.holo_green_dark));
+                            listenLessonBtn.setTextColor(getResources().getColor(android.R.color.white));
+                            listenLessonBtn.setPadding(20, 10, 20, 10);
+
+                            LinearLayout.LayoutParams listenBtnParams = new LinearLayout.LayoutParams(
+                                    LinearLayout.LayoutParams.MATCH_PARENT,
+                                    LinearLayout.LayoutParams.WRAP_CONTENT);
+                            listenBtnParams.setMargins(0, 20, 0, 0);
+                            listenLessonBtn.setLayoutParams(listenBtnParams);
+
+                            // WhatsApp Group Link
+                            String groupLink = "https://chat.whatsapp.com/EXAMPLE_GROUP_LINK"; // Apna link yahan dalain
+
+                            listenLessonBtn.setOnClickListener(v -> {
+                                try {
+                                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                                    intent.setData(android.net.Uri.parse(groupLink));
+                                    startActivity(intent);
+                                } catch (Exception e) {
+                                    Toast.makeText(TeacherGroupsActivity.this, "WhatsApp not installed", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
                             // Add views to card
                             cardLayout.addView(courseTitleView);
                             cardLayout.addView(groupNameView);
                             cardLayout.addView(studentListLayout);
                             cardLayout.addView(markAttendanceBtn);
+                            cardLayout.addView(listenLessonBtn); // ✅ Added inside card
 
                             // Add card to container
                             groupsContainer.addView(cardLayout);
@@ -146,9 +173,10 @@ public class TeacherGroupsActivity extends AppCompatActivity {
 
                 String name = snapshot.child("student_name").getValue(String.class);
                 String email = snapshot.child("email").getValue(String.class);
+                String phone = snapshot.child("phone").getValue(String.class);
 
                 TextView studentView = new TextView(TeacherGroupsActivity.this);
-                studentView.setText("👤 " + name + "\n" + email);
+                studentView.setText("👤 " + name + "\n" + email + "\n" + phone);
                 studentView.setTextSize(15f);
                 studentView.setPadding(20, 10, 20, 10);
                 studentView.setTextColor(getResources().getColor(android.R.color.black));
