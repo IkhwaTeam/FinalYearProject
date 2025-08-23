@@ -22,7 +22,7 @@
         android:background="@drawable/shape">
 
         <Button
-            android:id="@+id/back_btn"
+            android:id="@+id/back_btn_stu"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginTop="35dp"

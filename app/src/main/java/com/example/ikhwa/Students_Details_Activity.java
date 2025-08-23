@@ -2,6 +2,7 @@ package com.example.ikhwa;
 
 import
         android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,14 +25,21 @@ import com.google.firebase.database.ValueEventListener;
 public class Students_Details_Activity extends AppCompatActivity {
 
     LinearLayout studentContainer;
-
+Button backbtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_students_details);
-
+backbtn=findViewById(R.id.back_btn_stu);
         studentContainer = findViewById(R.id.students_container);
-
+backbtn.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        Intent intent = new Intent(Students_Details_Activity.this, AdminHomeActivity.class);
+        startActivity(intent);
+        finish();
+    }
+});
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Student");
 
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
