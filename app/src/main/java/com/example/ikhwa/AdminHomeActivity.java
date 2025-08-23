@@ -129,9 +129,9 @@ studedils=findViewById(R.id.student_details);
     private void setupListeners() {
         courseBtn.setOnClickListener(view -> startActivity(new Intent(this, CourseActivity.class)));
         teacherBtn.setOnClickListener(view -> startActivity(new Intent(this, PendingTeachersActivity.class)));
-        studentBtn.setOnClickListener(view -> startActivity(new Intent(this, ApprovedRejectedTeachersActivity.class)));
+        studentBtn.setOnClickListener(view -> startActivity(new Intent(this, Students_Details_Activity.class)));
         notificationBtn.setOnClickListener(view -> startActivity(new Intent(this, AdminNotificationActivity.class)));
-        studedils.setOnClickListener(view -> startActivity(new Intent(this, Students_Details_Activity.class)));
+        studedils.setOnClickListener(view -> startActivity(new Intent(this, ApprovedRejectedTeachersActivity.class)));
         menuBtn.setOnClickListener(this::showPopupMenu);
     }
 

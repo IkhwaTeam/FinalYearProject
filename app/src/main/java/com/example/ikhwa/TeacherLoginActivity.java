@@ -155,7 +155,7 @@ public class TeacherLoginActivity extends AppCompatActivity {
             Log.d(TAG, "Saved role 'admin' in SharedPreferences");
 
             Toast.makeText(TeacherLoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(TeacherLoginActivity.this, Admin_home_Activity1.class));
+            startActivity(new Intent(TeacherLoginActivity.this, AdminHomeActivity.class));
             finish();
             return;
         }
