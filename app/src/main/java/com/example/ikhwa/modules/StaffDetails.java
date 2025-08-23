@@ -1,40 +1,24 @@
 package com.example.ikhwa.modules;
+
 public class StaffDetails {
     private String name;
-
     private String qualification;
+    private String status; // status may be null
 
-    // Required no-argument constructor for Firebase
     public StaffDetails() {
     }
 
-    // All-argument constructor
-    public StaffDetails(String name,String qualification) {
+    public StaffDetails(String name, String qualification, String status) {
         this.name = name;
-
-        this.qualification=qualification;
-
+        this.qualification = qualification;
+        this.status = status;
     }
 
-    // Getter methods
     public String getName() { return name; }
-
     public String getQualification() { return qualification; }
+    public String getStatus() { return status; }
 
-
-    // Setter methods
     public void setName(String name) { this.name = name; }
-
     public void setQualification(String qualification) { this.qualification = qualification; }
-
-
-    @Override
-    public String toString() {
-        return "TeacherDetails{" +
-                "name='" + name + '\'' +
-
-                ", qualification='" + qualification + '\'' +
-
-                '}';
-    }
+    public void setStatus(String status) { this.status = status; }
 }
