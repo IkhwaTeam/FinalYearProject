@@ -37,7 +37,7 @@ public class EditTeacherProfileActivity extends AppCompatActivity {
         // Firebase references
         mAuth = FirebaseAuth.getInstance();
         uid = mAuth.getCurrentUser().getUid();
-        teacherRef = FirebaseDatabase.getInstance().getReference("TeacherRequests");
+        teacherRef = FirebaseDatabase.getInstance().getReference("Teachers");
 
         loadExistingData();
 

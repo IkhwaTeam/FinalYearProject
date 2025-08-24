@@ -121,7 +121,7 @@ public class Teacher_home extends AppCompatActivity {
     }
 
     private void loadTeacherData() {
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("TeacherRequests");
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Teachers");
 
         ref.orderByChild("email").equalTo(FirebaseAuth.getInstance().getCurrentUser().getEmail())
                 .addListenerForSingleValueEvent(new ValueEventListener() {

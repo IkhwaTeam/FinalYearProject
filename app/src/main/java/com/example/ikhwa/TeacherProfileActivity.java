@@ -28,7 +28,7 @@ public class TeacherProfileActivity extends AppCompatActivity {
         tvEmail = findViewById(R.id.tvEmail);
         tvPhone = findViewById(R.id.tvPhone);
         tvQualification = findViewById(R.id.tvQualification);
-        tvExperience = findViewById(R.id.tvExperience); // ✅ updated
+        tvExperience = findViewById(R.id.tvExperience);
         tvServices = findViewById(R.id.tvServices);
         tvAddress = findViewById(R.id.tvAddress);
         tvFatherName = findViewById(R.id.tvFatherName);
@@ -43,7 +43,7 @@ public class TeacherProfileActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         String uid = mAuth.getCurrentUser().getUid();
 
-        ref = FirebaseDatabase.getInstance().getReference("TeacherRequests");
+        ref = FirebaseDatabase.getInstance().getReference("Teachers");
 
         ref.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -56,7 +56,7 @@ public class TeacherProfileActivity extends AppCompatActivity {
                         tvEmail.setText(teacher.getEmail());
                         tvPhone.setText(teacher.getPhone());
                         tvQualification.setText(teacher.getQualification());
-                        tvExperience.setText(teacher.getExperience()); // ✅ updated
+                        tvExperience.setText(teacher.getExperience());
                         tvServices.setText(teacher.getServices());
                         tvAddress.setText(teacher.getAddress());
                         tvFatherName.setText(teacher.getFatherName());
