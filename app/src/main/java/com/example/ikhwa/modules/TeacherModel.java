@@ -6,8 +6,9 @@ public class TeacherModel {
     private String name;
     private String fatherName;
     private String email;
-    private String phone;
     private String qualification;
+    private String phone;
+
     private String address;
     private String password;
     private String services;
@@ -17,13 +18,14 @@ public class TeacherModel {
     public TeacherModel() {
     }
 
-    public TeacherModel(String teacherId, String name, String fatherName, String email, String phone, String qualification, String address, String password, String services, String experience, String status) {
+    public TeacherModel(String teacherId, String name, String fatherName, String email, String qualification,String phone,  String address, String password, String services, String experience, String status) {
         this.teacherId = teacherId;
         this.name = name;
         this.fatherName = fatherName;
         this.email = email;
-        this.phone = phone;
         this.qualification = qualification;
+        this.phone = phone;
+
         this.address = address;
         this.password = password;
         this.services = services;
@@ -64,6 +66,14 @@ public class TeacherModel {
     public void setEmail(String email) {
         this.email = email;
     }
+    public String getQualification() {
+        return qualification;
+    }
+
+    public void setQualification(String qualification) {
+        this.qualification = qualification;
+    }
+
 
     public String getPhone() {
         return phone;
@@ -73,13 +83,6 @@ public class TeacherModel {
         this.phone = phone;
     }
 
-    public String getQualification() {
-        return qualification;
-    }
-
-    public void setQualification(String qualification) {
-        this.qualification = qualification;
-    }
 
     public String getAddress() {
         return address;
