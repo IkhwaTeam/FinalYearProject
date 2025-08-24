@@ -16,7 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class stdprofile extends AppCompatActivity {
 
-    EditText etFatherName, etNumber, etAge, etAddress, etEmail;
+    EditText etName,etFatherName, etNumber, etAge, etAddress, etEmail;
     TextView tvStudentName;
     FirebaseAuth mAuth;
     DatabaseReference databaseReference;
@@ -29,6 +29,7 @@ public class stdprofile extends AppCompatActivity {
         setContentView(R.layout.activity_stdprofile); // Make sure XML file name is correct
 
         // Initialize views
+        etName=findViewById(R.id.etName);
         etFatherName = findViewById(R.id.etFatherName);
         etNumber = findViewById(R.id.etNumber);
         etAge = findViewById(R.id.etAge);
@@ -48,6 +49,7 @@ public class stdprofile extends AppCompatActivity {
                 if (dataSnapshot.exists()) {
                     Student student = dataSnapshot.getValue(Student.class);
                     if (student != null) {
+                        etName.setText(student.getStudent_name());
                         etFatherName.setText(student.getFather_name());
                         etNumber.setText(student.getPhone());
                         etAge.setText(String.valueOf(student.getAge())); // Handle age as a string
@@ -75,6 +77,7 @@ public class stdprofile extends AppCompatActivity {
     }
 
     private void disableEditing() {
+        etName.setEnabled(false);
         etFatherName.setEnabled(false);
         etNumber.setEnabled(false);
         etAge.setEnabled(false);

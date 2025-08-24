@@ -62,7 +62,35 @@
                     android:elevation="2dp"
                     android:padding="20dp">
 
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp">
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Name:"
+                            android:textSize="16dp"
+                            android:textColor="#3F51B5"
+                            android:textStyle="bold"
+                            android:layout_marginTop="2dp"
+                            android:layout_alignParentStart="true" />
+
+                        <EditText
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/etName"
+                            android:textColor="#565454"
+                            android:background="@android:color/transparent"
+                            android:layout_alignParentEnd="true" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dp"
+                        android:background="#DCDCDC" />
                     <!-- Father's Name -->
                     <RelativeLayout
                         android:layout_width="match_parent"

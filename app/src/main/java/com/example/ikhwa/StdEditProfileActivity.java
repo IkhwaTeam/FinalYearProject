@@ -15,7 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class StdEditProfileActivity extends AppCompatActivity {
 
-    EditText etFatherNameEdit, etNumberEdit, etAgeEdit, etAddressEdit, etEmailEdit;
+    EditText etStudentNameEdit,etFatherNameEdit, etNumberEdit, etAgeEdit, etAddressEdit, etEmailEdit;
     Button btnSave;
 
     FirebaseAuth mAuth;
@@ -28,6 +28,7 @@ public class StdEditProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_std_edit_profile); // Make sure this matches your XML
 
         // Initialize views
+        etStudentNameEdit=findViewById(R.id.etStuNameEdit);
         etFatherNameEdit = findViewById(R.id.etFatherNameEdit);
         etNumberEdit = findViewById(R.id.etNumberEdit);
         etAgeEdit = findViewById(R.id.etAgeEdit);
@@ -51,6 +52,7 @@ public class StdEditProfileActivity extends AppCompatActivity {
             if (dataSnapshot.exists()) {
                 Student student = dataSnapshot.getValue(Student.class);
                 if (student != null) {
+                    etStudentNameEdit.setText(student.getStudent_name());
                     etFatherNameEdit.setText(student.getFather_name());
                     etNumberEdit.setText(student.getPhone());
                     etAgeEdit.setText(student.getAge()); // Already string
@@ -66,19 +68,21 @@ public class StdEditProfileActivity extends AppCompatActivity {
 
         // Save button logic
         btnSave.setOnClickListener(v -> {
+            String studentName = etStudentNameEdit.getText().toString().trim();
             String fatherName = etFatherNameEdit.getText().toString().trim();
             String phone = etNumberEdit.getText().toString().trim();
             String age = etAgeEdit.getText().toString().trim(); // ✅ Keep age as String
             String address = etAddressEdit.getText().toString().trim();
             String email = etEmailEdit.getText().toString().trim();
 
-            if (TextUtils.isEmpty(fatherName) || TextUtils.isEmpty(phone) ||
+            if (TextUtils.isEmpty(studentName) ||TextUtils.isEmpty(fatherName) || TextUtils.isEmpty(phone) ||
                     TextUtils.isEmpty(age) || TextUtils.isEmpty(address) || TextUtils.isEmpty(email)) {
                 Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             // Update individual fields in Firebase
+            databaseReference.child(uid).child("student_name").setValue(studentName);
             databaseReference.child(uid).child("father_name").setValue(fatherName);
             databaseReference.child(uid).child("phone").setValue(phone);
             databaseReference.child(uid).child("age").setValue(age);
