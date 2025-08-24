@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -14,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -51,7 +51,6 @@ public class StudentLoginActivity extends AppCompatActivity {
         // Auto-login check
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-            // Check if the current user is already logged in as a student
             SharedPreferences prefs = getSharedPreferences(SplashActivity.PREF_NAME, MODE_PRIVATE);
             String savedRole = prefs.getString(SplashActivity.ROLE_KEY, "");
 
@@ -59,84 +58,42 @@ public class StudentLoginActivity extends AppCompatActivity {
                 Log.d(TAG, "Current user is a student, navigating to StudentHome2");
                 startActivity(new Intent(StudentLoginActivity.this, StudentHome2.class));
                 finish();
-            } else if (!TextUtils.isEmpty(savedRole)) {
-                // User is logged in but not as a student
-                Log.d(TAG, "User logged in as: " + savedRole + ", sign out first");
-                Toast.makeText(this, "Please log out from your " + savedRole + " account first", Toast.LENGTH_SHORT).show();
-                // You might want to handle this case differently
             }
         }
 
         // Password toggle click event
         passwordToggle.setOnClickListener(v -> {
-            // Save current Typeface
             Typeface currentTypeface = stPassword.getTypeface();
 
             if (isPasswordVisible) {
                 stPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                passwordToggle.setImageResource(R.drawable.ic_visible_off); // closed eye icon
+                passwordToggle.setImageResource(R.drawable.ic_visible_off);
                 isPasswordVisible = false;
             } else {
                 stPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                passwordToggle.setImageResource(R.drawable.ic_password); // open eye icon
+                passwordToggle.setImageResource(R.drawable.ic_password);
                 isPasswordVisible = true;
             }
 
-            // Restore Typeface to keep the font style same
             stPassword.setTypeface(currentTypeface);
-
-            // Move cursor to the end after toggling
             stPassword.setSelection(stPassword.length());
         });
 
-        // Login button click event
         stLoginBtn.setOnClickListener(v -> loginStudent());
 
-        // Sign up button intent
         stSignupBtn.setOnClickListener(v -> {
             Intent intent = new Intent(StudentLoginActivity.this, StudentRegistrationActivity.class);
             startActivity(intent);
             finish();
         });
 
-        // Reset password click event
-        resetPassword.setOnClickListener(v -> {
-            String email = stEmail.getText().toString().trim();
-
-            if (TextUtils.isEmpty(email)) {
-                Toast.makeText(StudentLoginActivity.this, "Please enter your email address", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                Toast.makeText(StudentLoginActivity.this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            progressBar.setVisibility(View.VISIBLE);
-            mAuth.sendPasswordResetEmail(email)
-                    .addOnCompleteListener(task -> {
-                        progressBar.setVisibility(View.GONE);
-
-                        if (task.isSuccessful()) {
-                            Toast.makeText(StudentLoginActivity.this, "Reset link sent to your email", Toast.LENGTH_SHORT).show();
-                            finish(); // Dismiss the screen after sending reset link
-                        } else {
-                            Toast.makeText(StudentLoginActivity.this, "Failed to send reset email", Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnFailureListener(e -> {
-                        progressBar.setVisibility(View.GONE);
-                        Toast.makeText(StudentLoginActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    });
-        });
+        resetPassword.setOnClickListener(v -> resetPassword());
     }
 
     private void loginStudent() {
         String email = stEmail.getText().toString().trim();
         String password = stPassword.getText().toString().trim();
 
-        // Input validation
         if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
             showError("All fields are required");
             return;
@@ -149,34 +106,22 @@ public class StudentLoginActivity extends AppCompatActivity {
 
         progressBar.setVisibility(View.VISIBLE);
 
-        // Firebase Authentication login
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     progressBar.setVisibility(View.GONE);
 
                     if (task.isSuccessful()) {
-                        // Login successful
                         FirebaseUser user = mAuth.getCurrentUser();
                         Toast.makeText(StudentLoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
 
-                        // IMPORTANT: Use the same preference name and key as in SplashActivity
                         SharedPreferences prefs = getSharedPreferences(SplashActivity.PREF_NAME, MODE_PRIVATE);
-                        String existingRole = prefs.getString(SplashActivity.ROLE_KEY, "");
 
-                        if (!existingRole.isEmpty() && !existingRole.equals("student")) {
-                            // Someone already logged in with another role, block access
-                            Toast.makeText(this, "Another user is logged in. Please logout first.", Toast.LENGTH_SHORT).show();
-                            // Sign out this user as we're not allowing the login
-                            mAuth.signOut();
-                            finish();
-                            return;
-                        }
-
-                        // Save role to shared preferences
+                        // ✅ Clear any old role (teacher/admin) and save as student
+                        prefs.edit().clear().apply();
                         prefs.edit().putString(SplashActivity.ROLE_KEY, "student").apply();
+
                         Log.d(TAG, "Saved role 'student' in SharedPreferences");
 
-                        // Redirect to StudentHome2 activity
                         Intent intent = new Intent(StudentLoginActivity.this, StudentHome2.class);
                         startActivity(intent);
                         finish();
@@ -187,6 +132,37 @@ public class StudentLoginActivity extends AppCompatActivity {
                 .addOnFailureListener(e -> {
                     progressBar.setVisibility(View.GONE);
                     showError("Error: " + e.getMessage());
+                });
+    }
+
+    private void resetPassword() {
+        String email = stEmail.getText().toString().trim();
+
+        if (TextUtils.isEmpty(email)) {
+            Toast.makeText(StudentLoginActivity.this, "Please enter your email address", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            Toast.makeText(StudentLoginActivity.this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        progressBar.setVisibility(View.VISIBLE);
+        mAuth.sendPasswordResetEmail(email)
+                .addOnCompleteListener(task -> {
+                    progressBar.setVisibility(View.GONE);
+
+                    if (task.isSuccessful()) {
+                        Toast.makeText(StudentLoginActivity.this, "Reset link sent to your email", Toast.LENGTH_SHORT).show();
+                        finish();
+                    } else {
+                        Toast.makeText(StudentLoginActivity.this, "Failed to send reset email", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(StudentLoginActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
     }
 
