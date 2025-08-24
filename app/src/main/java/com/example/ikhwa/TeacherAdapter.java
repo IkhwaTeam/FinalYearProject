@@ -84,7 +84,7 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.TeacherV
         tvQualification.setText(teacher.getQualification());
         tvAddress.setText(teacher.getAddress());
         tvServices.setText(teacher.getServices());
-        tvInterested.setText(teacher.getWhyInterested());
+        tvInterested.setText(teacher.getExperience());
         tvStatus.setText(teacher.getStatus());
 
         AlertDialog dialog = new AlertDialog.Builder(context)

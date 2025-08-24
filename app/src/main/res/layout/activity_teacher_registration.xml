@@ -218,7 +218,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="What services you can provide"
-                android:inputType="textPassword"
                 android:textColor="@color/black"
                 android:padding="10dp"
                 android:textSize="18sp"
@@ -245,12 +244,11 @@
             android:gravity="center_vertical">
 
             <EditText
-                android:id="@+id/tea_why"
+                android:id="@+id/tea_experience"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Why you are  intrested"
-                android:inputType="textPassword"
+                android:hint="Experience"
                 android:textColor="@color/black"
                 android:padding="10dp"
                 android:textSize="18sp"
@@ -264,7 +262,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:src="@drawable/ic_course_green"/>
+                android:src="@drawable/experience"/>
 
         </LinearLayout>
 

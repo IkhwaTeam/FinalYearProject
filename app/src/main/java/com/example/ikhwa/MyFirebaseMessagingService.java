@@ -35,7 +35,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         String channelId = "default_channel_id";
 
         // Create intent to open app when clicked
-        Intent intent = new Intent(this, TeacherHomeActivity1.class); // 👈 open your activity
+        Intent intent = new Intent(this, Teacher_home.class); // 👈 open your activity
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(

@@ -1,5 +1,6 @@
 package com.example.ikhwa;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,18 +12,19 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class TeacherRegistrationActivity extends AppCompatActivity {
 
-    private EditText name, fatherName, email, qualification, phone, address, password, confirmPassword, services, whyInterested;
+    private EditText name, fatherName, email, qualification, phone, address, password, confirmPassword, services, experience;
     private Button registerButton, loginButton;
     private ProgressBar progressBar;
     private TextView errorMessage;
 
     private FirebaseAuth mAuth;
-    private DatabaseReference teacherRef, requestsRef;
+    private DatabaseReference teacherRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +40,7 @@ public class TeacherRegistrationActivity extends AppCompatActivity {
         password = findViewById(R.id.tea_password);
         confirmPassword = findViewById(R.id.tea_cnfrm_password);
         services = findViewById(R.id.tea_services);
-        whyInterested = findViewById(R.id.tea_why);
+        experience = findViewById(R.id.tea_experience);
 
         registerButton = findViewById(R.id.tea_btn_reg);
         loginButton = findViewById(R.id.tea_login);
@@ -48,9 +50,14 @@ public class TeacherRegistrationActivity extends AppCompatActivity {
         // Firebase
         mAuth = FirebaseAuth.getInstance();
         teacherRef = FirebaseDatabase.getInstance().getReference("Teachers");
-        requestsRef = FirebaseDatabase.getInstance().getReference("TeacherRequests");
 
         registerButton.setOnClickListener(v -> registerTeacher());
+
+        // 🔹 Login button intent
+        loginButton.setOnClickListener(v -> {
+            startActivity(new Intent(TeacherRegistrationActivity.this, TeacherLoginActivity.class));
+            finish();
+        });
     }
 
     private void registerTeacher() {
@@ -63,16 +70,25 @@ public class TeacherRegistrationActivity extends AppCompatActivity {
         String passwordStr = password.getText().toString().trim();
         String confirmPasswordStr = confirmPassword.getText().toString().trim();
         String servicesStr = services.getText().toString().trim();
-        String whyStr = whyInterested.getText().toString().trim();
+        String experienceStr = experience.getText().toString().trim();
 
-        if (nameStr.isEmpty() || emailStr.isEmpty() || passwordStr.isEmpty() || confirmPasswordStr.isEmpty()) {
-            errorMessage.setText("Please fill all required fields!");
+        // 🔹 Validation
+        if (nameStr.isEmpty() || fatherNameStr.isEmpty() || emailStr.isEmpty() || qualificationStr.isEmpty() ||
+                phoneStr.isEmpty() || addressStr.isEmpty() || passwordStr.isEmpty() || confirmPasswordStr.isEmpty() ||
+                servicesStr.isEmpty() || experienceStr.isEmpty()) {
+            errorMessage.setText("⚠️ Please fill all fields!");
+            errorMessage.setVisibility(View.VISIBLE);
+            return;
+        }
+
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(emailStr).matches()) {
+            errorMessage.setText("⚠️ Please enter a valid email address!");
             errorMessage.setVisibility(View.VISIBLE);
             return;
         }
 
         if (!passwordStr.equals(confirmPasswordStr)) {
-            errorMessage.setText("Passwords do not match!");
+            errorMessage.setText("⚠️ Passwords do not match!");
             errorMessage.setVisibility(View.VISIBLE);
             return;
         }
@@ -82,9 +98,10 @@ public class TeacherRegistrationActivity extends AppCompatActivity {
         mAuth.createUserWithEmailAndPassword(emailStr, passwordStr)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        String teacherId = mAuth.getCurrentUser().getUid();
+                        FirebaseUser firebaseUser = mAuth.getCurrentUser();
+                        String teacherId = firebaseUser.getUid();
 
-                        com.example.ikhwa.TeacherModel teacher = new com.example.ikhwa.TeacherModel(
+                        TeacherModel teacher = new TeacherModel(
                                 teacherId,
                                 nameStr,
                                 fatherNameStr,
@@ -94,32 +111,41 @@ public class TeacherRegistrationActivity extends AppCompatActivity {
                                 addressStr,
                                 passwordStr,
                                 servicesStr,
-                                whyStr,
+                                experienceStr,
                                 "pending"
                         );
 
                         teacherRef.child(teacherId).setValue(teacher).addOnCompleteListener(task1 -> {
-                            progressBar.setVisibility(View.GONE);
-
                             if (task1.isSuccessful()) {
-                                requestsRef.child(teacherId).setValue(teacher);
-
-                                Toast.makeText(this, "Teacher registered successfully! Waiting for admin approval.", Toast.LENGTH_LONG).show();
-                                clearFields();
+                                // ✅ Email verification link send karo
+                                firebaseUser.sendEmailVerification()
+                                        .addOnCompleteListener(verifyTask -> {
+                                            progressBar.setVisibility(View.GONE);
+                                            if (verifyTask.isSuccessful()) {
+                                                Toast.makeText(this, "✅ Registered successfully! Please verify your email. Waiting for admin approval.", Toast.LENGTH_LONG).show();
+                                                clearFields();
+                                                mAuth.signOut(); // Auto logout until email verified
+                                            } else {
+                                                errorMessage.setText("❌ Could not send verification email.");
+                                                errorMessage.setVisibility(View.VISIBLE);
+                                            }
+                                        });
                             } else {
-                                errorMessage.setText("Registration failed. Try again.");
+                                progressBar.setVisibility(View.GONE);
+                                errorMessage.setText("❌ Registration failed. Try again.");
                                 errorMessage.setVisibility(View.VISIBLE);
                             }
                         });
 
                     } else {
                         progressBar.setVisibility(View.GONE);
-                        errorMessage.setText("Authentication failed: " + task.getException().getMessage());
+                        errorMessage.setText("❌ Authentication failed: " + task.getException().getMessage());
                         errorMessage.setVisibility(View.VISIBLE);
                     }
                 });
     }
 
+    // 🔹 Method jo sari fields clear karega
     private void clearFields() {
         name.setText("");
         fatherName.setText("");
@@ -130,7 +156,7 @@ public class TeacherRegistrationActivity extends AppCompatActivity {
         password.setText("");
         confirmPassword.setText("");
         services.setText("");
-        whyInterested.setText("");
+        experience.setText("");
         errorMessage.setVisibility(View.GONE);
     }
 }

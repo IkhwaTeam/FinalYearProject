@@ -8,7 +8,6 @@ import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ikhwa.modules.TeacherRequest;
-import com.example.ikhwa.modules.TeacherRequest1;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 
@@ -50,7 +49,7 @@ public class TeacherProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    TeacherRequest1 teacher = snapshot.getValue(TeacherRequest1.class);
+                    TeacherRequest teacher = snapshot.getValue(TeacherRequest.class);
 
                     if (teacher != null) {
                         tvName.setText(teacher.getName());

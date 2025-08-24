@@ -11,13 +11,13 @@ public class TeacherModel {
     private String address;
     private String password;
     private String services;
-    private String whyInterested;
+    private String experience;
     private String status;
 
     public TeacherModel() {
     }
 
-    public TeacherModel(String teacherId, String name, String fatherName, String email, String phone, String qualification, String address, String password, String services, String whyInterested, String status) {
+    public TeacherModel(String teacherId, String name, String fatherName, String email, String phone, String qualification, String address, String password, String services, String experience, String status) {
         this.teacherId = teacherId;
         this.name = name;
         this.fatherName = fatherName;
@@ -27,7 +27,7 @@ public class TeacherModel {
         this.address = address;
         this.password = password;
         this.services = services;
-        this.whyInterested = whyInterested;
+        this.experience = experience;
         this.status = status;
     }
 
@@ -105,12 +105,12 @@ public class TeacherModel {
         this.services = services;
     }
 
-    public String getWhyInterested() {
-        return whyInterested;
+    public String getExperience() {
+        return experience;
     }
 
     public void setWhyInterested(String whyInterested) {
-        this.whyInterested = whyInterested;
+        this.experience = experience;
     }
 
     public String getStatus() {
