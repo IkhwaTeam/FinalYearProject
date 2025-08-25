@@ -41,7 +41,7 @@ public class AdminHomeActivity extends AppCompatActivity {
         studentBtn = findViewById(R.id.student_btn);
         notificationBtn = findViewById(R.id.notification_btn);
         menuBtn = findViewById(R.id.menuButton);
-studedils=findViewById(R.id.student_details);
+        studedils=findViewById(R.id.student_details);
         // Count TextViews
         courseCount = findViewById(R.id.no_of_courses);
         teacherCount = findViewById(R.id.no_of_teachers);
