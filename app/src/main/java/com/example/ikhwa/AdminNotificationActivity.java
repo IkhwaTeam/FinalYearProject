@@ -31,7 +31,7 @@ public class AdminNotificationActivity extends AppCompatActivity {
 
     EditText etTitle, etDescription;
     Spinner spinnerTarget;
-    Button btnSend;
+    Button btnSend, btnBack;
     RecyclerView recyclerView;
     List<NotificationModel> notificationList = new ArrayList<>();
     NotificationAdapter adapter;
@@ -47,6 +47,7 @@ public class AdminNotificationActivity extends AppCompatActivity {
         etDescription = findViewById(R.id.etDescription);
         spinnerTarget = findViewById(R.id.spinnerTarget);
         btnSend = findViewById(R.id.btnsend);
+        btnBack = findViewById(R.id.back_btn);
         recyclerView = findViewById(R.id.recyclerNotifications);
 
         notifRef = FirebaseDatabase.getInstance().getReference("Notifications");
@@ -68,7 +69,13 @@ public class AdminNotificationActivity extends AppCompatActivity {
 
         btnSend.setOnClickListener(v -> sendNotification());
         loadNotifications();
+
+        btnBack.setOnClickListener(v -> {
+            finish();
+        });
     }
+
+
 
     private void sendNotification() {
         String title = etTitle.getText().toString().trim();
