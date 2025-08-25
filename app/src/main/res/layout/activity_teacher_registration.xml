@@ -52,7 +52,7 @@
             android:textColor="@color/black"
             android:textColorHint="#70262A43"
             android:textSize="18sp"
-            android:inputType="textEmailAddress"
+            android:inputType="text"
             android:padding="10dp"
             android:layout_marginBottom="16dp"
             android:layout_marginStart="12dp"
@@ -68,7 +68,7 @@
             android:textColor="@color/black"
             android:textColorHint="#70262A43"
             android:textSize="18sp"
-            android:inputType="textEmailAddress"
+            android:inputType="text"
             android:padding="10dp"
             android:layout_marginBottom="16dp"
             android:layout_marginStart="12dp"
@@ -99,7 +99,7 @@
             android:textColor="@color/black"
             android:textColorHint="#70262A43"
             android:textSize="18sp"
-            android:inputType="textEmailAddress"
+            android:inputType="textLongMessage"
             android:padding="10dp"
             android:layout_marginBottom="16dp"
             android:layout_marginStart="12dp"
@@ -114,7 +114,7 @@
             android:textColor="@color/black"
             android:textColorHint="#70262A43"
             android:textSize="18sp"
-            android:inputType="textEmailAddress"
+            android:inputType="phone"
             android:padding="10dp"
             android:layout_marginBottom="16dp"
             android:layout_marginStart="12dp"
@@ -129,7 +129,7 @@
             android:textColor="@color/black"
             android:textColorHint="#70262A43"
             android:textSize="18sp"
-            android:inputType="textEmailAddress"
+            android:inputType="textLongMessage"
             android:padding="10dp"
             android:layout_marginBottom="16dp"
             android:layout_marginStart="12dp"
@@ -231,7 +231,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:src="@drawable/service"/>
+                android:src="@drawable/ic_services"/>
 
         </LinearLayout>
         <LinearLayout
@@ -262,7 +262,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:src="@drawable/experience"/>
+                android:src="@drawable/ic_experience"/>
 
         </LinearLayout>
 
