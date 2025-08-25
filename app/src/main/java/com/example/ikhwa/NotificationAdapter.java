@@ -45,14 +45,21 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         h.tvDescription.setText(model.getDescription());
 
         // Split timestamp into date and time
-        String[] parts = model.getTimestamp().split(" ", 2);
-        if (parts.length == 2) {
-            h.tvDate.setText(parts[0]);
-            h.tvTime.setText(parts[1]);
+        String timestamp = model.getTimestamp();
+        if (timestamp != null && !timestamp.isEmpty()) {
+            String[] parts = timestamp.split(" ", 2);
+            if (parts.length == 2) {
+                h.tvDate.setText(parts[0]);
+                h.tvTime.setText(parts[1]);
+            } else {
+                h.tvDate.setText(timestamp); // fallback to full string
+                h.tvTime.setText("N/A");
+            }
         } else {
             h.tvDate.setText("N/A");
             h.tvTime.setText("N/A");
         }
+
 
         if (isAdmin) {
             h.btnEdit.setVisibility(View.VISIBLE);
