@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context=".Teacher_Registration_Activity1"
+
+    tools:context=".TeacherRegistrationActivity"
     android:background="#FFFFFF">
 
     <LinearLayout
@@ -217,7 +218,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="What services you can provide"
-                android:inputType="textPassword"
                 android:textColor="@color/black"
                 android:padding="10dp"
                 android:textSize="18sp"
@@ -248,8 +248,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Your experience"
-                android:inputType="textPassword"
+                android:hint="Experience"
                 android:textColor="@color/black"
                 android:padding="10dp"
                 android:textSize="18sp"
