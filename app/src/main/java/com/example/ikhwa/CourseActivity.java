@@ -174,22 +174,24 @@ public class CourseActivity extends AppCompatActivity {
         LinearLayout innerLayout = new LinearLayout(this);
         innerLayout.setOrientation(LinearLayout.VERTICAL);
         innerLayout.setGravity(Gravity.CENTER);
-        innerLayout.setPadding(5, 5, 5, 5);
+        innerLayout.setPadding(6, 6, 6, 6);
 
         TextView titleText = new TextView(this);
         titleText.setText(model.getTitle());
         titleText.setTextColor(Color.parseColor("#3F51B5"));
-        titleText.setTextSize(20);
+        titleText.setTextSize(16);
         titleText.setTypeface(null, Typeface.BOLD);
         titleText.setGravity(Gravity.CENTER);
         titleText.setMaxLines(2);
         titleText.setEllipsize(TextUtils.TruncateAt.END);
+        titleText.setPadding(5,5,5,5);
 
         TextView typeText = new TextView(this);
         typeText.setText(model.getType());
         typeText.setTextColor(Color.DKGRAY);
-        typeText.setTextSize(14);
+        typeText.setTextSize(12);
         typeText.setGravity(Gravity.CENTER);
+        typeText.setPadding(5,5,5,5);
 
         innerLayout.addView(titleText);
         innerLayout.addView(typeText);

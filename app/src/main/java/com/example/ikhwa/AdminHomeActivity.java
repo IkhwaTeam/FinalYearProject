@@ -57,23 +57,11 @@ public class AdminHomeActivity extends AppCompatActivity {
     private void loadCountsFromFirebase() {
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
 
-        // Courses Count (from multiple sources)
-        db.child("Courses").addListenerForSingleValueEvent(new ValueEventListener() {
+        // Courses Count (from current courses)
+        db.child("Courses").child("currentCourse").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                int totalCourses = 0;
-
-                for (DataSnapshot child : snapshot.getChildren()) {
-                    String key = child.getKey();
-                    if (key != null && key.equals("currentCourse")) {
-                        totalCourses += (int) child.getChildrenCount();
-                    } else if (key != null && key.equals("previousCourse")) {
-                        totalCourses += (int) child.getChildrenCount();
-                    } else {
-                        totalCourses++;
-                    }
-                }
-
+                long totalCourses = snapshot.getChildrenCount(); // just count all children under currentCourse
                 courseCount.setText(totalCourses + " Courses");
             }
 
@@ -83,12 +71,20 @@ public class AdminHomeActivity extends AppCompatActivity {
             }
         });
 
-        // Teachers Count
+        // Teachers Count (approved teachers)
         db.child("Teachers").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                long count = snapshot.getChildrenCount();
-                teacherCount.setText(count + " Teachers");
+                int approvedCount = 0;
+
+                for (DataSnapshot child : snapshot.getChildren()) {
+                    String status = child.child("status").getValue(String.class); // get status field
+                    if ("approved".equalsIgnoreCase(status)) { // check if status is approved
+                        approvedCount++;
+                    }
+                }
+
+                teacherCount.setText(approvedCount + " Teachers");
             }
 
             @Override
