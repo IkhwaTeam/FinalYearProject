@@ -10,7 +10,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -101,7 +100,7 @@ public class TeacherRegistrationActivity extends AppCompatActivity {
                         FirebaseUser firebaseUser = mAuth.getCurrentUser();
                         String teacherId = firebaseUser.getUid();
 
-                        TeacherModel teacher = new TeacherModel(
+                        com.example.ikhwa.TeacherModel teacher = new com.example.ikhwa.TeacherModel(
                                 teacherId,
                                 nameStr,
                                 fatherNameStr,

@@ -152,19 +152,7 @@
         android:backgroundTint="@color/white"
         android:padding="12dp"
         android:background="@drawable/shape5"/>
-    <Button
-        android:id="@+id/crs_edit"
-        android:layout_width="170dp"
-        android:layout_height="wrap_content"
-        android:text="Edit Course"
-        android:textAllCaps="false"
-        android:textColor="#ffffff"
-        android:textSize="20sp"
-        android:layout_gravity="center"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="10dp"
-        android:padding="12dp"
-        android:background="@drawable/form_btn1"/>
+
     <Button
         android:id="@+id/crs_del"
         android:layout_width="170dp"

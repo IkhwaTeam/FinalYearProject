@@ -163,11 +163,19 @@ public class CourseActivity extends AppCompatActivity {
     private boolean isCurrentCourse(String endDate) {
         try {
             Date end = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(endDate);
-            return new Date().before(end);
+
+            // Compare with today's date (without time part)
+            Date today = new Date();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            today = sdf.parse(sdf.format(today));
+
+            return !today.after(end); // true if today <= endDate
         } catch (ParseException e) {
-            return true;
+            e.printStackTrace();
+            return false;
         }
     }
+
 
     private void addCourseToLayout(Course model, boolean isCurrent) {
         FrameLayout frame = new FrameLayout(this);
