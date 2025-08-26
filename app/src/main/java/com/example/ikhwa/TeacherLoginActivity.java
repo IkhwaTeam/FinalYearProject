@@ -195,7 +195,7 @@ public class TeacherLoginActivity extends AppCompatActivity {
                     handleAdminLogin();
                     return;
                 }
-            }
+                }
 
             // Check teacher database
             Query teacherQuery = teacherRef.orderByChild("email").equalTo(email);

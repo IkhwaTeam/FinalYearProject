@@ -49,10 +49,32 @@ public class CreateGroupForCourseActivity extends AppCompatActivity {
                     .child("currentCourse")
                     .child(courseId);
 
-            createFirstGroupIfNotExists(courseId);
+            // ✅ Check course type before creating groups
+            courseRef.child("type").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    String type = snapshot.getValue(String.class);
+                    if ("Attendance Based".equals(type)) {
+                        createFirstGroupIfNotExists(courseId);
+                    } else {
+                        Toast.makeText(CreateGroupForCourseActivity.this,
+                                "Groups can only be created for Attendance Based courses",
+                                Toast.LENGTH_LONG).show();
+                        finish(); // 🚫 Close activity for non-attendance courses
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(CreateGroupForCourseActivity.this,
+                            "Failed to check course type", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+            });
         } else {
             Toast.makeText(this, "Course ID is missing", Toast.LENGTH_SHORT).show();
         }
+
     }
 
     private void createFirstGroupIfNotExists(String courseId) {

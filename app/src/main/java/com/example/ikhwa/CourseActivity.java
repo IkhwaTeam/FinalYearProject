@@ -1,6 +1,11 @@
 package com.example.ikhwa;
 
+import static androidx.core.content.ContextCompat.startActivity;
+import static java.security.AccessController.getContext;
+
 import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -198,15 +203,9 @@ public class CourseActivity extends AppCompatActivity {
 
         frame.addView(innerLayout);
 
-        // ✅ ACTION on click (Quiz vs Attendance Based)
+        // ACTION on click
         frame.setOnClickListener(v -> {
-            if ("Quiz Based".equalsIgnoreCase(model.getType())) {
-                Intent intent = new Intent(CourseActivity.this, CourseContentActivity.class);
-                intent.putExtra("courseId", model.getId());
-                startActivity(intent);
-            } else {
-                showCourseDetailsDialog(model);
-            }
+            showCourseDetailsDialog(model);  // Always show dialog
         });
 
         if (isCurrent)
@@ -227,7 +226,15 @@ public class CourseActivity extends AppCompatActivity {
         TextView testInfoText = view.findViewById(R.id.test_value);
 
         Button btnViewGroups = view.findViewById(R.id.crs_reg);
+        Button btnDelete = view.findViewById(R.id.crs_del);
         ImageView closeBtn = view.findViewById(R.id.close_btn);
+
+        // 👇 Change button text based on course type
+        if ("Quiz Based".equalsIgnoreCase(course.getType())) {
+            btnViewGroups.setText("View Lecture");
+        } else {
+            btnViewGroups.setText("View Groups");
+        }
 
         if (titleText != null) titleText.setText(course.getTitle());
         if (descriptionText != null) descriptionText.setText(course.getDescription());
@@ -258,21 +265,27 @@ public class CourseActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
 
+        btnDelete.setOnClickListener(v -> {
+            Intent intent = new Intent(CourseActivity.this, DeleteCourseActivity.class);
+            intent.putExtra("courseId", course.getId());
+            startActivity(intent);
+            dialog.dismiss();
+        });
+
         closeBtn.setOnClickListener(v -> dialog.dismiss());
 
         btnViewGroups.setOnClickListener(v -> {
-            if ("Attendance Based".equals(course.getType())) {
+            if ("Quiz Based".equalsIgnoreCase(course.getType())) {
+                Intent intent = new Intent(CourseActivity.this, CourseContentActivity.class);
+                intent.putExtra("courseId", course.getId());
+                startActivity(intent);
+                dialog.dismiss();
+            } else {
                 Intent intent = new Intent(CourseActivity.this, CreateGroupForCourseActivity.class);
                 intent.putExtra("courseId", course.getId());
                 intent.putExtra("courseTitle", course.getTitle());
                 startActivity(intent);
                 dialog.dismiss();
-            } else {
-                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(CourseActivity.this);
-                alertBuilder.setTitle("Action Not Allowed");
-                alertBuilder.setMessage("Groups can only be created for Attendance Based courses.");
-                alertBuilder.setPositiveButton("OK", null);
-                alertBuilder.show();
             }
         });
     }

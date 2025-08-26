@@ -190,11 +190,15 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
                 if (!courseSnap.exists()) return;
 
                 String courseId = course.getId();
+
+                // Save enrollment under student
                 DatabaseReference enrollmentRef = FirebaseDatabase.getInstance()
                         .getReference("Enrollments")
-                        .child(student.getStudentId()).child(courseId);
+                        .child(student.getStudentId())
+                        .child(courseId);
                 enrollmentRef.setValue(true);
 
+                // Increase enrolled count
                 DatabaseReference enrolledCountRef = courseRef.child("enrolledStudents");
                 enrolledCountRef.runTransaction(new Transaction.Handler() {
                     @NonNull
@@ -208,29 +212,38 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
                     @Override
                     public void onComplete(DatabaseError error, boolean committed, DataSnapshot currentData) {
                         if (committed) {
-                            DatabaseReference groupsRef = courseRef.child("groups");
-                            groupsRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    boolean assigned = false;
-                                    for (DataSnapshot groupSnap : snapshot.getChildren()) {
-                                        long size = groupSnap.child("students").getChildrenCount();
-                                        if (size < 5) {
-                                            assignToGroup(groupSnap.getRef(), student);
-                                            assigned = true;
-                                            break;
+                            // 🔹 Fetch type safely
+                            String type = courseSnap.child("type").getValue(String.class);
+
+                            if (type != null && type.equalsIgnoreCase("Attendance Based")) {
+                                // ✅ Only Attendance Based courses create groups
+                                DatabaseReference groupsRef = courseRef.child("groups");
+                                groupsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        boolean assigned = false;
+                                        for (DataSnapshot groupSnap : snapshot.getChildren()) {
+                                            long size = groupSnap.child("students").getChildrenCount();
+                                            if (size < 5) {
+                                                assignToGroup(groupSnap.getRef(), student);
+                                                assigned = true;
+                                                break;
+                                            }
+                                        }
+                                        if (!assigned) {
+                                            long groupNum = (currentData.getValue(Long.class) - 1) / 5 + 1;
+                                            String newGroupId = "group" + groupNum;
+                                            assignToGroup(groupsRef.child(newGroupId), student);
                                         }
                                     }
-                                    if (!assigned) {
-                                        long groupNum = (currentData.getValue(Long.class) - 1) / 5 + 1;
-                                        String newGroupId = "group" + groupNum;
-                                        assignToGroup(groupsRef.child(newGroupId), student);
-                                    }
-                                }
 
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {}
-                            });
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {}
+                                });
+                            } else {
+                                // 🔹 Debug log (to confirm)
+                                System.out.println("⚠ Skipping group creation because course type = " + type);
+                            }
                         }
                     }
                 });
@@ -240,6 +253,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
             public void onCancelled(@NonNull DatabaseError error) {}
         });
     }
+
 
     private void assignToGroup(DatabaseReference groupRef, Student student) {
         Map<String, Object> data = new HashMap<>();

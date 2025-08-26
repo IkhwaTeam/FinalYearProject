@@ -207,12 +207,12 @@
                             android:layout_height="wrap_content"
                             android:background="@android:color/transparent"
                             android:ellipsize="end"
-                            android:gravity="end|right"
                             android:inputType="textMultiLine"
                             android:maxLines="3"
                             android:minLines="2"
                             android:scrollHorizontally="false"
-                            android:textColor="#565454" />
+                            android:textColor="#565454"
+                            android:layout_alignParentEnd="true" />
                     </LinearLayout>
 
                     <View
