@@ -186,7 +186,7 @@
                         android:background="#DCDCDC" />
 
                     <!-- Address -->
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -213,7 +213,7 @@
                             android:scrollHorizontally="false"
                             android:textColor="#565454"
                             android:layout_alignParentEnd="true" />
-                    </LinearLayout>
+                    </RelativeLayout>
 
                     <View
                         android:layout_width="match_parent"

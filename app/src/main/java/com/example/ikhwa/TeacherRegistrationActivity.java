@@ -1,7 +1,9 @@
 package com.example.ikhwa;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.*;
@@ -17,9 +19,13 @@ public class TeacherRegistrationActivity extends AppCompatActivity {
     private EditText name, fatherName, email, qualification, phone, address, password, confirmPassword, services, experience;
     private Button registerButton, loginButton;
     private ProgressBar progressBar;
+    private ImageView passwordToggle, confirmPasswordToggle;
 
     private FirebaseAuth mAuth;
     private DatabaseReference teacherRef;
+    private boolean isPasswordVisible = false;
+    private boolean isCnfrmPasswordVisible = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +43,8 @@ public class TeacherRegistrationActivity extends AppCompatActivity {
         confirmPassword = findViewById(R.id.tea_cnfrm_password);
         services = findViewById(R.id.tea_services);
         experience = findViewById(R.id.tea_experience);
+        passwordToggle = findViewById(R.id.tea_password_toggle);
+        confirmPasswordToggle = findViewById(R.id.tea_cnfrm_password_toggle);
 
         registerButton = findViewById(R.id.tea_btn_reg);
         loginButton = findViewById(R.id.tea_login);
@@ -51,8 +59,44 @@ public class TeacherRegistrationActivity extends AppCompatActivity {
             startActivity(new Intent(TeacherRegistrationActivity.this, TeacherLoginActivity.class));
             finish();
         });
+
+        if (passwordToggle != null) {
+            passwordToggle.setOnClickListener(v -> togglePasswordVisibility());
+        }
+        if (confirmPasswordToggle != null) {
+            confirmPasswordToggle.setOnClickListener(v -> togglecnfrmPasswordVisibility());
+        }
+
     }
 
+    private void togglePasswordVisibility() {
+        Typeface currentTypeface = password.getTypeface();
+        if (isPasswordVisible) {
+            password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            passwordToggle.setImageResource(R.drawable.ic_visible_off);
+            isPasswordVisible = false;
+        } else {
+            password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+            passwordToggle.setImageResource(R.drawable.ic_password);
+            isPasswordVisible = true;
+        }
+        password.setTypeface(currentTypeface);
+        password.setSelection(password.length());
+    }
+    private void togglecnfrmPasswordVisibility() {
+        Typeface currentTypeface = confirmPassword.getTypeface();
+        if (isCnfrmPasswordVisible) {
+            confirmPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            confirmPasswordToggle.setImageResource(R.drawable.ic_visible_off);
+            isCnfrmPasswordVisible = false;
+        } else {
+            confirmPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+            confirmPasswordToggle.setImageResource(R.drawable.ic_password);
+            isCnfrmPasswordVisible = true;
+        }
+        confirmPassword.setTypeface(currentTypeface);
+        confirmPassword.setSelection(confirmPassword.length());
+    }
     private void registerTeacher() {
         String nameStr = name.getText().toString().trim();
         String fatherNameStr = fatherName.getText().toString().trim();
