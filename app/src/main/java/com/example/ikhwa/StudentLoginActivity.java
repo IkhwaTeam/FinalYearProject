@@ -50,7 +50,7 @@ public class StudentLoginActivity extends AppCompatActivity {
 
         // Auto-login check
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
+        if (currentUser != null && currentUser.isEmailVerified()) {
             SharedPreferences prefs = getSharedPreferences(SplashActivity.PREF_NAME, MODE_PRIVATE);
             String savedRole = prefs.getString(SplashActivity.ROLE_KEY, "");
 
@@ -119,19 +119,33 @@ public class StudentLoginActivity extends AppCompatActivity {
 
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
-                        Toast.makeText(StudentLoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
 
-                        SharedPreferences prefs = getSharedPreferences(SplashActivity.PREF_NAME, MODE_PRIVATE);
+                        if (user != null) {
+                            if (user.isEmailVerified()) {
+                                // ✅ Email verified → allow login
+                                Toast.makeText(StudentLoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
 
-                        // ✅ Clear any old role (teacher/admin) and save as student
-                        prefs.edit().clear().apply();
-                        prefs.edit().putString(SplashActivity.ROLE_KEY, "student").apply();
+                                SharedPreferences prefs = getSharedPreferences(SplashActivity.PREF_NAME, MODE_PRIVATE);
+                                prefs.edit().clear().apply();
+                                prefs.edit().putString(SplashActivity.ROLE_KEY, "student").apply();
 
-                        Log.d(TAG, "Saved role 'student' in SharedPreferences");
+                                Log.d(TAG, "Saved role 'student' in SharedPreferences");
 
-                        Intent intent = new Intent(StudentLoginActivity.this, StudentHome2.class);
-                        startActivity(intent);
-                        finish();
+                                Intent intent = new Intent(StudentLoginActivity.this, StudentHome2.class);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                // ❌ Email not verified
+                                showError("Please verify your email before login.");
+                                user.sendEmailVerification()
+                                        .addOnSuccessListener(aVoid ->
+                                                Toast.makeText(StudentLoginActivity.this, "Verification email sent again. Please check inbox.", Toast.LENGTH_LONG).show())
+                                        .addOnFailureListener(e ->
+                                                Toast.makeText(StudentLoginActivity.this, "Failed to send verification email: " + e.getMessage(), Toast.LENGTH_LONG).show());
+                                mAuth.signOut(); // logout until verified
+                            }
+                        }
+
                     } else {
                         showError("Invalid email or password");
                     }
@@ -141,7 +155,6 @@ public class StudentLoginActivity extends AppCompatActivity {
                     showError("Error: " + e.getMessage());
                 });
     }
-
 
     private void showError(String message) {
         errorMessage.setText(message);

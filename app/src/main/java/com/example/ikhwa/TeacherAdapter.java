@@ -18,10 +18,10 @@ import java.util.List;
 
 public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.TeacherViewHolder> {
 
-    private List<TeacherModel> teacherList;
+    private List<com.example.ikhwa.TeacherModel> teacherList;
     private Context context;
 
-    public TeacherAdapter(List<TeacherModel> teacherList, Context context) {
+    public TeacherAdapter(List<com.example.ikhwa.TeacherModel> teacherList, Context context) {
         this.teacherList = teacherList;
         this.context = context;
     }
@@ -35,7 +35,7 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.TeacherV
 
     @Override
     public void onBindViewHolder(@NonNull TeacherViewHolder holder, int position) {
-        TeacherModel teacher = teacherList.get(position);
+        com.example.ikhwa.TeacherModel teacher = teacherList.get(position);
 
         holder.name.setText(teacher.getName());
         holder.email.setText(teacher.getEmail());
@@ -66,26 +66,16 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.TeacherV
         View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_teacher_details, null);
 
         TextView tvName = dialogView.findViewById(R.id.dialog_teacher_name);
-        TextView tvEmail = dialogView.findViewById(R.id.dialog_teacher_email);
-        TextView tvPhone = dialogView.findViewById(R.id.dialog_teacher_phone);
+
         TextView tvQualification = dialogView.findViewById(R.id.dialog_teacher_qualification);
-        TextView tvAddress = dialogView.findViewById(R.id.dialog_teacher_address);
-        TextView tvFatherName = dialogView.findViewById(R.id.dialog_teacher_father_name);
-        TextView tvServices = dialogView.findViewById(R.id.dialog_teacher_services);
-        TextView tvInterested = dialogView.findViewById(R.id.dialog_teacher_interested);
-        TextView tvStatus = dialogView.findViewById(R.id.dialog_teacher_status);
+
         Button   btnClose       = dialogView.findViewById(R.id.btn_close_dialog);
 
 
         tvName.setText(teacher.getName());
-        tvFatherName.setText(teacher.getFatherName());
-        tvEmail.setText(teacher.getEmail());
-        tvPhone.setText(teacher.getPhone());
+
         tvQualification.setText(teacher.getQualification());
-        tvAddress.setText(teacher.getAddress());
-        tvServices.setText(teacher.getServices());
-        tvInterested.setText(teacher.getExperience());
-        tvStatus.setText(teacher.getStatus());
+
 
         AlertDialog dialog = new AlertDialog.Builder(context)
                 .setView(dialogView)
