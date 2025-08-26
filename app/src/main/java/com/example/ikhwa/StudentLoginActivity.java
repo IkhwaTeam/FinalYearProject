@@ -87,7 +87,14 @@ public class StudentLoginActivity extends AppCompatActivity {
             finish();
         });
 
-        resetPassword.setOnClickListener(v -> resetPassword());
+        resetPassword.setOnClickListener(v -> {
+            try {
+                Intent intent = new Intent(StudentLoginActivity.this, ResetPasswordActivity.class);
+                startActivity(intent);
+            } catch (Exception e) {
+                Log.e(TAG, "Error starting ResetPasswordActivity", e);
+            }
+        });
     }
 
     private void loginStudent() {
@@ -135,36 +142,6 @@ public class StudentLoginActivity extends AppCompatActivity {
                 });
     }
 
-    private void resetPassword() {
-        String email = stEmail.getText().toString().trim();
-
-        if (TextUtils.isEmpty(email)) {
-            Toast.makeText(StudentLoginActivity.this, "Please enter your email address", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            Toast.makeText(StudentLoginActivity.this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        progressBar.setVisibility(View.VISIBLE);
-        mAuth.sendPasswordResetEmail(email)
-                .addOnCompleteListener(task -> {
-                    progressBar.setVisibility(View.GONE);
-
-                    if (task.isSuccessful()) {
-                        Toast.makeText(StudentLoginActivity.this, "Reset link sent to your email", Toast.LENGTH_SHORT).show();
-                        finish();
-                    } else {
-                        Toast.makeText(StudentLoginActivity.this, "Failed to send reset email", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnFailureListener(e -> {
-                    progressBar.setVisibility(View.GONE);
-                    Toast.makeText(StudentLoginActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                });
-    }
 
     private void showError(String message) {
         errorMessage.setText(message);
