@@ -171,8 +171,8 @@
                         android:layout_gravity="center"
                         android:layout_marginTop="16dp"
                         android:backgroundTint="#1DB384"
-                        android:background="@drawable/form_btn1"/>
-                        android:textColor="@color/black"/>
+                        android:background="@drawable/form_btn1"
+                        android:textColor="@color/white"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
