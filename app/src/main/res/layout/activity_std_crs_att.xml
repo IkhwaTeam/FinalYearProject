@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:text="Attendance"
                 android:gravity="center"
-                android:textSize="35sp"
+                android:textSize="32sp"
                 android:textStyle="bold"
                 android:layout_marginTop="25dp"
                 android:textColor="@color/white" />
