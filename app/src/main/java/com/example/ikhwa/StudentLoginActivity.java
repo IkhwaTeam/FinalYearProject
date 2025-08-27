@@ -122,7 +122,7 @@ public class StudentLoginActivity extends AppCompatActivity {
 
                         if (user != null) {
                             if (user.isEmailVerified()) {
-                                // ✅ Email verified → allow login
+                                // Email verified → allow login
                                 Toast.makeText(StudentLoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
 
                                 SharedPreferences prefs = getSharedPreferences(SplashActivity.PREF_NAME, MODE_PRIVATE);
@@ -135,7 +135,7 @@ public class StudentLoginActivity extends AppCompatActivity {
                                 startActivity(intent);
                                 finish();
                             } else {
-                                // ❌ Email not verified
+                                // Email not verified
                                 showError("Please verify your email before login.");
                                 user.sendEmailVerification()
                                         .addOnSuccessListener(aVoid ->

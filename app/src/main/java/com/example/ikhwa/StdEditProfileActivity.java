@@ -71,7 +71,7 @@ public class StdEditProfileActivity extends AppCompatActivity {
             String studentName = etStudentNameEdit.getText().toString().trim();
             String fatherName = etFatherNameEdit.getText().toString().trim();
             String phone = etNumberEdit.getText().toString().trim();
-            String age = etAgeEdit.getText().toString().trim(); // ✅ Keep age as String
+            String age = etAgeEdit.getText().toString().trim(); // Keep age as String
             String address = etAddressEdit.getText().toString().trim();
             String email = etEmailEdit.getText().toString().trim();
 

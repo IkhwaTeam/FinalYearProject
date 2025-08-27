@@ -58,7 +58,7 @@ public class StafftActivity extends AppCompatActivity {
                     if (staff != null) {
                         String status = staff.getStatus();
 
-                        // ✅ Only show if status = approved
+                        // Only show if status = approved
                         if (status == null || !status.equalsIgnoreCase("approved")) {
                             continue; // skip if not approved
                         }

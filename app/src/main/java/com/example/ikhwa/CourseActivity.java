@@ -237,7 +237,7 @@ public class CourseActivity extends AppCompatActivity {
         Button btnDelete = view.findViewById(R.id.crs_del);
         ImageView closeBtn = view.findViewById(R.id.close_btn);
 
-        // 👇 Change button text based on course type
+        // Change button text based on course type
         if ("Quiz Based".equalsIgnoreCase(course.getType())) {
             btnViewGroups.setText("View Lecture");
         } else {

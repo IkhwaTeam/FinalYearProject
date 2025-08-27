@@ -134,7 +134,7 @@ public class TeacherCourseActivity extends AppCompatActivity {
         params.topMargin = dpToPx(15);
         viewBtn.setLayoutParams(params);
 
-        // ✅ Updated click behavior
+        // Updated click behavior
         viewBtn.setOnClickListener(v -> {
             if (isAssigned) {
                 Intent intent = new Intent(TeacherCourseActivity.this, TeacherGroupsActivity.class);

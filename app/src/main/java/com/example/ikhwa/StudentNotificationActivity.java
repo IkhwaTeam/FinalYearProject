@@ -60,11 +60,11 @@ public class StudentNotificationActivity extends AppCompatActivity {
                     String time = snap.child("timestamp").getValue(String.class);
                     String target = snap.child("target").getValue(String.class);
 
-                    // ✅ Show only if target is "Students" or "all"
+                    // Show only if target is "Students" or "all"
                     if (target != null && (target.equalsIgnoreCase("Student") || target.equalsIgnoreCase("all"))) {
                         notificationList.add(new NotificationModel(id, title, desc, time != null ? time : "", target));
 
-                        // ✅ Mark this notification as read
+                        // Mark this notification as read
                         readRef.child(id).setValue(true);
                     }
                 }

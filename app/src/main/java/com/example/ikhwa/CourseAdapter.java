@@ -156,8 +156,8 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
                             } else {
                                 enrollCourse(context, course, student);
 
-                                course.setEnrolled(true); // 🔁 update status
-                                notifyItemChanged(holder.getAdapterPosition()); // 🔄 refresh view
+                                course.setEnrolled(true); // update status
+                                notifyItemChanged(holder.getAdapterPosition()); // refresh view
 
                                 Toast.makeText(context, "Enrolled successfully!", Toast.LENGTH_SHORT).show();
                                 bottomSheetDialog.dismiss();
@@ -212,11 +212,11 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
                     @Override
                     public void onComplete(DatabaseError error, boolean committed, DataSnapshot currentData) {
                         if (committed) {
-                            // 🔹 Fetch type safely
+                            // Fetch type safely
                             String type = courseSnap.child("type").getValue(String.class);
 
                             if (type != null && type.equalsIgnoreCase("Attendance Based")) {
-                                // ✅ Only Attendance Based courses create groups
+                                // Only Attendance Based courses create groups
                                 DatabaseReference groupsRef = courseRef.child("groups");
                                 groupsRef.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
@@ -241,7 +241,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
                                     public void onCancelled(@NonNull DatabaseError error) {}
                                 });
                             } else {
-                                // 🔹 Debug log (to confirm)
+                                // Debug log (to confirm)
                                 System.out.println("⚠ Skipping group creation because course type = " + type);
                             }
                         }

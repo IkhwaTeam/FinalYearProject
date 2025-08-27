@@ -125,7 +125,7 @@ public class TeacherLoginActivity extends AppCompatActivity {
                         FirebaseUser user = mAuth.getCurrentUser();
                         if (user != null) {
 
-                            // ✅ Admin bypass email verification
+                            // Admin bypass email verification
                             boolean isAdmin = false;
                             for (String adminEmail : adminEmails) {
                                 if (adminEmail.equalsIgnoreCase(email)) {

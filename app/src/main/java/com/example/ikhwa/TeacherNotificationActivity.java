@@ -67,7 +67,7 @@ public class TeacherNotificationActivity extends AppCompatActivity {
                             (target.equalsIgnoreCase("Teacher") || target.equalsIgnoreCase("All"))) {
                         notificationList.add(new NotificationModel(id, title, desc, time, target));
 
-                        // ✅ Mark this notification as read
+                        // Mark this notification as read
                         readRef.child(id).setValue(true);
                     }
                 }

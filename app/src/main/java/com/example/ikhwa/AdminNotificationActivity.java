@@ -54,10 +54,10 @@ public class AdminNotificationActivity extends AppCompatActivity {
 
         String[] targets = {"all", "Student", "Teacher"};
 
-        // ✅ Custom layout used for spinner text color
+        // Custom layout used for spinner text color
         ArrayAdapter<String> adapterSpinner = new ArrayAdapter<>(
                 this,
-                R.layout.spinner_item, // 👈 Custom layout
+                R.layout.spinner_item, // Custom layout
                 targets
         );
         adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // Dropdown style

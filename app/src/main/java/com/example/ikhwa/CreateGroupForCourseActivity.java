@@ -49,7 +49,7 @@ public class CreateGroupForCourseActivity extends AppCompatActivity {
                     .child("currentCourse")
                     .child(courseId);
 
-            // ✅ Check course type before creating groups
+            // Check course type before creating groups
             courseRef.child("type").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -60,7 +60,7 @@ public class CreateGroupForCourseActivity extends AppCompatActivity {
                         Toast.makeText(CreateGroupForCourseActivity.this,
                                 "Groups can only be created for Attendance Based courses",
                                 Toast.LENGTH_LONG).show();
-                        finish(); // 🚫 Close activity for non-attendance courses
+                        finish(); // Close activity for non-attendance courses
                     }
                 }
 

@@ -16,14 +16,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        // ✅ Check if message contains a notification payload
+        // Check if message contains a notification payload
         if (remoteMessage.getNotification() != null) {
             String title = remoteMessage.getNotification().getTitle();
             String message = remoteMessage.getNotification().getBody();
             showNotification(title, message);
         }
 
-        // ✅ Check if message contains data payload (optional)
+        // Check if message contains data payload (optional)
         if (remoteMessage.getData().size() > 0) {
             String title = remoteMessage.getData().get("title");
             String message = remoteMessage.getData().get("body");
@@ -35,7 +35,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         String channelId = "default_channel_id";
 
         // Create intent to open app when clicked
-        Intent intent = new Intent(this, Teacher_home.class); // 👈 open your activity
+        Intent intent = new Intent(this, Teacher_home.class); // open your activity
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(
@@ -59,7 +59,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId)
-                .setSmallIcon(R.drawable.ic_notifications) // 👈 white icon (put in drawable)
+                .setSmallIcon(R.drawable.ic_notifications) // white icon (put in drawable)
                 .setContentTitle(title)
                 .setContentText(message)
                 .setAutoCancel(true)

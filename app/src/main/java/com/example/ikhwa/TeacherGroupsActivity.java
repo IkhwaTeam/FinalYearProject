@@ -130,7 +130,7 @@ public class TeacherGroupsActivity extends AppCompatActivity {
                             listenLessonBtn.setLayoutParams(listenBtnParams);
 
                             // WhatsApp Group Link
-                            String groupLink = "https://chat.whatsapp.com/EXAMPLE_GROUP_LINK"; // Apna link yahan dalain
+                            String groupLink = "https://chat.whatsapp.com"; // Apna link yahan dalain
 
                             listenLessonBtn.setOnClickListener(v -> {
                                 try {
@@ -147,7 +147,7 @@ public class TeacherGroupsActivity extends AppCompatActivity {
                             cardLayout.addView(groupNameView);
                             cardLayout.addView(studentListLayout);
                             cardLayout.addView(markAttendanceBtn);
-                            cardLayout.addView(listenLessonBtn); // ✅ Added inside card
+                            cardLayout.addView(listenLessonBtn); // Added inside card
 
                             // Add card to container
                             groupsContainer.addView(cardLayout);

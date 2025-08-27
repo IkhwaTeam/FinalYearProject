@@ -86,9 +86,8 @@ public class AssignTeacherDialog extends DialogFragment {
         return builder.create();
     }
 
-    /**
-     * Fetch teachers with status == "approved"
-     */
+    // Fetch teachers with status == "approved"
+
     private void fetchApprovedTeachers() {
         showLoading(true); // Show progress bar initially
 
@@ -135,9 +134,8 @@ public class AssignTeacherDialog extends DialogFragment {
                 });
     }
 
-    /**
-     * Save assigned teacher into the group
-     */
+    // Save assigned teacher into the group
+
 
     private void assignTeacher(String teacherID) {
         DatabaseReference teacherRef = FirebaseDatabase.getInstance().getReference("Teachers").child(teacherID);
@@ -188,19 +186,16 @@ public class AssignTeacherDialog extends DialogFragment {
         });
     }
 
+    // Show or hide the progress spinner
 
-    /**
-     * Show or hide the progress spinner
-     */
     private void showLoading(boolean isLoading) {
         progressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE);
         spinnerTeachers.setVisibility(isLoading ? View.GONE : View.VISIBLE);
         emptyMessage.setVisibility(View.GONE);
     }
 
-    /**
-     * Show empty state when no teachers
-     */
+
+     // Show empty state when no teachers
     private void showEmptyState() {
         emptyMessage.setVisibility(View.VISIBLE); // e.g. "No approved teachers available."
         progressBar.setVisibility(View.GONE);

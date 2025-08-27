@@ -41,11 +41,11 @@ public class Student_List extends AppCompatActivity {
         adapter = new StudentListAdapter(studentList);
         recyclerView.setAdapter(adapter);
 
-        // ✅ Get both groupName and courseId from Intent
+        // Get both groupName and courseId from Intent
         String groupName = getIntent().getStringExtra("groupName");
         String courseId = getIntent().getStringExtra("courseId");
 
-        // ✅ Now call the new version of the loader
+        // Now call the new version of the loader
         if (groupName != null && courseId != null) {
             loadGroupStudents(courseId, groupName);
         } else {
@@ -53,9 +53,8 @@ public class Student_List extends AppCompatActivity {
         }
     }
 
-    /**
-     * Load students directly for the specific course and group
-     */
+    // Load students directly for the specific course and group
+
     private void loadGroupStudents(String courseId, String groupName) {
         DatabaseReference studentsRef = FirebaseDatabase.getInstance().getReference()
                 .child("Courses")

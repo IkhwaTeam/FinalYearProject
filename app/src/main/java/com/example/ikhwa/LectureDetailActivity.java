@@ -163,7 +163,7 @@ public class LectureDetailActivity extends AppCompatActivity {
         tvFinalResult.setText(percentage + "%");
         quizProgressBar.setProgress(percentage);
 
-        // ✅ Save attempt status in Firebase
+        // Save attempt status in Firebase
         DatabaseReference attemptRef = FirebaseDatabase.getInstance()
                 .getReference("Users")
                 .child(userId)
